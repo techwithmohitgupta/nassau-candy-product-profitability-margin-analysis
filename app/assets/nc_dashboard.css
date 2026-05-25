@@ -1,0 +1,1196 @@
+/* =========================================================
+   NASSAU CANDY PROFITABILITY DASHBOARD — CLEAN RESET CSS
+   A-Z clean light theme | Performance-friendly | Mobile-ready base
+   Use with: app/assets/nc_dashboard.css
+========================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+/* =========================================================
+   01. THEME TOKENS
+========================================================= */
+
+:root {
+  --nc-bg: #f7f0e5;
+  --nc-bg-2: #eef8f6;
+  --nc-card: #ffffff;
+  --nc-card-warm: #fffaf1;
+  --nc-card-soft: #fbf6ec;
+
+  --nc-text: #24324a;
+  --nc-text-strong: #172033;
+  --nc-muted: #64748b;
+  --nc-soft-text: #776953;
+
+  --nc-navy: #24324a;
+  --nc-teal: #0f8b72;
+  --nc-mint: #8bd8cf;
+  --nc-gold: #d8ad4f;
+  --nc-gold-soft: #f1d58a;
+  --nc-caramel: #b9895f;
+  --nc-coral: #ff806d;
+  --nc-risk: #d94f5c;
+
+  --nc-border: rgba(36, 50, 74, 0.12);
+  --nc-border-soft: rgba(36, 50, 74, 0.08);
+  --nc-border-warm: rgba(184, 149, 91, 0.24);
+
+  --nc-shadow-xs: 0 4px 12px rgba(36, 50, 74, 0.05);
+  --nc-shadow-sm: 0 10px 24px rgba(36, 50, 74, 0.08);
+  --nc-shadow-md: 0 16px 36px rgba(36, 50, 74, 0.11);
+  --nc-shadow-warm: 0 14px 30px rgba(184, 149, 91, 0.14);
+
+  --nc-radius-sm: 12px;
+  --nc-radius-md: 16px;
+  --nc-radius-lg: 22px;
+  --nc-radius-xl: 26px;
+}
+
+/* =========================================================
+   02. GLOBAL APP LAYOUT
+========================================================= */
+
+html,
+body,
+.stApp {
+  font-family: "Inter", "Segoe UI", Arial, sans-serif !important;
+  color: var(--nc-text) !important;
+  overflow-x: hidden !important;
+}
+
+.stApp {
+  background:
+    radial-gradient(circle at 8% 6%, rgba(255, 128, 109, 0.10), transparent 24%),
+    radial-gradient(circle at 92% 9%, rgba(216, 173, 79, 0.14), transparent 28%),
+    radial-gradient(circle at 50% 100%, rgba(139, 216, 207, 0.14), transparent 32%),
+    linear-gradient(135deg, var(--nc-bg) 0%, var(--nc-bg-2) 46%, #fffaf1 100%) !important;
+}
+
+.block-container {
+  max-width: 100% !important;
+  padding: 1.15rem 1.55rem 2.4rem !important;
+}
+
+header[data-testid="stHeader"],
+[data-testid="stToolbar"],
+[data-testid="stDecoration"],
+#MainMenu,
+footer {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+[data-testid="stVerticalBlock"] {
+  gap: 0.78rem !important;
+}
+
+/* Targeted transitions only — avoids global performance slowdown */
+.st-key-header_card,
+.st-key-sidebar_brand_zone,
+.st-key-sidebar_logo_block img,
+.st-key-sidebar_filter_controls input,
+.st-key-sidebar_filter_controls [data-baseweb="select"] > div,
+[data-testid="stMetric"],
+[data-testid="stPlotlyChart"],
+[data-testid="stDataFrame"],
+[data-baseweb="tab"] {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background-color 0.18s ease !important;
+}
+
+::selection {
+  background: rgba(216, 173, 79, 0.34);
+  color: var(--nc-text-strong);
+}
+
+/* =========================================================
+   03. TYPOGRAPHY
+========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+.stMarkdown h1,
+.stMarkdown h2,
+.stMarkdown h3,
+.stMarkdown h4 {
+  font-family: "Barlow Condensed", "Inter", sans-serif !important;
+  color: var(--nc-text-strong) !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.02em !important;
+  text-transform: uppercase !important;
+}
+
+h1 { font-size: clamp(2.1rem, 3vw, 3rem) !important; }
+h2 { font-size: clamp(1.8rem, 2.4vw, 2.45rem) !important; }
+h3 { font-size: clamp(1.55rem, 2vw, 2.05rem) !important; }
+h4 { font-size: clamp(1.25rem, 1.5vw, 1.55rem) !important; }
+
+p,
+li,
+span,
+div,
+label,
+.stMarkdown,
+[data-testid="stMarkdownContainer"] {
+  color: var(--nc-text) !important;
+}
+
+[data-testid="stCaptionContainer"] {
+  color: var(--nc-muted) !important;
+  font-size: 0.9rem !important;
+  font-weight: 650 !important;
+  line-height: 1.5 !important;
+}
+
+/* =========================================================
+   04. SIDEBAR — CLEAN LIGHT CONTROL PANEL
+========================================================= */
+
+section[data-testid="stSidebar"] {
+  background:
+    radial-gradient(circle at 14% 0%, rgba(255, 128, 109, 0.15), transparent 26%),
+    radial-gradient(circle at 90% 10%, rgba(139, 216, 207, 0.22), transparent 30%),
+    linear-gradient(180deg, #ffffff 0%, #fbf8f1 45%, #eef8f6 100%) !important;
+  border-right: 1px solid var(--nc-border) !important;
+  box-shadow: 16px 0 42px rgba(36, 50, 74, 0.095), inset -1px 0 0 rgba(255,255,255,0.72) !important;
+}
+
+section[data-testid="stSidebar"] .block-container {
+  padding: 0.85rem 1rem 1.25rem !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
+  gap: 0.62rem !important;
+}
+
+.st-key-sidebar_brand_zone {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.st-key-sidebar_logo_block,
+.st-key-sidebar_project_text,
+.st-key-sidebar_filter_header,
+.st-key-sidebar_filter_controls,
+.st-key-sidebar_footer_note {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.st-key-sidebar_logo_block img,
+section[data-testid="stSidebar"] .st-key-sidebar_logo_block img,
+section[data-testid="stSidebar"] img {
+  display: block !important;
+  width: 100% !important;
+  max-height: 88px !important;
+  object-fit: contain !important;
+  background: linear-gradient(135deg, #ffffff 0%, #fffaf1 100%) !important;
+  border: 1px solid var(--nc-border-warm) !important;
+  border-radius: 18px !important;
+  padding: 0.62rem 0.78rem !important;
+  margin: 0.1rem auto 0.58rem auto !important;
+  box-shadow: var(--nc-shadow-sm) !important;
+  filter: none !important;
+}
+
+.st-key-sidebar_logo_block img:hover,
+section[data-testid="stSidebar"] img:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--nc-shadow-md) !important;
+  border-color: rgba(255, 128, 109, 0.35) !important;
+}
+
+.st-key-sidebar_project_text {
+  background: rgba(255, 255, 255, 0.62) !important;
+  border: 1px solid rgba(184, 149, 91, 0.16) !important;
+  border-radius: 16px !important;
+  padding: 0.72rem 0.78rem !important;
+  box-shadow: var(--nc-shadow-xs) !important;
+}
+
+.st-key-sidebar_project_text [data-testid="stMarkdownContainer"] p {
+  margin: 0 !important;
+  color: var(--nc-text-strong) !important;
+  font-size: 0.88rem !important;
+  font-weight: 900 !important;
+  line-height: 1.25 !important;
+}
+
+.st-key-sidebar_project_text [data-testid="stCaptionContainer"] {
+  margin-top: 0.2rem !important;
+  color: var(--nc-soft-text) !important;
+  font-size: 0.74rem !important;
+  line-height: 1.38 !important;
+  font-weight: 650 !important;
+}
+
+section[data-testid="stSidebar"] hr {
+  border: none !important;
+  border-top: 1px solid rgba(36, 50, 74, 0.105) !important;
+  margin: 0.55rem 0 0.65rem !important;
+}
+
+.st-key-sidebar_filter_header h3 {
+  margin: 0 0 0.16rem 0 !important;
+  color: var(--nc-text-strong) !important;
+  font-size: 1.46rem !important;
+  line-height: 1 !important;
+  font-weight: 900 !important;
+}
+
+.st-key-sidebar_filter_header [data-testid="stCaptionContainer"] {
+  color: var(--nc-muted) !important;
+  font-size: 0.76rem !important;
+  line-height: 1.38 !important;
+}
+
+.st-key-sidebar_filter_controls {
+  padding: 0.1rem 0 0.1rem !important;
+}
+
+section[data-testid="stSidebar"] label,
+.st-key-sidebar_filter_controls label {
+  color: var(--nc-text-strong) !important;
+  font-size: 0.86rem !important;
+  font-weight: 850 !important;
+  margin-bottom: 0.06rem !important;
+}
+
+.st-key-sidebar_filter_controls .stDateInput,
+.st-key-sidebar_filter_controls .stSelectbox,
+.st-key-sidebar_filter_controls .stSlider,
+.st-key-sidebar_filter_controls .stTextInput {
+  margin-bottom: 0.42rem !important;
+}
+
+section[data-testid="stSidebar"] input,
+section[data-testid="stSidebar"] textarea,
+section[data-testid="stSidebar"] [data-baseweb="select"] > div {
+  background: rgba(255, 255, 255, 0.98) !important;
+  color: var(--nc-text) !important;
+  -webkit-text-fill-color: var(--nc-text) !important;
+  border: 1px solid rgba(36, 50, 74, 0.13) !important;
+  border-radius: 13px !important;
+  min-height: 42px !important;
+  box-shadow: 0 8px 20px rgba(36, 50, 74, 0.055) !important;
+}
+
+section[data-testid="stSidebar"] input:hover,
+section[data-testid="stSidebar"] textarea:hover,
+section[data-testid="stSidebar"] [data-baseweb="select"] > div:hover {
+  transform: translateY(-1px) !important;
+  border-color: rgba(216, 173, 79, 0.50) !important;
+  box-shadow: var(--nc-shadow-sm) !important;
+}
+
+section[data-testid="stSidebar"] input:focus,
+section[data-testid="stSidebar"] textarea:focus {
+  border-color: rgba(255, 128, 109, 0.70) !important;
+  box-shadow: 0 0 0 4px rgba(255, 128, 109, 0.12) !important;
+}
+
+section[data-testid="stSidebar"] [data-baseweb="select"] span,
+section[data-testid="stSidebar"] [data-baseweb="select"] div,
+section[data-testid="stSidebar"] [data-baseweb="select"] input,
+section[data-testid="stSidebar"] input::placeholder {
+  color: var(--nc-text) !important;
+  -webkit-text-fill-color: var(--nc-text) !important;
+  opacity: 1 !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSlider"] [role="slider"] {
+  background-color: var(--nc-coral) !important;
+  box-shadow: 0 0 0 5px rgba(255, 128, 109, 0.16) !important;
+}
+
+.st-key-sidebar_footer_note {
+  margin-top: 0.15rem !important;
+  padding: 0.68rem 0.75rem !important;
+  border-radius: 15px !important;
+  background: rgba(255, 250, 241, 0.78) !important;
+  border: 1px solid rgba(184, 149, 91, 0.18) !important;
+  box-shadow: var(--nc-shadow-xs) !important;
+}
+
+.st-key-sidebar_footer_note [data-testid="stCaptionContainer"] {
+  color: var(--nc-soft-text) !important;
+  font-size: 0.72rem !important;
+  line-height: 1.36 !important;
+}
+
+/* Dropdown popovers */
+div[data-baseweb="popover"] div,
+div[data-baseweb="popover"] span {
+  color: var(--nc-text) !important;
+}
+
+/* =========================================================
+   05. HEADER — KEYED CARD ONLY
+========================================================= */
+
+.st-key-header_card {
+  background:
+    radial-gradient(circle at top left, rgba(255, 128, 109, 0.10), transparent 34%),
+    linear-gradient(135deg, #ffffff 0%, #fffaf1 50%, #eef8f6 100%) !important;
+  border: 1px solid var(--nc-border-warm) !important;
+  border-radius: 24px !important;
+  box-shadow: var(--nc-shadow-md) !important;
+  padding: 1rem 1.25rem !important;
+  position: relative !important;
+  overflow: hidden !important;
+  margin-bottom: 0.88rem !important;
+}
+
+.st-key-header_card::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 6px !important;
+  background: linear-gradient(90deg, var(--nc-coral) 0%, var(--nc-gold) 42%, var(--nc-teal) 72%, var(--nc-navy) 100%) !important;
+  z-index: 2 !important;
+}
+
+.st-key-header_card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 24px 52px rgba(36, 50, 74, 0.14) !important;
+}
+
+.st-key-header_card [data-testid="stVerticalBlockBorderWrapper"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.st-key-header_card img {
+  max-height: 86px !important;
+  width: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  filter: none !important;
+}
+
+.st-key-header_card h3 {
+  color: var(--nc-text-strong) !important;
+  font-size: clamp(1.45rem, 2.05vw, 2.05rem) !important;
+  line-height: 1.06 !important;
+  white-space: nowrap !important;
+  margin: 0 0 0.12rem 0 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.st-key-header_card [data-testid="stCaptionContainer"] {
+  color: var(--nc-muted) !important;
+  font-size: 0.9rem !important;
+  font-weight: 650 !important;
+}
+
+/* =========================================================
+   06. KPI CARDS + RISK MONITOR
+========================================================= */
+
+.st-key-kpi_executive_zone,
+.st-key-risk_monitor_zone {
+  margin-top: 0.4rem !important;
+}
+
+.st-key-kpi_executive_zone h3,
+.st-key-risk_monitor_zone h3,
+.block-container h2,
+.block-container h3 {
+  color: var(--nc-text-strong) !important;
+}
+
+[data-testid="stMetric"] {
+  position: relative !important;
+  overflow: hidden !important;
+  background: linear-gradient(180deg, var(--nc-card) 0%, var(--nc-card-warm) 100%) !important;
+  border: 1px solid var(--nc-border-warm) !important;
+  border-top: 5px solid var(--nc-navy) !important;
+  border-radius: 18px !important;
+  padding: 1rem 1.05rem !important;
+  min-height: 132px !important;
+  box-shadow: var(--nc-shadow-sm) !important;
+}
+
+[data-testid="stMetric"]:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: var(--nc-shadow-md) !important;
+  border-top-color: var(--nc-coral) !important;
+}
+
+[data-testid="stMetricLabel"] {
+  color: var(--nc-text) !important;
+  font-size: 0.82rem !important;
+  font-weight: 850 !important;
+  letter-spacing: 0.02em !important;
+}
+
+[data-testid="stMetricValue"] {
+  color: var(--nc-text-strong) !important;
+  font-size: clamp(1.38rem, 1.9vw, 2rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.03em !important;
+}
+
+[data-testid="stMetricDelta"] {
+  color: var(--nc-teal) !important;
+  font-size: 0.72rem !important;
+  font-weight: 750 !important;
+}
+
+[data-testid="stMetricDelta"] svg {
+  display: none !important;
+}
+
+.st-key-risk_monitor_zone [data-testid="stMetric"] {
+  border-top-color: var(--nc-coral) !important;
+}
+
+/* =========================================================
+   07. ALERTS + DIVIDERS
+========================================================= */
+
+hr {
+  border: none !important;
+  border-top: 1px solid rgba(36, 50, 74, 0.12) !important;
+  margin: 1.15rem 0 1rem !important;
+}
+
+[data-testid="stAlert"] {
+  border-radius: 16px !important;
+  border: 1px solid rgba(36, 50, 74, 0.10) !important;
+  box-shadow: var(--nc-shadow-sm) !important;
+  background: linear-gradient(135deg, rgba(255, 250, 241, 0.96), rgba(238, 248, 246, 0.92)) !important;
+}
+
+[data-testid="stAlert"] p,
+[data-testid="stAlert"] div,
+[data-testid="stAlert"] span {
+  color: #075985 !important;
+  font-weight: 650 !important;
+  line-height: 1.55 !important;
+}
+
+/* =========================================================
+   08. TABS
+========================================================= */
+
+.stTabs [data-baseweb="tab-list"] {
+  gap: 8px !important;
+  border-bottom: 1px solid rgba(36, 50, 74, 0.10) !important;
+  padding-bottom: 0.4rem !important;
+}
+
+.stTabs [data-baseweb="tab"] {
+  background: linear-gradient(180deg, #ffffff 0%, #fff6e3 100%) !important;
+  border: 1px solid var(--nc-border-warm) !important;
+  border-radius: 15px !important;
+  padding: 0.7rem 1rem !important;
+  color: var(--nc-text) !important;
+  font-weight: 850 !important;
+  box-shadow: var(--nc-shadow-xs) !important;
+}
+
+.stTabs [data-baseweb="tab"] p {
+  color: var(--nc-text) !important;
+  font-weight: 850 !important;
+  margin: 0 !important;
+}
+
+.stTabs [aria-selected="true"] {
+  background: linear-gradient(180deg, var(--nc-gold-soft) 0%, var(--nc-gold) 100%) !important;
+  color: var(--nc-text-strong) !important;
+  border-color: rgba(184, 149, 91, 0.38) !important;
+  box-shadow: var(--nc-shadow-warm) !important;
+}
+
+.stTabs [aria-selected="true"] p {
+  color: var(--nc-text-strong) !important;
+  font-weight: 900 !important;
+}
+
+/* =========================================================
+   09. SECTION CARDS / STREAMLIT CONTAINERS
+========================================================= */
+
+[data-testid="stVerticalBlockBorderWrapper"] {
+  border-radius: 22px !important;
+}
+
+.block-container h4,
+.block-container h5,
+.stMarkdown strong {
+  color: var(--nc-text-strong) !important;
+}
+
+/* =========================================================
+   10. PLOTLY CHARTS
+========================================================= */
+
+[data-testid="stPlotlyChart"] {
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,250,241,0.92)) !important;
+  border: 1px solid rgba(36, 50, 74, 0.10) !important;
+  border-radius: 20px !important;
+  box-shadow: var(--nc-shadow-sm) !important;
+  padding: 0.55rem !important;
+  overflow: hidden !important;
+  margin-bottom: 0.35rem !important;
+}
+
+[data-testid="stPlotlyChart"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--nc-shadow-md) !important;
+}
+
+[data-testid="stPlotlyChart"] > div,
+[data-testid="stPlotlyChart"] svg {
+  overflow: visible !important;
+}
+
+[data-testid="stPlotlyChart"] text {
+  font-family: "Inter", "Segoe UI", Arial, sans-serif !important;
+}
+
+[data-testid="stPlotlyChart"] .legend text,
+[data-testid="stPlotlyChart"] .xtick text,
+[data-testid="stPlotlyChart"] .ytick text {
+  fill: var(--nc-muted) !important;
+  font-weight: 650 !important;
+}
+
+[data-testid="stPlotlyChart"] .bartext,
+[data-testid="stPlotlyChart"] .pointtext {
+  fill: var(--nc-text) !important;
+  font-weight: 750 !important;
+}
+
+[data-testid="stPlotlyChart"] .modebar {
+  background: rgba(255,255,255,0.88) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--nc-shadow-xs) !important;
+}
+
+[data-testid="stPlotlyChart"] .modebar-btn svg {
+  fill: var(--nc-muted) !important;
+}
+
+/* =========================================================
+   11. TABLES / DATAFRAMES
+========================================================= */
+
+[data-testid="stDataFrame"],
+[data-testid="stTable"] {
+  background: linear-gradient(180deg, rgba(255,255,255,0.99), rgba(255,250,241,0.94)) !important;
+  border: 1px solid rgba(36, 50, 74, 0.11) !important;
+  border-top: 4px solid var(--nc-navy) !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow: var(--nc-shadow-sm) !important;
+}
+
+[data-testid="stDataFrame"] [role="columnheader"] {
+  background: linear-gradient(180deg, #ffffff 0%, #f4efe6 100%) !important;
+  color: var(--nc-text-strong) !important;
+  font-weight: 900 !important;
+  border-bottom: 1px solid rgba(36, 50, 74, 0.10) !important;
+}
+
+[data-testid="stDataFrame"] [role="gridcell"] {
+  color: var(--nc-text) !important;
+  font-weight: 650 !important;
+  border-color: rgba(36, 50, 74, 0.065) !important;
+}
+
+/* =========================================================
+   12. FOOTER / NOTES
+========================================================= */
+
+.block-container > div:last-child {
+  color: var(--nc-text) !important;
+}
+
+/* =========================================================
+   13. MOBILE RESPONSIVE SYSTEM
+========================================================= */
+
+.mobile-filter-panel-wrapper {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .block-container {
+    padding: 0.85rem 0.85rem 2rem !important;
+  }
+
+  .st-key-header_card h3 {
+    white-space: normal !important;
+    font-size: 1.42rem !important;
+  }
+
+  [data-testid="stMetric"] {
+    min-height: 116px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .block-container {
+    padding: 0.72rem 0.68rem 7rem !important;
+  }
+
+  .mobile-filter-panel-wrapper {
+    display: block !important;
+    margin: 0 0 0.8rem 0 !important;
+  }
+
+  .st-key-header_card {
+    padding: 0.9rem 0.9rem !important;
+    border-radius: 22px !important;
+  }
+
+  .st-key-header_card img {
+    max-height: 72px !important;
+  }
+
+  .st-key-header_card h3 {
+    font-size: clamp(1.25rem, 6vw, 1.6rem) !important;
+    line-height: 1.1 !important;
+    white-space: normal !important;
+  }
+
+  [data-testid="stMetric"] {
+    min-height: auto !important;
+    padding: 0.9rem 0.95rem !important;
+    border-radius: 16px !important;
+  }
+
+  [data-testid="stMetricValue"] {
+    font-size: 1.35rem !important;
+  }
+
+  .stTabs [data-baseweb="tab-list"] {
+    display: flex !important;
+    gap: 7px !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    padding-bottom: 0.5rem !important;
+    scrollbar-width: none !important;
+  }
+
+  .stTabs [data-baseweb="tab-list"]::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .stTabs [data-baseweb="tab"] {
+    flex: 0 0 auto !important;
+    padding: 0.65rem 0.85rem !important;
+    font-size: 0.82rem !important;
+  }
+
+  [data-testid="stPlotlyChart"],
+  [data-testid="stDataFrame"],
+  [data-testid="stTable"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    border-radius: 17px !important;
+  }
+
+  [data-testid="stPlotlyChart"] {
+    padding: 0.35rem !important;
+  }
+
+  [data-testid="column"] {
+    width: 100% !important;
+    min-width: 100% !important;
+    margin-bottom: 0.72rem !important;
+  }
+}
+
+/* =========================================================
+   14. ACCESSIBILITY / REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .st-key-header_card,
+  .st-key-sidebar_logo_block img,
+  [data-testid="stMetric"],
+  [data-testid="stPlotlyChart"],
+  [data-baseweb="tab"] {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* =========================================================
+   MOBILE FILTER PANEL VISIBILITY CONTROL
+   Desktop: hidden
+   Mobile: visible
+========================================================= */
+
+/* Hide mobile filter panel on desktop/tablet */
+.mobile-filter-panel-wrapper {
+    display: none !important;
+}
+
+/* Show only on mobile */
+@media (max-width: 600px) {
+    .mobile-filter-panel-wrapper {
+        display: block !important;
+        margin: 0.4rem 0 1rem 0 !important;
+        padding: 0 !important;
+        position: relative !important;
+        z-index: 20 !important;
+    }
+
+    .mobile-filter-panel-wrapper div[data-testid="stExpander"] {
+        border-radius: 18px !important;
+        border: 1px solid rgba(184, 149, 91, 0.26) !important;
+        background: linear-gradient(135deg, #fff7e4 0%, #ead083 100%) !important;
+        box-shadow: 0 12px 26px rgba(36, 50, 74, 0.12) !important;
+        overflow: hidden !important;
+    }
+
+    .mobile-filter-panel-wrapper div[data-testid="stExpander"] summary {
+        padding: 0.95rem 1rem !important;
+        min-height: 56px !important;
+        border-radius: 18px !important;
+        background:
+            radial-gradient(circle at top left, rgba(255,255,255,0.70), rgba(255,255,255,0) 42%),
+            linear-gradient(135deg, #fff7e4 0%, #e5c36b 100%) !important;
+        color: #24324a !important;
+        font-weight: 900 !important;
+        letter-spacing: -0.1px !important;
+    }
+
+    .mobile-filter-panel-wrapper div[data-testid="stExpander"] summary p {
+        color: #24324a !important;
+        font-size: 15.5px !important;
+        font-weight: 900 !important;
+        margin: 0 !important;
+    }
+
+    .mobile-filter-panel-wrapper div[data-testid="stExpander"] summary svg {
+        color: #24324a !important;
+        fill: #24324a !important;
+        stroke: #24324a !important;
+    }
+
+    .mobile-filter-panel-wrapper div[data-testid="stExpander"] details > div {
+        padding: 1rem 0.9rem !important;
+        background: rgba(255, 255, 255, 0.68) !important;
+    }
+}
+
+/* =========================================================
+   MOBILE FILTER PANEL VISIBILITY
+   Desktop hidden, mobile visible
+========================================================= */
+
+.st-key-mobile_filter_panel {
+    display: none !important;
+}
+
+@media (max-width: 600px) {
+    .st-key-mobile_filter_panel {
+        display: block !important;
+        margin: 0.45rem 0 1rem 0 !important;
+    }
+
+    .st-key-mobile_filter_panel div[data-testid="stExpander"] {
+        border-radius: 18px !important;
+        border: 1px solid rgba(184, 149, 91, 0.26) !important;
+        background: linear-gradient(135deg, #fff7e4 0%, #ead083 100%) !important;
+        box-shadow: 0 12px 26px rgba(36, 50, 74, 0.12) !important;
+        overflow: hidden !important;
+    }
+
+    .st-key-mobile_filter_panel div[data-testid="stExpander"] summary {
+        padding: 0.95rem 1rem !important;
+        min-height: 56px !important;
+        border-radius: 18px !important;
+        background:
+            radial-gradient(circle at top left, rgba(255,255,255,0.70), rgba(255,255,255,0) 42%),
+            linear-gradient(135deg, #fff7e4 0%, #e5c36b 100%) !important;
+        color: #24324a !important;
+        font-weight: 900 !important;
+    }
+
+    .st-key-mobile_filter_panel div[data-testid="stExpander"] summary p {
+        color: #24324a !important;
+        font-size: 15.5px !important;
+        font-weight: 900 !important;
+        margin: 0 !important;
+    }
+
+    .st-key-mobile_filter_panel div[data-testid="stExpander"] details > div {
+        padding: 1rem 0.9rem !important;
+        background: rgba(255, 255, 255, 0.68) !important;
+    }
+}
+
+/* =========================================================
+   STEP 3E — MOBILE FILTER PANEL PREMIUM UPGRADE
+   Desktop remains hidden. Mobile only premium filter card.
+========================================================= */
+
+/* Desktop/tablet: mobile filter panel hidden */
+.st-key-mobile_filter_panel {
+    display: none !important;
+}
+
+/* Mobile only */
+@media (max-width: 600px) {
+
+    .st-key-mobile_filter_panel {
+        display: block !important;
+        margin: 0.35rem 0 1rem 0 !important;
+        padding: 0 !important;
+        position: relative !important;
+        z-index: 30 !important;
+    }
+
+    /* Outer expander shell */
+    .st-key-mobile_filter_panel div[data-testid="stExpander"] {
+        border-radius: 22px !important;
+        border: 1px solid rgba(184, 149, 91, 0.34) !important;
+        background:
+            radial-gradient(circle at top left, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 42%),
+            linear-gradient(135deg, #fff8e9 0%, #f1d78b 48%, #dfba5e 100%) !important;
+        box-shadow:
+            0 16px 34px rgba(36, 50, 74, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.65) !important;
+        overflow: hidden !important;
+    }
+
+    /* Clickable header */
+    .st-key-mobile_filter_panel div[data-testid="stExpander"] summary {
+        min-height: 62px !important;
+        padding: 1rem 1.1rem !important;
+        border-radius: 22px !important;
+        background:
+            linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0.16) 46%),
+            linear-gradient(135deg, #fff7df 0%, #e7c263 100%) !important;
+        color: #24324a !important;
+        font-weight: 950 !important;
+        letter-spacing: -0.2px !important;
+        box-shadow:
+            inset 0 -1px 0 rgba(91, 70, 48, 0.13),
+            0 8px 18px rgba(184, 149, 91, 0.16) !important;
+        cursor: pointer !important;
+    }
+
+    .st-key-mobile_filter_panel div[data-testid="stExpander"] summary p {
+        color: #24324a !important;
+        font-size: 16px !important;
+        font-weight: 950 !important;
+        line-height: 1.25 !important;
+        margin: 0 !important;
+    }
+
+    .st-key-mobile_filter_panel div[data-testid="stExpander"] summary svg {
+        color: #24324a !important;
+        fill: #24324a !important;
+        stroke: #24324a !important;
+        filter: drop-shadow(0 1px 2px rgba(0,0,0,0.12)) !important;
+    }
+
+    /* Open content area */
+    .st-key-mobile_filter_panel div[data-testid="stExpander"] details > div {
+        padding: 1rem 0.95rem 1.15rem 0.95rem !important;
+        background:
+            linear-gradient(180deg, rgba(255,255,255,0.80) 0%, rgba(255,250,236,0.72) 100%) !important;
+    }
+
+    /* Description/caption */
+    .st-key-mobile_filter_panel [data-testid="stCaptionContainer"] {
+        color: #5f6f85 !important;
+        font-size: 12.5px !important;
+        line-height: 1.55 !important;
+        background: rgba(255,255,255,0.58) !important;
+        border: 1px solid rgba(184,149,91,0.18) !important;
+        border-left: 4px solid #d8ad4f !important;
+        border-radius: 14px !important;
+        padding: 0.7rem 0.8rem !important;
+        margin-bottom: 0.9rem !important;
+    }
+
+    /* Labels */
+    .st-key-mobile_filter_panel label,
+    .st-key-mobile_filter_panel [data-testid="stWidgetLabel"] p {
+        color: #24324a !important;
+        font-size: 13px !important;
+        font-weight: 850 !important;
+        letter-spacing: -0.05px !important;
+    }
+
+    /* Date input + selectbox fields */
+    .st-key-mobile_filter_panel input,
+    .st-key-mobile_filter_panel [data-baseweb="select"] > div {
+        min-height: 46px !important;
+        border-radius: 15px !important;
+        border: 1px solid rgba(36, 50, 74, 0.14) !important;
+        background: rgba(255,255,255,0.82) !important;
+        color: #24324a !important;
+        box-shadow: 0 8px 18px rgba(36, 50, 74, 0.06) !important;
+    }
+
+    .st-key-mobile_filter_panel input:focus,
+    .st-key-mobile_filter_panel [data-baseweb="select"] > div:focus-within {
+        border-color: rgba(216, 173, 79, 0.72) !important;
+        box-shadow:
+            0 0 0 3px rgba(216, 173, 79, 0.14),
+            0 10px 20px rgba(36, 50, 74, 0.08) !important;
+    }
+
+    /* Slider polish */
+    .st-key-mobile_filter_panel [data-testid="stSlider"] {
+        padding: 0.15rem 0 0.55rem 0 !important;
+    }
+
+    .st-key-mobile_filter_panel [data-testid="stSlider"] [role="slider"] {
+        background: #ff806d !important;
+        border: 2px solid #ffffff !important;
+        box-shadow: 0 6px 14px rgba(255, 128, 109, 0.32) !important;
+    }
+
+    /* Small spacing between widgets */
+    .st-key-mobile_filter_panel [data-testid="stVerticalBlock"] {
+        gap: 0.55rem !important;
+    }
+
+    /* Alerts inside mobile filter */
+    .st-key-mobile_filter_panel [data-testid="stAlert"] {
+        border-radius: 14px !important;
+        background: rgba(255,255,255,0.75) !important;
+        border: 1px solid rgba(184,149,91,0.20) !important;
+        color: #24324a !important;
+    }
+}
+
+/* =========================================================
+   STEP 3E-v2 — PREMIUM MOBILE FILTER PANEL FINAL UPGRADE
+   Mobile only. Desktop remains hidden.
+========================================================= */
+
+/* Always hidden on desktop/tablet */
+.st-key-mobile_filter_panel {
+    display: none !important;
+}
+
+/* Mobile only premium filter experience */
+@media (max-width: 600px) {
+
+    /* Main mobile panel container */
+    .st-key-mobile_filter_panel {
+        display: block !important;
+        width: 100% !important;
+        margin: 0.2rem 0 1rem 0 !important;
+        padding: 0 !important;
+        position: relative !important;
+        z-index: 50 !important;
+    }
+
+    /* Remove Streamlit default spacing around this panel */
+    .st-key-mobile_filter_panel > div,
+    .st-key-mobile_filter_panel [data-testid="stVerticalBlock"],
+    .st-key-mobile_filter_panel [data-testid="stElementContainer"] {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* Full expander shell */
+    .st-key-mobile_filter_panel div[data-testid="stExpander"] {
+        position: relative !important;
+        border-radius: 26px !important;
+        border: 1px solid rgba(184, 149, 91, 0.42) !important;
+        background:
+            radial-gradient(circle at 0% 0%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.10) 34%),
+            radial-gradient(circle at 100% 0%, rgba(255,128,109,0.16) 0%, rgba(255,128,109,0) 32%),
+            linear-gradient(135deg, #fff8e6 0%, #f3dc99 45%, #e1bd5d 100%) !important;
+        box-shadow:
+            0 18px 42px rgba(36, 50, 74, 0.18),
+            0 8px 18px rgba(184, 149, 91, 0.18),
+            inset 0 1px 0 rgba(255,255,255,0.75) !important;
+        overflow: hidden !important;
+        backdrop-filter: blur(10px) !important;
+    }
+
+    /* Premium top glowing accent */
+    .st-key-mobile_filter_panel div[data-testid="stExpander"]::before {
+        content: "" !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 5px !important;
+        background: linear-gradient(90deg, #ff806d 0%, #d8ad4f 42%, #0f8b72 100%) !important;
+        z-index: 3 !important;
+    }
+
+    /* Expander clickable header */
+    .st-key-mobile_filter_panel div[data-testid="stExpander"] summary {
+        position: relative !important;
+        min-height: 68px !important;
+        padding: 1.15rem 1.15rem 1.05rem 1.15rem !important;
+        border-radius: 26px 26px 18px 18px !important;
+        background:
+            linear-gradient(135deg, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.24) 48%, rgba(255,255,255,0.06) 100%),
+            linear-gradient(135deg, #fff7de 0%, #ebc768 100%) !important;
+        color: #1f2a44 !important;
+        box-shadow:
+            inset 0 -1px 0 rgba(91, 70, 48, 0.14),
+            0 10px 20px rgba(184, 149, 91, 0.16) !important;
+        cursor: pointer !important;
+    }
+
+    /* Expander title text */
+    .st-key-mobile_filter_panel div[data-testid="stExpander"] summary p {
+        color: #1f2a44 !important;
+        font-size: 17px !important;
+        font-weight: 950 !important;
+        line-height: 1.2 !important;
+        letter-spacing: -0.25px !important;
+        margin: 0 !important;
+        text-transform: none !important;
+    }
+
+    /* Arrow/icon polish */
+    .st-key-mobile_filter_panel div[data-testid="stExpander"] summary svg {
+        width: 20px !important;
+        height: 20px !important;
+        color: #1f2a44 !important;
+        fill: #1f2a44 !important;
+        stroke: #1f2a44 !important;
+        filter: drop-shadow(0 2px 3px rgba(0,0,0,0.16)) !important;
+    }
+
+    /* Open body area */
+    .st-key-mobile_filter_panel div[data-testid="stExpander"] details > div {
+        padding: 1.1rem 1rem 1.2rem 1rem !important;
+        background:
+            radial-gradient(circle at top right, rgba(139,216,207,0.20), transparent 30%),
+            linear-gradient(180deg, rgba(255,255,255,0.88) 0%, rgba(255,250,238,0.78) 100%) !important;
+    }
+
+    /* Description card */
+    .st-key-mobile_filter_panel [data-testid="stCaptionContainer"] {
+        color: #536275 !important;
+        font-size: 12.7px !important;
+        font-weight: 650 !important;
+        line-height: 1.65 !important;
+        background:
+            linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,250,238,0.78)) !important;
+        border: 1px solid rgba(184,149,91,0.22) !important;
+        border-left: 5px solid #d8ad4f !important;
+        border-radius: 17px !important;
+        padding: 0.85rem 0.9rem !important;
+        margin: 0.1rem 0 1rem 0 !important;
+        box-shadow: 0 8px 18px rgba(36,50,74,0.07) !important;
+    }
+
+    /* Widget spacing */
+    .st-key-mobile_filter_panel [data-testid="stVerticalBlock"] {
+        gap: 0.78rem !important;
+    }
+
+    /* Labels */
+    .st-key-mobile_filter_panel label,
+    .st-key-mobile_filter_panel [data-testid="stWidgetLabel"],
+    .st-key-mobile_filter_panel [data-testid="stWidgetLabel"] p {
+        color: #1f2a44 !important;
+        font-size: 13.4px !important;
+        font-weight: 900 !important;
+        letter-spacing: -0.05px !important;
+        margin-bottom: 0.25rem !important;
+    }
+
+    /* Date input field */
+    .st-key-mobile_filter_panel [data-testid="stDateInput"] input {
+        min-height: 50px !important;
+        border-radius: 17px !important;
+        border: 1px solid rgba(36, 50, 74, 0.14) !important;
+        background:
+            linear-gradient(135deg, rgba(255,255,255,0.96), rgba(248,251,252,0.90)) !important;
+        color: #24324a !important;
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        padding-left: 0.95rem !important;
+        box-shadow:
+            0 10px 22px rgba(36, 50, 74, 0.07),
+            inset 0 1px 0 rgba(255,255,255,0.80) !important;
+    }
+
+    /* Select boxes */
+    .st-key-mobile_filter_panel [data-baseweb="select"] > div {
+        min-height: 50px !important;
+        border-radius: 17px !important;
+        border: 1px solid rgba(36, 50, 74, 0.14) !important;
+        background:
+            linear-gradient(135deg, rgba(255,255,255,0.96), rgba(248,251,252,0.90)) !important;
+        color: #24324a !important;
+        box-shadow:
+            0 10px 22px rgba(36, 50, 74, 0.07),
+            inset 0 1px 0 rgba(255,255,255,0.80) !important;
+    }
+
+    .st-key-mobile_filter_panel [data-baseweb="select"] span {
+        color: #24324a !important;
+        font-size: 15px !important;
+        font-weight: 750 !important;
+    }
+
+    /* Focus interaction */
+    .st-key-mobile_filter_panel [data-testid="stDateInput"] input:focus,
+    .st-key-mobile_filter_panel [data-baseweb="select"] > div:focus-within {
+        border-color: rgba(216, 173, 79, 0.82) !important;
+        box-shadow:
+            0 0 0 4px rgba(216, 173, 79, 0.18),
+            0 12px 26px rgba(36, 50, 74, 0.10) !important;
+    }
+
+    /* Slider block */
+    .st-key-mobile_filter_panel [data-testid="stSlider"] {
+        padding: 0.2rem 0 0.55rem 0 !important;
+        background: rgba(255,255,255,0.38) !important;
+        border: 1px solid rgba(184,149,91,0.12) !important;
+        border-radius: 18px !important;
+        padding-left: 0.8rem !important;
+        padding-right: 0.8rem !important;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.70) !important;
+    }
+
+    /* Slider thumb */
+    .st-key-mobile_filter_panel [data-testid="stSlider"] [role="slider"] {
+        width: 18px !important;
+        height: 18px !important;
+        background: #ff806d !important;
+        border: 3px solid #ffffff !important;
+        box-shadow:
+            0 0 0 5px rgba(255,128,109,0.18),
+            0 8px 18px rgba(255,128,109,0.34) !important;
+    }
+
+    /* Slider value text */
+    .st-key-mobile_filter_panel [data-testid="stSlider"] div {
+        color: #24324a !important;
+        font-weight: 800 !important;
+    }
+
+    /* Button-like hover/active feel on mobile */
+    .st-key-mobile_filter_panel div[data-testid="stExpander"] summary:active,
+    .st-key-mobile_filter_panel [data-baseweb="select"] > div:active,
+    .st-key-mobile_filter_panel [data-testid="stDateInput"] input:active {
+        transform: scale(0.992) !important;
+    }
+
+    /* Prevent ugly default shadows/gray wrappers */
+    .st-key-mobile_filter_panel div[data-testid="stForm"],
+    .st-key-mobile_filter_panel div[data-testid="stVerticalBlockBorderWrapper"] {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+}
