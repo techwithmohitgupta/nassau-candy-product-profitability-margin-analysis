@@ -866,7 +866,177 @@ for numeric_col in [sales_col, cost_col, profit_col, units_col]:
 if not profit_col and sales_col and cost_col:
     main_df["Calculated Profit"] = main_df[sales_col] - main_df[cost_col]
     profit_col = "Calculated Profit"
+    
+# =========================================================
+# CENTRAL FILTER STATE SYSTEM
+# Initialize single source of truth for desktop + mobile filters
+# =========================================================
 
+def p2_get_date_bounds() -> tuple:
+    """Return safe min/max date bounds for Project 2 filters."""
+    if date_col and date_col in main_df.columns and main_df[date_col].notna().any():
+        return main_df[date_col].min().date(), main_df[date_col].max().date()
+
+    today_value = pd.Timestamp.today().date()
+    return today_value, today_value
+
+
+def p2_clamp_date_range(start_value, end_value):
+    """Keep selected dates inside the available dataset date range."""
+    min_date_value, max_date_value = p2_get_date_bounds()
+
+    if start_value is None or end_value is None:
+        return min_date_value, max_date_value
+
+    if start_value < min_date_value:
+        start_value = min_date_value
+
+    if end_value > max_date_value:
+        end_value = max_date_value
+
+    if start_value > end_value:
+        return min_date_value, max_date_value
+
+    return start_value, end_value
+
+
+def p2_get_date_filtered_df(start_value, end_value) -> pd.DataFrame:
+    """Return dataframe filtered by selected date range only."""
+    working_df = main_df.copy()
+
+    if date_col and date_col in working_df.columns and working_df[date_col].notna().any():
+        start_value, end_value = p2_clamp_date_range(start_value, end_value)
+
+        working_df = working_df[
+            (working_df[date_col].dt.date >= start_value)
+            & (working_df[date_col].dt.date <= end_value)
+        ]
+
+    return working_df
+
+
+def p2_get_division_options(start_value, end_value) -> list[str]:
+    """Return division options based on selected date range."""
+    date_scoped_df = p2_get_date_filtered_df(start_value, end_value)
+
+    if division_col and division_col in date_scoped_df.columns and not date_scoped_df.empty:
+        division_values = (
+            date_scoped_df[division_col]
+            .dropna()
+            .astype(str)
+            .sort_values()
+            .unique()
+            .tolist()
+        )
+
+        return ["All Divisions"] + division_values
+
+    return ["All Divisions"]
+
+
+def p2_get_division_filtered_df(start_value, end_value, division_value: str) -> pd.DataFrame:
+    """Return dataframe filtered by date range and selected division."""
+    working_df = p2_get_date_filtered_df(start_value, end_value)
+
+    if (
+        division_col
+        and division_col in working_df.columns
+        and division_value != "All Divisions"
+    ):
+        working_df = working_df[
+            working_df[division_col].astype(str) == str(division_value)
+        ]
+
+    return working_df
+
+
+def p2_get_product_options(start_value, end_value, division_value: str) -> list[str]:
+    """Return product options based on selected date range + division."""
+    division_scoped_df = p2_get_division_filtered_df(
+        start_value,
+        end_value,
+        division_value,
+    )
+
+    if product_col and product_col in division_scoped_df.columns and not division_scoped_df.empty:
+        product_values = (
+            division_scoped_df[product_col]
+            .dropna()
+            .astype(str)
+            .sort_values()
+            .unique()
+            .tolist()
+        )
+
+        return ["All Products"] + product_values
+
+    return ["All Products"]
+
+
+# -----------------------------
+# Initialize final filter state
+# -----------------------------
+p2_min_date, p2_max_date = p2_get_date_bounds()
+
+p2_default_filter_state = {
+    "p2_active_filter_source": "desktop",
+    "p2_final_start_date": p2_min_date,
+    "p2_final_end_date": p2_max_date,
+    "p2_final_division": "All Divisions",
+    "p2_final_product": "All Products",
+    "p2_final_margin_threshold": 30,
+}
+
+for state_key, default_value in p2_default_filter_state.items():
+    if state_key not in st.session_state:
+        st.session_state[state_key] = default_value
+
+
+# -----------------------------
+# Validate existing final state after reruns
+# -----------------------------
+
+# Date safety
+p2_valid_start_date, p2_valid_end_date = p2_clamp_date_range(
+    st.session_state.get("p2_final_start_date", p2_min_date),
+    st.session_state.get("p2_final_end_date", p2_max_date),
+)
+
+st.session_state["p2_final_start_date"] = p2_valid_start_date
+st.session_state["p2_final_end_date"] = p2_valid_end_date
+
+# Division safety
+p2_valid_division_options = p2_get_division_options(
+    st.session_state["p2_final_start_date"],
+    st.session_state["p2_final_end_date"],
+)
+
+if st.session_state.get("p2_final_division") not in p2_valid_division_options:
+    st.session_state["p2_final_division"] = "All Divisions"
+
+# Product safety
+p2_valid_product_options = p2_get_product_options(
+    st.session_state["p2_final_start_date"],
+    st.session_state["p2_final_end_date"],
+    st.session_state["p2_final_division"],
+)
+
+if st.session_state.get("p2_final_product") not in p2_valid_product_options:
+    st.session_state["p2_final_product"] = "All Products"
+
+# Margin threshold safety
+try:
+    p2_threshold_value = int(st.session_state.get("p2_final_margin_threshold", 30))
+except Exception:
+    p2_threshold_value = 30
+
+p2_threshold_value = max(0, min(100, p2_threshold_value))
+st.session_state["p2_final_margin_threshold"] = p2_threshold_value
+
+# =========================================================
+# SIDEBAR FILTERS — DESKTOP SOURCE
+# Updates central filter state from desktop sidebar
+# =========================================================
 with st.sidebar:
     # =========================================================
     # SIDEBAR TOP BRAND AREA
@@ -881,8 +1051,9 @@ with st.sidebar:
     with st.container(key="sidebar_project_summary"):
         st.markdown("**Nassau Candy Profitability Margin Performance Analysis Dashboard**")
         st.caption(
-            "Product margin intelligence for cost efficiency, contribution mix, and concentration risk."
+            "Product margin, cost, and profit concentration insights."
         )
+
     st.divider()
 
     with st.container(key="sidebar_filter_header"):
@@ -890,230 +1061,349 @@ with st.sidebar:
         st.caption("Adjust the analysis scope. Every KPI, chart, and table updates dynamically.")
 
     with st.container(key="sidebar_filter_controls"):
+
         # -----------------------------
-        # 1. Date range selector
+        # 1. Desktop Date Range
         # -----------------------------
         if date_col and main_df[date_col].notna().any():
-            min_date = main_df[date_col].min().date()
-            max_date = main_df[date_col].max().date()
-
-            selected_dates = st.date_input(
-                "Date Range",
-                value=(min_date, max_date),
-                min_value=min_date,
-                max_value=max_date,
+            desktop_default_dates = (
+                st.session_state["p2_final_start_date"],
+                st.session_state["p2_final_end_date"],
             )
+
+            desktop_selected_dates = st.date_input(
+                "Date Range",
+                value=desktop_default_dates,
+                min_value=p2_min_date,
+                max_value=p2_max_date,
+                key="p2_desktop_date_range_filter",
+            )
+
+            if (
+                isinstance(desktop_selected_dates, tuple)
+                and len(desktop_selected_dates) == 2
+            ):
+                desktop_start_date, desktop_end_date = desktop_selected_dates
+            else:
+                desktop_start_date, desktop_end_date = p2_min_date, p2_max_date
         else:
-            selected_dates = None
+            desktop_start_date, desktop_end_date = p2_min_date, p2_max_date
             st.info("Date column not detected.")
 
-        # -----------------------------
-        # Temporary date-filtered data
-        # Used to make division/product options smarter
-        # -----------------------------
-        date_filtered_df = main_df.copy()
-
-        if date_col and selected_dates and isinstance(selected_dates, tuple) and len(selected_dates) == 2:
-            start_date, end_date = selected_dates
-
-            date_filtered_df = date_filtered_df[
-                (date_filtered_df[date_col].dt.date >= start_date)
-                & (date_filtered_df[date_col].dt.date <= end_date)
-            ]
-
-        # -----------------------------
-        # 2. Division filter
-        # Division options based on selected date range
-        # -----------------------------
-        if division_col and not date_filtered_df.empty:
-            division_values = (
-                date_filtered_df[division_col]
-                .dropna()
-                .astype(str)
-                .sort_values()
-                .unique()
-                .tolist()
-            )
-
-            selected_division = st.selectbox(
-                "Division",
-                options=["All Divisions"] + division_values,
-                index=0,
-            )
-        else:
-            selected_division = "All Divisions"
-            st.info("Division column not detected or no divisions available.")
-
-        # -----------------------------
-        # Temporary date + division filtered data
-        # Used to make product dropdown dependent
-        # -----------------------------
-        division_filtered_df = date_filtered_df.copy()
-
-        if division_col and selected_division != "All Divisions":
-            division_filtered_df = division_filtered_df[
-                division_filtered_df[division_col].astype(str) == selected_division
-            ]
-
-        # -----------------------------
-        # 3. Margin threshold slider
-        # Risk benchmark, not direct data filter
-        # -----------------------------
-        margin_threshold = st.slider(
-            "Margin Threshold (%)",
-            min_value=0,
-            max_value=100,
-            value=30,
-            step=1,
+        desktop_start_date, desktop_end_date = p2_clamp_date_range(
+            desktop_start_date,
+            desktop_end_date,
         )
 
         # -----------------------------
-        # 4. Product Search
+        # 2. Desktop Division Filter
+        # Division options depend on selected desktop date range
+        # -----------------------------
+        desktop_division_options = p2_get_division_options(
+            desktop_start_date,
+            desktop_end_date,
+        )
+
+        current_desktop_division = st.session_state.get(
+            "p2_final_division",
+            "All Divisions",
+        )
+
+        if current_desktop_division not in desktop_division_options:
+            current_desktop_division = "All Divisions"
+
+        desktop_division_index = (
+            desktop_division_options.index(current_desktop_division)
+            if current_desktop_division in desktop_division_options
+            else 0
+        )
+
+        desktop_selected_division = st.selectbox(
+            "Division",
+            options=desktop_division_options,
+            index=desktop_division_index,
+            key="p2_desktop_division_filter",
+        )
+
+        # -----------------------------
+        # 3. Desktop Margin Threshold
+        # Risk benchmark, not direct data filter
+        # -----------------------------
+        desktop_margin_threshold = st.slider(
+            "Margin Threshold (%)",
+            min_value=0,
+            max_value=100,
+            value=int(st.session_state["p2_final_margin_threshold"]),
+            step=1,
+            key="p2_desktop_margin_threshold_filter",
+        )
+
+        # -----------------------------
+        # 4. Desktop Product Search
         # Product options depend on selected Date Range + Division
         # -----------------------------
-        if product_col and not division_filtered_df.empty:
-            product_values = (
-                division_filtered_df[product_col]
-                .dropna()
-                .astype(str)
-                .sort_values()
-                .unique()
-                .tolist()
-            )
+        desktop_product_options = p2_get_product_options(
+            desktop_start_date,
+            desktop_end_date,
+            desktop_selected_division,
+        )
 
-            selected_product = st.selectbox(
-                "Product Search",
-                options=["All Products"] + product_values,
-                index=0,
-            )
-        else:
-            selected_product = "All Products"
-            st.info("No products available for the selected date/division filters.")
+        current_desktop_product = st.session_state.get(
+            "p2_final_product",
+            "All Products",
+        )
+
+        if current_desktop_product not in desktop_product_options:
+            current_desktop_product = "All Products"
+
+        desktop_product_index = (
+            desktop_product_options.index(current_desktop_product)
+            if current_desktop_product in desktop_product_options
+            else 0
+        )
+
+        desktop_selected_product = st.selectbox(
+            "Product Search",
+            options=desktop_product_options,
+            index=desktop_product_index,
+            key="p2_desktop_product_filter",
+        )
+
+        # -----------------------------
+        # Update central state from desktop filters ONLY when desktop changes
+        # Prevents hidden mobile panel from fighting with desktop state.
+        # -----------------------------
+        desktop_filter_payload = {
+            "start_date": desktop_start_date,
+            "end_date": desktop_end_date,
+            "division": desktop_selected_division,
+            "product": desktop_selected_product,
+            "margin_threshold": int(desktop_margin_threshold),
+        }
+
+        desktop_previous_payload = st.session_state.get("_p2_desktop_filter_payload")
+
+        if desktop_previous_payload is None or desktop_filter_payload != desktop_previous_payload:
+            st.session_state["p2_active_filter_source"] = "desktop"
+            st.session_state["p2_final_start_date"] = desktop_filter_payload["start_date"]
+            st.session_state["p2_final_end_date"] = desktop_filter_payload["end_date"]
+            st.session_state["p2_final_division"] = desktop_filter_payload["division"]
+            st.session_state["p2_final_product"] = desktop_filter_payload["product"]
+            st.session_state["p2_final_margin_threshold"] = desktop_filter_payload["margin_threshold"]
+
+        st.session_state["_p2_desktop_filter_payload"] = desktop_filter_payload
 
     with st.container(key="sidebar_footer_note"):
         st.caption("Portfolio dashboard • Streamlit + Plotly")
         st.caption("Nassau Candy profitability analysis")
         
 # =========================================================
-# MOBILE FILTER PANEL
-# Desktop sidebar remains unchanged.
-# Mobile users can access the same filter controls inside the dashboard.
+# MOBILE FILTER PANEL — MOBILE SOURCE
+# Updates Project 2 central filter state only when mobile filters change
 # =========================================================
 with st.container(key="mobile_filter_panel"):
     with st.expander("📱 Dashboard Filters", expanded=False):
         st.caption(
-            "Adjust the analysis scope to explore product margins, cost efficiency, contribution mix, and concentration risk."
+            "Adjust the analysis scope to explore product margins, cost efficiency, "
+            "contribution mix, and concentration risk."
         )
 
         # -----------------------------
         # 1. Mobile Date Range
         # -----------------------------
-        if date_col and main_df[date_col].notna().any():
-            mobile_selected_dates = st.date_input(
-                "Date Range",
-                value=selected_dates if selected_dates else (min_date, max_date),
-                min_value=min_date,
-                max_value=max_date,
-                key="mobile_date_range_filter",
-            )
+        mobile_default_dates = (
+            st.session_state["p2_final_start_date"],
+            st.session_state["p2_final_end_date"],
+        )
 
-            if (
-                isinstance(mobile_selected_dates, tuple)
-                and len(mobile_selected_dates) == 2
-            ):
-                start_date, end_date = mobile_selected_dates
-                selected_dates = mobile_selected_dates
+        mobile_selected_dates = st.date_input(
+            "Date Range",
+            value=mobile_default_dates,
+            min_value=p2_min_date,
+            max_value=p2_max_date,
+            key="p2_mobile_date_range_filter",
+        )
 
-                date_filtered_df = main_df.copy()
-                date_filtered_df = date_filtered_df[
-                    (date_filtered_df[date_col].dt.date >= start_date)
-                    & (date_filtered_df[date_col].dt.date <= end_date)
-                ]
+        if (
+            isinstance(mobile_selected_dates, tuple)
+            and len(mobile_selected_dates) == 2
+        ):
+            mobile_start_date, mobile_end_date = mobile_selected_dates
         else:
-            st.info("Date column not detected.")
+            mobile_start_date, mobile_end_date = p2_min_date, p2_max_date
+
+        mobile_start_date, mobile_end_date = p2_clamp_date_range(
+            mobile_start_date,
+            mobile_end_date,
+        )
 
         # -----------------------------
         # 2. Mobile Division Filter
+        # Division options depend on selected mobile date range
         # -----------------------------
-        if division_col and not date_filtered_df.empty:
-            mobile_division_values = (
-                date_filtered_df[division_col]
-                .dropna()
-                .astype(str)
-                .sort_values()
-                .unique()
-                .tolist()
-            )
+        mobile_division_options = p2_get_division_options(
+            mobile_start_date,
+            mobile_end_date,
+        )
 
-            mobile_division_options = ["All Divisions"] + mobile_division_values
+        current_mobile_division = st.session_state.get(
+            "p2_final_division",
+            "All Divisions",
+        )
 
-            mobile_selected_division = st.selectbox(
-                "Division",
-                options=mobile_division_options,
-                index=(
-                    mobile_division_options.index(selected_division)
-                    if selected_division in mobile_division_options
-                    else 0
-                ),
-                key="mobile_division_filter",
-            )
+        if current_mobile_division not in mobile_division_options:
+            current_mobile_division = "All Divisions"
 
-            selected_division = mobile_selected_division
-        else:
-            st.info("Division column not detected or no divisions available.")
+        mobile_division_index = (
+            mobile_division_options.index(current_mobile_division)
+            if current_mobile_division in mobile_division_options
+            else 0
+        )
 
-        # -----------------------------
-        # Date + division filtered data
-        # -----------------------------
-        division_filtered_df = date_filtered_df.copy()
-
-        if division_col and selected_division != "All Divisions":
-            division_filtered_df = division_filtered_df[
-                division_filtered_df[division_col].astype(str) == selected_division
-            ]
+        mobile_selected_division = st.selectbox(
+            "Division",
+            options=mobile_division_options,
+            index=mobile_division_index,
+            key="p2_mobile_division_filter",
+        )
 
         # -----------------------------
         # 3. Mobile Margin Threshold
+        # Risk benchmark, not direct data filter
         # -----------------------------
-        margin_threshold = st.slider(
+        mobile_margin_threshold = st.slider(
             "Margin Threshold (%)",
             min_value=0,
             max_value=100,
-            value=int(margin_threshold),
+            value=int(st.session_state["p2_final_margin_threshold"]),
             step=1,
-            key="mobile_margin_threshold_filter",
+            key="p2_mobile_margin_threshold_filter",
         )
 
         # -----------------------------
         # 4. Mobile Product Search
+        # Product options depend on selected mobile Date Range + Division
         # -----------------------------
-        if product_col and not division_filtered_df.empty:
-            mobile_product_values = (
-                division_filtered_df[product_col]
-                .dropna()
-                .astype(str)
-                .sort_values()
-                .unique()
-                .tolist()
-            )
+        mobile_product_options = p2_get_product_options(
+            mobile_start_date,
+            mobile_end_date,
+            mobile_selected_division,
+        )
 
-            mobile_product_options = ["All Products"] + mobile_product_values
+        current_mobile_product = st.session_state.get(
+            "p2_final_product",
+            "All Products",
+        )
 
-            mobile_selected_product = st.selectbox(
-                "Product Search",
-                options=mobile_product_options,
-                index=(
-                    mobile_product_options.index(selected_product)
-                    if selected_product in mobile_product_options
-                    else 0
-                ),
-                key="mobile_product_filter",
-            )
+        if current_mobile_product not in mobile_product_options:
+            current_mobile_product = "All Products"
 
-            selected_product = mobile_selected_product
+        mobile_product_index = (
+            mobile_product_options.index(current_mobile_product)
+            if current_mobile_product in mobile_product_options
+            else 0
+        )
+
+        mobile_selected_product = st.selectbox(
+            "Product Search",
+            options=mobile_product_options,
+            index=mobile_product_index,
+            key="p2_mobile_product_filter",
+        )
+
+        # -----------------------------
+        # Update central state from mobile filters ONLY when mobile changes
+        # First render stores payload only; it does not overwrite desktop state.
+        # -----------------------------
+        mobile_filter_payload = {
+            "start_date": mobile_start_date,
+            "end_date": mobile_end_date,
+            "division": mobile_selected_division,
+            "product": mobile_selected_product,
+            "margin_threshold": int(mobile_margin_threshold),
+        }
+
+        mobile_previous_payload = st.session_state.get("_p2_mobile_filter_payload")
+
+        if mobile_previous_payload is None:
+            st.session_state["_p2_mobile_filter_payload"] = mobile_filter_payload
+
+        elif mobile_filter_payload != mobile_previous_payload:
+            st.session_state["p2_active_filter_source"] = "mobile"
+            st.session_state["p2_final_start_date"] = mobile_filter_payload["start_date"]
+            st.session_state["p2_final_end_date"] = mobile_filter_payload["end_date"]
+            st.session_state["p2_final_division"] = mobile_filter_payload["division"]
+            st.session_state["p2_final_product"] = mobile_filter_payload["product"]
+            st.session_state["p2_final_margin_threshold"] = mobile_filter_payload["margin_threshold"]
+
+            st.session_state["_p2_mobile_filter_payload"] = mobile_filter_payload
+
         else:
-            selected_product = "All Products"
-            st.info("No products available for the selected date/division filters.")
+            st.session_state["_p2_mobile_filter_payload"] = mobile_filter_payload
+
+
+# =========================================================
+# FINAL FILTER VARIABLES
+# Single source of truth for KPI, charts, tables, tabs, and insights
+# =========================================================
+start_date = st.session_state["p2_final_start_date"]
+end_date = st.session_state["p2_final_end_date"]
+selected_division = st.session_state["p2_final_division"]
+selected_product = st.session_state["p2_final_product"]
+margin_threshold = st.session_state["p2_final_margin_threshold"]
+
+
+# =========================================================
+# STEP 5 — PROJECT 2 FINAL FILTER STATE STABILITY GUARD
+# Prevents invalid filter state after desktop/mobile switching
+# =========================================================
+
+# Date safety
+start_date, end_date = p2_clamp_date_range(start_date, end_date)
+st.session_state["p2_final_start_date"] = start_date
+st.session_state["p2_final_end_date"] = end_date
+
+# Division safety based on selected date range
+valid_division_options = p2_get_division_options(
+    start_date,
+    end_date,
+)
+
+if selected_division not in valid_division_options:
+    selected_division = "All Divisions"
+    st.session_state["p2_final_division"] = selected_division
+
+# Product safety based on selected date range + division
+valid_product_options = p2_get_product_options(
+    start_date,
+    end_date,
+    selected_division,
+)
+
+if selected_product not in valid_product_options:
+    selected_product = "All Products"
+    st.session_state["p2_final_product"] = selected_product
+
+# Margin threshold safety
+try:
+    margin_threshold = int(margin_threshold)
+except Exception:
+    margin_threshold = 30
+
+margin_threshold = max(0, min(100, margin_threshold))
+st.session_state["p2_final_margin_threshold"] = margin_threshold
+
+# Final scoped dataframes for existing FILTER DATA section
+date_filtered_df = p2_get_date_filtered_df(
+    start_date,
+    end_date,
+)
+
+division_filtered_df = p2_get_division_filtered_df(
+    start_date,
+    end_date,
+    selected_division,
+)
 
 # =========================================================
 # FILTER DATA
