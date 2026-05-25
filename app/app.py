@@ -1902,7 +1902,7 @@ with tab_product:
         with chart_col_2:
             st.markdown("#### Profit Contribution Share")
             st.caption(
-                "Profit contribution mix across visible products, showing how total filtered profit is distributed across the portfolio. This view helps separate core profit drivers from long-tail products, making it easier to understand whether profitability is well-balanced or concentrated in only a few items. Long-tail products are grouped only when needed to keep the chart clean and readable."
+                "Profit contribution mix across visible products, showing how total filtered profit is distributed across the portfolio. This view helps separate core profit drivers from long-tail products, making it easier to understand whether profitability is well-balanced or concentrated in only a few items."
             )
             st.caption(get_donut_context_caption(single_product_view))
 
