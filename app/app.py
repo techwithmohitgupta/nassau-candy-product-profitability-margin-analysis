@@ -9,10 +9,10 @@ from pathlib import Path
 # PAGE CONFIG
 # =========================================================
 st.set_page_config(
-    page_title="Nassau Candy Profitability Console",
+    page_title="Product Line Profitability & Margin Performance Analysis",
     page_icon="🍬",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="auto",
 )
 
 # =========================================================
