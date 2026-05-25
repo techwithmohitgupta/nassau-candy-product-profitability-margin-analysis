@@ -616,7 +616,7 @@ def get_donut_text_template(single_product_view: bool) -> str:
 def get_donut_context_caption(single_product_view: bool) -> str:
     if single_product_view:
         return "Selected product vs remaining filtered portfolio."
-    return "Profit contribution mix across visible products. Long-tail products are grouped only when needed."
+    return ""
 
 
 def build_donut_legend_label(product_name: str, single_product_view: bool) -> str:
