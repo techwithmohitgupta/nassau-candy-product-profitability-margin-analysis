@@ -4,6 +4,7 @@ import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
 from pathlib import Path
+from PIL import Image, ImageChops
 
 # =========================================================
 # PAGE CONFIG
@@ -24,7 +25,12 @@ DATA_DIR = BASE_DIR.parent / "data" / "processed"
 
 CSS_FILE = ASSETS_DIR / "nc_dashboard.css"
 NASSAU_LOGO = ASSETS_DIR / "nassau_candy.png"
+NASSAU_LOGO_TRIMMED = ASSETS_DIR / "nassau_candy_trimmed.png"
 UNIFIED_LOGO = ASSETS_DIR / "unified_mentor.png"
+
+DISPLAY_NASSAU_LOGO = (
+    NASSAU_LOGO_TRIMMED if NASSAU_LOGO_TRIMMED.exists() else NASSAU_LOGO
+)
 
 # =========================================================
 # DASHBOARD DATA FILE REGISTRY
@@ -61,6 +67,50 @@ def load_css(css_path: Path) -> None:
 
 
 load_css(CSS_FILE)
+
+# =========================================================
+# LOGO IMAGE TRIM HELPER
+# Fixes visual off-center logo caused by extra whitespace in PNG canvas.
+# =========================================================
+@st.cache_data(show_spinner=False)
+def get_trimmed_logo_path(logo_path: str) -> str:
+    source_path = Path(logo_path)
+
+    if not source_path.exists():
+        return str(source_path)
+
+    output_path = source_path.with_name(f"{source_path.stem}_trimmed.png")
+
+    if output_path.exists():
+        return str(output_path)
+
+    image = Image.open(source_path).convert("RGBA")
+
+    # Trim transparent whitespace first
+    alpha = image.split()[-1]
+    bbox = alpha.getbbox()
+
+    if bbox:
+        cropped = image.crop(bbox)
+    else:
+        # Fallback for non-transparent white/cream background images
+        bg = Image.new(image.mode, image.size, image.getpixel((0, 0)))
+        diff = ImageChops.difference(image, bg)
+        bbox = diff.getbbox()
+        cropped = image.crop(bbox) if bbox else image
+
+    # Add balanced padding after crop
+    pad_x = 28
+    pad_y = 14
+    final_img = Image.new(
+        "RGBA",
+        (cropped.width + pad_x * 2, cropped.height + pad_y * 2),
+        (255, 255, 255, 0),
+    )
+    final_img.paste(cropped, (pad_x, pad_y), cropped)
+
+    final_img.save(output_path)
+    return str(output_path)
 
 # =========================================================
 # HELPER FUNCTIONS
@@ -817,25 +867,22 @@ if not profit_col and sales_col and cost_col:
     main_df["Calculated Profit"] = main_df[sales_col] - main_df[cost_col]
     profit_col = "Calculated Profit"
 
-# =========================================================
-# SIDEBAR — DYNAMIC FILTERS WITH DEPENDENT PRODUCT SEARCH
-# STEP 7B: Sidebar Final Premium Polish
-# Safe mode: sidebar structure/wording only. Filter logic unchanged.
-# =========================================================
 with st.sidebar:
-    with st.container(key="sidebar_brand_zone"):
-        with st.container(key="sidebar_logo_block"):
-            if UNIFIED_LOGO.exists():
-                st.image(str(UNIFIED_LOGO), use_container_width=True)
-            else:
-                st.markdown("**Unified Mentor**")
+    # =========================================================
+    # SIDEBAR TOP BRAND AREA
+    # Clean structure: logo without card + compact project context
+    # =========================================================
+    with st.container(key="sidebar_top_brand"):
+        if UNIFIED_LOGO.exists():
+            st.image(str(UNIFIED_LOGO), width=220)
+        else:
+            st.markdown("### Unified Mentor")
 
-        with st.container(key="sidebar_project_text"):
-            st.markdown("**Nassau Candy Profitability Console**")
-            st.caption(
-                "Product margin intelligence for cost efficiency, contribution mix, and concentration risk."
-            )
-
+    with st.container(key="sidebar_project_summary"):
+        st.markdown("**Nassau Candy Profitability Margin Performance Analysis Dashboard**")
+        st.caption(
+            "Product margin intelligence for cost efficiency, contribution mix, and concentration risk."
+        )
     st.divider()
 
     with st.container(key="sidebar_filter_header"):
@@ -1545,25 +1592,34 @@ profit_concentration_df = build_profit_concentration_summary(
 )
 
 # =========================================================
-# HEADER — SEPARATE SECTION
+# HEADER / HERO SECTION
+# Desktop and mobile separated for stable responsive layout
 # =========================================================
-with st.container(border=True, key="header_card"):
-    header_gap, header_logo_col, header_title_col = st.columns(
-        [0.22, 1.55, 8.23],
-        vertical_alignment="center",
-    )
 
-    with header_gap:
-        st.write("")
+# Desktop Header
+with st.container(key="desktop_header_card"):
+    header_logo_col, header_title_col = st.columns([0.24, 0.76], vertical_alignment="center")
 
     with header_logo_col:
         if NASSAU_LOGO.exists():
-            st.image(str(NASSAU_LOGO), use_container_width=True)
+            trimmed_nassau_logo = get_trimmed_logo_path(str(NASSAU_LOGO))
+            st.image(trimmed_nassau_logo, width=230)
         else:
-            st.write("🍬")
+            st.markdown("### Nassau Candy")
 
     with header_title_col:
-        st.markdown("### Product Line Profitability & Margin Performance Analysis")
+        st.markdown("## Product Line Profitability & Margin Performance Analysis")
+
+
+# Mobile Header
+with st.container(key="mobile_header_card"):
+    if NASSAU_LOGO.exists():
+        trimmed_nassau_logo = get_trimmed_logo_path(str(NASSAU_LOGO))
+        st.image(trimmed_nassau_logo, width=235)
+    else:
+        st.markdown("### Nassau Candy")
+
+    st.markdown("## Product Line Profitability & Margin Performance Analysis")
 
 # =========================================================
 # STEP 5A — FINAL EXECUTIVE INTRO

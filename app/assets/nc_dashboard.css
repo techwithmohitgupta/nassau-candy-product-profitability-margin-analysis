@@ -830,3 +830,2072 @@ hr {
         background: rgba(255, 255, 255, 0.68) !important;
     }
 }
+
+/* =========================================================
+   STEP 4A — GLOBAL NASSAU CANDY PREMIUM THEME FOUNDATION
+   Scope: Desktop + Mobile
+   Safe: Theme tokens, background, typography, base clarity
+========================================================= */
+
+:root {
+    /* Core Nassau Candy executive palette */
+    --nc-bg-main: #f7efe3;
+    --nc-bg-soft: #fffaf1;
+    --nc-bg-mint: #edf8f5;
+
+    --nc-card: #ffffff;
+    --nc-card-warm: #fff9ed;
+    --nc-card-cream: #fdf3dc;
+
+    --nc-navy: #1f2a44;
+    --nc-navy-deep: #152033;
+    --nc-slate: #657386;
+    --nc-soft-text: #7b6a55;
+
+    --nc-gold: #d8ad4f;
+    --nc-gold-soft: #f0d48a;
+    --nc-caramel: #b9895f;
+    --nc-coral: #ff806d;
+    --nc-teal: #0f8b72;
+    --nc-mint: #8bd8cf;
+
+    --nc-border: rgba(31, 42, 68, 0.12);
+    --nc-border-warm: rgba(184, 149, 91, 0.22);
+    --nc-border-soft: rgba(31, 42, 68, 0.08);
+
+    --nc-shadow-xs: 0 6px 16px rgba(31, 42, 68, 0.06);
+    --nc-shadow-sm: 0 10px 24px rgba(31, 42, 68, 0.08);
+    --nc-shadow-md: 0 16px 38px rgba(31, 42, 68, 0.11);
+    --nc-shadow-warm: 0 16px 34px rgba(184, 149, 91, 0.14);
+}
+
+/* Full app premium warm background */
+.stApp {
+    background:
+        radial-gradient(circle at 0% 0%, rgba(255, 128, 109, 0.10), transparent 28%),
+        radial-gradient(circle at 100% 0%, rgba(216, 173, 79, 0.15), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(139, 216, 207, 0.14), transparent 34%),
+        linear-gradient(135deg, #f8efe2 0%, #edf8f5 46%, #fffaf1 100%) !important;
+    color: var(--nc-navy) !important;
+}
+
+/* Main content area */
+[data-testid="stAppViewContainer"] {
+    background: transparent !important;
+}
+
+main .block-container {
+    color: var(--nc-navy) !important;
+}
+
+/* Base text clarity */
+html,
+body,
+.stApp,
+.stMarkdown,
+[data-testid="stMarkdownContainer"],
+p,
+li,
+span,
+label {
+    color: var(--nc-navy) !important;
+    -webkit-font-smoothing: antialiased !important;
+    text-rendering: optimizeLegibility !important;
+}
+
+/* Strong headings */
+h1,
+h2,
+h3,
+h4,
+.stMarkdown h1,
+.stMarkdown h2,
+.stMarkdown h3,
+.stMarkdown h4 {
+    color: var(--nc-navy-deep) !important;
+    letter-spacing: -0.35px !important;
+}
+
+/* Captions / subtitles */
+[data-testid="stCaptionContainer"],
+.stCaptionContainer,
+small {
+    color: var(--nc-slate) !important;
+}
+
+/* Dividers */
+hr {
+    border: none !important;
+    height: 1px !important;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(184, 149, 91, 0.24) 18%,
+        rgba(31, 42, 68, 0.12) 50%,
+        rgba(15, 139, 114, 0.18) 82%,
+        transparent 100%
+    ) !important;
+    margin: 1.6rem 0 !important;
+}
+
+/* Premium selection color */
+::selection {
+    background: rgba(216, 173, 79, 0.35) !important;
+    color: var(--nc-navy-deep) !important;
+}
+
+/* Prevent horizontal overflow */
+html,
+body,
+.stApp,
+[data-testid="stAppViewContainer"] {
+    overflow-x: hidden !important;
+}
+
+/* Performance-safe transitions */
+.st-key-header_card,
+.st-key-sidebar_brand_zone,
+.st-key-sidebar_logo_block,
+.st-key-sidebar_project_text,
+.st-key-sidebar_filter_header,
+.st-key-sidebar_filter_controls,
+[data-testid="stMetric"],
+[data-testid="stPlotlyChart"],
+[data-testid="stDataFrame"],
+[data-testid="stAlert"],
+.stTabs [data-baseweb="tab"] {
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease,
+        background-color 0.22s ease !important;
+}
+
+/* Gentle hover only for pointer devices */
+@media (hover: hover) and (pointer: fine) {
+    [data-testid="stMetric"]:hover,
+    [data-testid="stPlotlyChart"]:hover,
+    [data-testid="stDataFrame"]:hover,
+    [data-testid="stAlert"]:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: var(--nc-shadow-md) !important;
+    }
+}
+
+/* Mobile base theme protection */
+@media (max-width: 600px) {
+    .stApp {
+        background:
+            radial-gradient(circle at 0% 0%, rgba(255, 128, 109, 0.10), transparent 30%),
+            radial-gradient(circle at 100% 0%, rgba(216, 173, 79, 0.18), transparent 32%),
+            linear-gradient(135deg, #f8efe2 0%, #edf8f5 52%, #fffaf1 100%) !important;
+    }
+
+    main .block-container {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}
+
+/* =========================================================
+   STEP 4B + 4C — VISIBLE NASSAU CANDY THEME UPGRADE
+   Scope: Desktop + Mobile
+   Targets: Sidebar, Header, KPI cards, Risk cards
+========================================================= */
+
+/* =========================
+   SIDEBAR PREMIUM WARM THEME
+========================= */
+
+section[data-testid="stSidebar"] {
+    background:
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.92), transparent 34%),
+        radial-gradient(circle at 100% 0%, rgba(216, 173, 79, 0.16), transparent 36%),
+        linear-gradient(180deg, #fffaf1 0%, #eef8f5 52%, #f8efd9 100%) !important;
+    border-right: 1px solid rgba(184, 149, 91, 0.24) !important;
+    box-shadow: 14px 0 38px rgba(31, 42, 68, 0.08) !important;
+}
+
+section[data-testid="stSidebar"] > div {
+    padding: 1.45rem 1.25rem 2rem 1.25rem !important;
+}
+
+/* Sidebar logo card */
+.st-key-sidebar_logo_block,
+section[data-testid="stSidebar"] [data-testid="stImage"] {
+    background:
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,250,238,0.90)) !important;
+    border: 1px solid rgba(184, 149, 91, 0.20) !important;
+    border-radius: 22px !important;
+    padding: 0.9rem !important;
+    box-shadow:
+        0 14px 28px rgba(31, 42, 68, 0.09),
+        inset 0 1px 0 rgba(255,255,255,0.85) !important;
+}
+
+/* Sidebar project intro */
+.st-key-sidebar_project_text {
+    background:
+        linear-gradient(135deg, rgba(255,255,255,0.96), rgba(255,250,238,0.90)) !important;
+    border: 1px solid rgba(184, 149, 91, 0.18) !important;
+    border-left: 5px solid #d8ad4f !important;
+    border-radius: 18px !important;
+    padding: 0.9rem 0.95rem !important;
+    box-shadow: 0 12px 24px rgba(31, 42, 68, 0.07) !important;
+}
+
+.st-key-sidebar_project_text p,
+.st-key-sidebar_project_text [data-testid="stCaptionContainer"] {
+    color: #536275 !important;
+}
+
+.st-key-sidebar_project_text strong,
+.st-key-sidebar_project_text b {
+    color: #1f2a44 !important;
+    font-weight: 900 !important;
+}
+
+/* Sidebar filter heading */
+.st-key-sidebar_filter_header {
+    padding-top: 0.25rem !important;
+}
+
+.st-key-sidebar_filter_header h3 {
+    color: #1f2a44 !important;
+    font-size: 1.45rem !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    margin-bottom: 0.35rem !important;
+}
+
+.st-key-sidebar_filter_header [data-testid="stCaptionContainer"] {
+    color: #6d7a8b !important;
+    font-size: 0.84rem !important;
+    line-height: 1.45 !important;
+}
+
+/* Sidebar labels + controls */
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {
+    color: #24324a !important;
+    font-size: 0.86rem !important;
+    font-weight: 850 !important;
+}
+
+section[data-testid="stSidebar"] input,
+section[data-testid="stSidebar"] [data-baseweb="select"] > div {
+    min-height: 46px !important;
+    border-radius: 15px !important;
+    border: 1px solid rgba(31, 42, 68, 0.13) !important;
+    background:
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(248,251,252,0.92)) !important;
+    color: #24324a !important;
+    box-shadow:
+        0 8px 18px rgba(31, 42, 68, 0.06),
+        inset 0 1px 0 rgba(255,255,255,0.82) !important;
+}
+
+section[data-testid="stSidebar"] input:focus,
+section[data-testid="stSidebar"] [data-baseweb="select"] > div:focus-within {
+    border-color: rgba(216, 173, 79, 0.80) !important;
+    box-shadow:
+        0 0 0 4px rgba(216, 173, 79, 0.16),
+        0 10px 22px rgba(31, 42, 68, 0.09) !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stSlider"] [role="slider"] {
+    background: #ff806d !important;
+    border: 3px solid #ffffff !important;
+    box-shadow:
+        0 0 0 5px rgba(255, 128, 109, 0.18),
+        0 8px 18px rgba(255, 128, 109, 0.30) !important;
+}
+
+/* =========================
+   SECTION HEADINGS
+========================= */
+
+main h1,
+main h2,
+main h3 {
+    color: #182236 !important;
+}
+
+main h2,
+main h3 {
+    text-shadow: 0 1px 0 rgba(255,255,255,0.7) !important;
+}
+
+/* Add stronger heading underline feel */
+main [data-testid="stMarkdownContainer"] h2::after,
+main [data-testid="stMarkdownContainer"] h3::after {
+    content: "" !important;
+    display: block !important;
+    width: 120px !important;
+    height: 4px !important;
+    margin-top: 0.45rem !important;
+    border-radius: 999px !important;
+    background: linear-gradient(90deg, #ff806d 0%, #d8ad4f 55%, #0f8b72 100%) !important;
+}
+
+/* =========================
+   KPI CARDS PREMIUM
+========================= */
+
+[data-testid="stMetric"] {
+    position: relative !important;
+    overflow: hidden !important;
+    border-radius: 22px !important;
+    border: 1px solid rgba(184, 149, 91, 0.18) !important;
+    border-top: 5px solid #1f2a44 !important;
+    background:
+        radial-gradient(circle at 100% 0%, rgba(216,173,79,0.12), transparent 36%),
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,250,238,0.92)) !important;
+    box-shadow:
+        0 15px 32px rgba(31,42,68,0.10),
+        inset 0 1px 0 rgba(255,255,255,0.85) !important;
+    padding: 1rem 1.05rem !important;
+}
+
+[data-testid="stMetric"]::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 68px !important;
+    height: 68px !important;
+    background: radial-gradient(circle, rgba(216,173,79,0.22), transparent 68%) !important;
+    pointer-events: none !important;
+}
+
+[data-testid="stMetric"]:hover {
+    border-top-color: #d8ad4f !important;
+}
+
+[data-testid="stMetricLabel"] p {
+    color: #536275 !important;
+    font-weight: 850 !important;
+}
+
+[data-testid="stMetricValue"] {
+    color: #182236 !important;
+    font-weight: 950 !important;
+    letter-spacing: -0.055em !important;
+}
+
+[data-testid="stMetricDelta"] {
+    width: fit-content !important;
+    border-radius: 999px !important;
+    padding: 0.18rem 0.5rem !important;
+    background: rgba(15, 139, 114, 0.10) !important;
+    color: #0d6f5d !important;
+    font-weight: 850 !important;
+}
+
+/* Risk monitor cards get coral top line */
+main hr + div [data-testid="stMetric"],
+main [data-testid="stMetric"]:has([data-testid="stMetricLabel"] p) {
+    box-shadow:
+        0 15px 32px rgba(31,42,68,0.10),
+        inset 0 1px 0 rgba(255,255,255,0.85) !important;
+}
+
+/* =========================
+   CHART / TABLE BASE PREMIUM
+========================= */
+
+[data-testid="stPlotlyChart"],
+[data-testid="stDataFrame"] {
+    border-radius: 24px !important;
+    border: 1px solid rgba(184, 149, 91, 0.18) !important;
+    background:
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,250,238,0.90)) !important;
+    box-shadow:
+        0 16px 36px rgba(31,42,68,0.10),
+        inset 0 1px 0 rgba(255,255,255,0.85) !important;
+    overflow: hidden !important;
+}
+
+/* =========================
+   MOBILE OVERRIDES
+========================= */
+
+@media (max-width: 600px) {
+    .st-key-header_card {
+        margin-top: 0.7rem !important;
+        padding: 1rem 0.9rem 1.05rem 0.9rem !important;
+        border-radius: 24px !important;
+    }
+
+    .st-key-header_card img {
+        max-width: 245px !important;
+        margin: 0 auto 0.7rem auto !important;
+        display: block !important;
+    }
+
+    .st-key-header_card h1,
+    .st-key-header_card h2,
+    .st-key-header_card h3 {
+        font-size: clamp(1.45rem, 7vw, 2.05rem) !important;
+        line-height: 1.08 !important;
+        text-align: center !important;
+    }
+
+    [data-testid="stMetric"] {
+        min-height: 130px !important;
+        margin-bottom: 0.85rem !important;
+    }
+
+    [data-testid="stMetricValue"] {
+        font-size: clamp(1.9rem, 8vw, 2.45rem) !important;
+    }
+
+    main [data-testid="stMarkdownContainer"] h2::after,
+    main [data-testid="stMarkdownContainer"] h3::after {
+        width: 92px !important;
+        height: 3px !important;
+    }
+}
+
+/* =========================================================
+   STEP 4A-FIX — REMOVE GOLDEN PATCHES / CLEAN PREMIUM THEME
+   Scope: Desktop + Mobile
+   Goal: Remove radial golden stains and keep clean warm theme
+========================================================= */
+
+/* Clean app background without patchy radial spots */
+.stApp {
+    background:
+        linear-gradient(135deg, #f8f1e8 0%, #eef8f6 48%, #fffaf2 100%) !important;
+}
+
+/* Clean sidebar background */
+section[data-testid="stSidebar"] {
+    background:
+        linear-gradient(180deg, #fffaf2 0%, #f4efe5 48%, #edf8f6 100%) !important;
+    border-right: 1px solid rgba(184, 149, 91, 0.18) !important;
+    box-shadow: 10px 0 30px rgba(31, 42, 68, 0.06) !important;
+}
+
+/* Remove patchy radial gradients from all major dashboard cards */
+.st-key-header_card,
+.st-key-sidebar_logo_block,
+.st-key-sidebar_project_text,
+[data-testid="stMetric"],
+[data-testid="stPlotlyChart"],
+[data-testid="stDataFrame"],
+[data-testid="stAlert"] {
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 250, 240, 0.92)) !important;
+}
+
+/* KPI cards clean ivory look */
+[data-testid="stMetric"] {
+    border-radius: 22px !important;
+    border: 1px solid rgba(184, 149, 91, 0.16) !important;
+    border-top: 5px solid #1f2a44 !important;
+    box-shadow:
+        0 12px 28px rgba(31, 42, 68, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.86) !important;
+}
+
+/* Remove decorative yellow circle from metrics */
+[data-testid="stMetric"]::before,
+[data-testid="stMetric"]::after {
+    display: none !important;
+    content: none !important;
+}
+
+/* Risk cards can keep coral top border but no patchy bg */
+[data-testid="stMetric"]:hover {
+    border-top-color: #d8ad4f !important;
+    box-shadow:
+        0 16px 34px rgba(31, 42, 68, 0.11),
+        inset 0 1px 0 rgba(255, 255, 255, 0.86) !important;
+}
+
+/* Sidebar logo/project cards clean */
+.st-key-sidebar_logo_block,
+section[data-testid="stSidebar"] [data-testid="stImage"],
+.st-key-sidebar_project_text {
+    background: rgba(255, 255, 255, 0.88) !important;
+    border: 1px solid rgba(184, 149, 91, 0.16) !important;
+    box-shadow: 0 10px 22px rgba(31, 42, 68, 0.06) !important;
+}
+
+/* Main description / green info card clean */
+main [data-testid="stMarkdownContainer"] {
+    background-image: none !important;
+}
+
+/* Chart/table clean white warm shell */
+[data-testid="stPlotlyChart"],
+[data-testid="stDataFrame"] {
+    background: rgba(255, 255, 255, 0.94) !important;
+    border: 1px solid rgba(184, 149, 91, 0.14) !important;
+    box-shadow: 0 14px 30px rgba(31, 42, 68, 0.08) !important;
+}
+
+/* Mobile clean protection */
+@media (max-width: 600px) {
+    .stApp {
+        background:
+            linear-gradient(135deg, #f8f1e8 0%, #eef8f6 52%, #fffaf2 100%) !important;
+    }
+
+    .st-key-header_card,
+    [data-testid="stMetric"],
+    [data-testid="stPlotlyChart"],
+    [data-testid="stDataFrame"],
+    [data-testid="stAlert"] {
+        background:
+            linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 250, 240, 0.92)) !important;
+    }
+}
+
+/* =========================================================
+   STEP 4B-FINAL — SIDEBAR CLEAN PREMIUM REBUILD
+   Scope: Desktop + Mobile sidebar styling
+   Goal: No logo card, clean premium sidebar layout
+========================================================= */
+
+/* Main sidebar shell */
+section[data-testid="stSidebar"] {
+    background:
+        linear-gradient(180deg, #fffaf2 0%, #f7efe3 46%, #edf8f6 100%) !important;
+    border-right: 1px solid rgba(31, 42, 68, 0.10) !important;
+    box-shadow: 10px 0 28px rgba(31, 42, 68, 0.055) !important;
+}
+
+/* Sidebar inner spacing */
+section[data-testid="stSidebar"] > div {
+    padding: 1.45rem 1.15rem 2rem 1.15rem !important;
+}
+
+/* Remove old heavy logo card look */
+.st-key-sidebar_logo_block,
+section[data-testid="stSidebar"] [data-testid="stImage"] {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Logo clean top fit */
+.st-key-sidebar_logo_block img,
+section[data-testid="stSidebar"] [data-testid="stImage"] img {
+    width: 100% !important;
+    max-width: 220px !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0.35rem auto 1.25rem auto !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 8px 16px rgba(31, 42, 68, 0.10)) !important;
+}
+
+/* Brand zone as clean top area, not a card */
+.st-key-sidebar_brand_zone {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 0 1.15rem 0 !important;
+}
+
+/* Project intro card: clean, compact, premium */
+.st-key-sidebar_project_text {
+    position: relative !important;
+    background:
+        linear-gradient(135deg, rgba(255,255,255,0.94), rgba(255,250,240,0.86)) !important;
+    border: 1px solid rgba(184, 149, 91, 0.16) !important;
+    border-left: 4px solid #d8ad4f !important;
+    border-radius: 18px !important;
+    padding: 0.9rem 0.95rem !important;
+    margin: 0.2rem 0 1rem 0 !important;
+    box-shadow: 0 10px 22px rgba(31, 42, 68, 0.055) !important;
+}
+
+/* Project title */
+.st-key-sidebar_project_text p:first-child,
+.st-key-sidebar_project_text strong,
+.st-key-sidebar_project_text b {
+    color: #1f2a44 !important;
+    font-size: 0.95rem !important;
+    font-weight: 900 !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.1px !important;
+}
+
+/* Project caption */
+.st-key-sidebar_project_text [data-testid="stCaptionContainer"],
+.st-key-sidebar_project_text p {
+    color: #647386 !important;
+    font-size: 0.82rem !important;
+    line-height: 1.45 !important;
+}
+
+/* Divider inside sidebar */
+section[data-testid="stSidebar"] hr {
+    height: 1px !important;
+    border: none !important;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(184, 149, 91, 0.26) 22%,
+        rgba(31, 42, 68, 0.12) 55%,
+        transparent 100%
+    ) !important;
+    margin: 1.15rem 0 1.2rem 0 !important;
+}
+
+/* Filters heading block */
+.st-key-sidebar_filter_header {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 0 0.8rem 0 !important;
+}
+
+/* FILTERS title */
+.st-key-sidebar_filter_header h3,
+.st-key-sidebar_filter_header [data-testid="stMarkdownContainer"] h3 {
+    color: #182236 !important;
+    font-size: 1.45rem !important;
+    font-weight: 950 !important;
+    line-height: 1 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    margin: 0 0 0.55rem 0 !important;
+}
+
+/* Small premium underline under filters */
+.st-key-sidebar_filter_header h3::after,
+.st-key-sidebar_filter_header [data-testid="stMarkdownContainer"] h3::after {
+    content: "" !important;
+    display: block !important;
+    width: 64px !important;
+    height: 4px !important;
+    border-radius: 999px !important;
+    margin-top: 0.55rem !important;
+    background: linear-gradient(90deg, #ff806d 0%, #d8ad4f 55%, #0f8b72 100%) !important;
+}
+
+/* Filters description */
+.st-key-sidebar_filter_header [data-testid="stCaptionContainer"] {
+    color: #6a788a !important;
+    font-size: 0.82rem !important;
+    line-height: 1.48 !important;
+    margin-top: 0.2rem !important;
+}
+
+/* Filter controls wrapper */
+.st-key-sidebar_filter_controls {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+/* Labels */
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {
+    color: #24324a !important;
+    font-size: 0.83rem !important;
+    font-weight: 850 !important;
+    letter-spacing: -0.02em !important;
+    margin-bottom: 0.25rem !important;
+}
+
+/* Inputs and select boxes */
+section[data-testid="stSidebar"] input,
+section[data-testid="stSidebar"] [data-baseweb="select"] > div {
+    min-height: 46px !important;
+    border-radius: 15px !important;
+    border: 1px solid rgba(31, 42, 68, 0.12) !important;
+    background:
+        linear-gradient(135deg, rgba(255,255,255,0.96), rgba(249,251,252,0.92)) !important;
+    color: #24324a !important;
+    box-shadow:
+        0 7px 16px rgba(31, 42, 68, 0.045),
+        inset 0 1px 0 rgba(255,255,255,0.88) !important;
+}
+
+/* Input/select text */
+section[data-testid="stSidebar"] input,
+section[data-testid="stSidebar"] [data-baseweb="select"] span {
+    color: #24324a !important;
+    font-size: 0.92rem !important;
+    font-weight: 650 !important;
+}
+
+/* Focus state */
+section[data-testid="stSidebar"] input:focus,
+section[data-testid="stSidebar"] [data-baseweb="select"] > div:focus-within {
+    border-color: rgba(216, 173, 79, 0.80) !important;
+    box-shadow:
+        0 0 0 4px rgba(216, 173, 79, 0.14),
+        0 10px 22px rgba(31, 42, 68, 0.07) !important;
+}
+
+/* Select dropdown arrow */
+section[data-testid="stSidebar"] [data-baseweb="select"] svg {
+    color: #24324a !important;
+    fill: #24324a !important;
+}
+
+/* Better spacing between widgets */
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
+    gap: 0.55rem !important;
+}
+
+/* Slider block spacing */
+section[data-testid="stSidebar"] [data-testid="stSlider"] {
+    padding: 0.1rem 0 0.7rem 0 !important;
+}
+
+/* Slider track */
+section[data-testid="stSidebar"] [data-testid="stSlider"] div[data-baseweb="slider"] > div {
+    color: #ff806d !important;
+}
+
+/* Slider thumb */
+section[data-testid="stSidebar"] [data-testid="stSlider"] [role="slider"] {
+    width: 16px !important;
+    height: 16px !important;
+    background: #ff806d !important;
+    border: 3px solid #ffffff !important;
+    box-shadow:
+        0 0 0 4px rgba(255, 128, 109, 0.16),
+        0 7px 16px rgba(255, 128, 109, 0.32) !important;
+}
+
+/* Slider value text */
+section[data-testid="stSidebar"] [data-testid="stSlider"] div {
+    color: #24324a !important;
+    font-weight: 750 !important;
+}
+
+/* Sidebar footer note */
+.st-key-sidebar_footer_note {
+    margin-top: 1.1rem !important;
+    padding: 0.85rem 0.9rem !important;
+    border-radius: 16px !important;
+    background: rgba(255,255,255,0.62) !important;
+    border: 1px solid rgba(184,149,91,0.13) !important;
+    box-shadow: 0 8px 18px rgba(31,42,68,0.045) !important;
+}
+
+.st-key-sidebar_footer_note [data-testid="stCaptionContainer"] {
+    color: #6a788a !important;
+    font-size: 0.76rem !important;
+    line-height: 1.35 !important;
+}
+
+/* Sidebar hover polish */
+@media (hover: hover) and (pointer: fine) {
+    .st-key-sidebar_project_text:hover,
+    section[data-testid="stSidebar"] input:hover,
+    section[data-testid="stSidebar"] [data-baseweb="select"] > div:hover {
+        border-color: rgba(216, 173, 79, 0.34) !important;
+        box-shadow: 0 10px 22px rgba(31,42,68,0.07) !important;
+    }
+}
+
+/* Mobile sidebar/input protection if sidebar appears in any viewport */
+@media (max-width: 600px) {
+    section[data-testid="stSidebar"] {
+        background:
+            linear-gradient(180deg, #fffaf2 0%, #f7efe3 46%, #edf8f6 100%) !important;
+    }
+
+    section[data-testid="stSidebar"] > div {
+        padding: 1.2rem 1rem 2rem 1rem !important;
+    }
+
+    .st-key-sidebar_logo_block img,
+    section[data-testid="stSidebar"] [data-testid="stImage"] img {
+        max-width: 210px !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .st-key-sidebar_project_text {
+        border-radius: 17px !important;
+        padding: 0.85rem 0.9rem !important;
+    }
+
+    section[data-testid="stSidebar"] input,
+    section[data-testid="stSidebar"] [data-baseweb="select"] > div {
+        min-height: 48px !important;
+    }
+}
+
+/* =========================================================
+   SIDEBAR PROJECT TITLE + SUBTITLE FINAL POLISH
+   Target: Logo ke neeche project info card
+========================================================= */
+
+/* Project info card below Unified Mentor logo */
+.st-key-sidebar_project_text {
+    position: relative !important;
+    margin: 0.15rem 0 1.15rem 0 !important;
+    padding: 1rem 1rem 1.05rem 1rem !important;
+
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 250, 240, 0.90)) !important;
+
+    border: 1px solid rgba(184, 149, 91, 0.16) !important;
+    border-left: 5px solid #d8ad4f !important;
+    border-radius: 18px !important;
+
+    box-shadow:
+        0 10px 22px rgba(31, 42, 68, 0.055),
+        inset 0 1px 0 rgba(255, 255, 255, 0.80) !important;
+
+    overflow: hidden !important;
+}
+
+/* Small clean accent glow line */
+.st-key-sidebar_project_text::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 3px !important;
+    background: linear-gradient(90deg, #d8ad4f 0%, #0f8b72 100%) !important;
+    opacity: 0.85 !important;
+}
+
+/* Main title text */
+.st-key-sidebar_project_text [data-testid="stMarkdownContainer"] p,
+.st-key-sidebar_project_text p {
+    margin: 0 !important;
+}
+
+/* Bold project title */
+.st-key-sidebar_project_text strong,
+.st-key-sidebar_project_text b {
+    display: block !important;
+    color: #182236 !important;
+    font-size: 0.98rem !important;
+    font-weight: 950 !important;
+    line-height: 1.18 !important;
+    letter-spacing: -0.18px !important;
+    margin: 0 0 0.45rem 0 !important;
+}
+
+/* Caption/subtitle */
+.st-key-sidebar_project_text [data-testid="stCaptionContainer"] {
+    color: #647386 !important;
+    font-size: 0.80rem !important;
+    font-weight: 600 !important;
+    line-height: 1.48 !important;
+    letter-spacing: -0.02px !important;
+    margin: 0 !important;
+}
+
+/* Caption paragraph control */
+.st-key-sidebar_project_text [data-testid="stCaptionContainer"] p {
+    color: #647386 !important;
+    font-size: 0.80rem !important;
+    font-weight: 600 !important;
+    line-height: 1.48 !important;
+    margin: 0 !important;
+}
+
+/* Remove unwanted heavy wrapping effect */
+.st-key-sidebar_project_text * {
+    text-shadow: none !important;
+}
+
+/* Hover polish on desktop only */
+@media (hover: hover) and (pointer: fine) {
+    .st-key-sidebar_project_text:hover {
+        transform: translateY(-1px) !important;
+        border-color: rgba(216, 173, 79, 0.32) !important;
+        box-shadow:
+            0 13px 26px rgba(31, 42, 68, 0.075),
+            inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+    }
+}
+
+/* Mobile/sidebar narrow protection */
+@media (max-width: 600px) {
+    .st-key-sidebar_project_text {
+        padding: 0.9rem 0.95rem !important;
+        border-radius: 17px !important;
+    }
+
+    .st-key-sidebar_project_text strong,
+    .st-key-sidebar_project_text b {
+        font-size: 0.94rem !important;
+        line-height: 1.22 !important;
+    }
+
+    .st-key-sidebar_project_text [data-testid="stCaptionContainer"],
+    .st-key-sidebar_project_text [data-testid="stCaptionContainer"] p {
+        font-size: 0.78rem !important;
+        line-height: 1.45 !important;
+    }
+}
+
+/* =========================================================
+   SIDEBAR TOP AREA FINAL CLEAN REBUILD
+   Goal: Logo bilkul top par, no logo card, clean brand zone
+========================================================= */
+
+/* Sidebar inner top spacing remove */
+section[data-testid="stSidebar"] > div {
+    padding-top: 0.65rem !important;
+}
+
+/* Brand zone: no card, no extra gap */
+.st-key-sidebar_brand_zone {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 0 0.85rem 0 !important;
+}
+
+/* Remove all card styling from logo wrapper */
+.st-key-sidebar_logo_block,
+.st-key-sidebar_logo_block *,
+section[data-testid="stSidebar"] [data-testid="stImage"],
+section[data-testid="stSidebar"] [data-testid="stImage"] * {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Logo top fit */
+.st-key-sidebar_logo_block {
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* Logo image clean placement */
+.st-key-sidebar_logo_block img,
+section[data-testid="stSidebar"] [data-testid="stImage"] img {
+    width: 100% !important;
+    max-width: 230px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block !important;
+    margin: 0 auto 0.65rem auto !important;
+    padding: 0 !important;
+    filter: drop-shadow(0 6px 12px rgba(31, 42, 68, 0.10)) !important;
+}
+
+/* Remove unnecessary top element spacing */
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Project title card below logo: cleaner, lighter, more balanced */
+.st-key-sidebar_project_text {
+    margin: 0.15rem 0 1.05rem 0 !important;
+    padding: 0.9rem 0.95rem !important;
+
+    background: rgba(255, 255, 255, 0.72) !important;
+    border: 1px solid rgba(184, 149, 91, 0.13) !important;
+    border-left: 4px solid #d8ad4f !important;
+    border-radius: 16px !important;
+
+    box-shadow: 0 8px 18px rgba(31, 42, 68, 0.045) !important;
+}
+
+/* Remove top colored strip from title card if previous CSS added it */
+.st-key-sidebar_project_text::before,
+.st-key-sidebar_project_text::after {
+    display: none !important;
+    content: none !important;
+}
+
+/* Project title text */
+.st-key-sidebar_project_text strong,
+.st-key-sidebar_project_text b {
+    display: block !important;
+    color: #182236 !important;
+    font-size: 0.92rem !important;
+    font-weight: 900 !important;
+    line-height: 1.22 !important;
+    letter-spacing: -0.12px !important;
+    margin: 0 0 0.35rem 0 !important;
+}
+
+/* Project subtitle */
+.st-key-sidebar_project_text [data-testid="stCaptionContainer"],
+.st-key-sidebar_project_text [data-testid="stCaptionContainer"] p {
+    color: #697789 !important;
+    font-size: 0.76rem !important;
+    font-weight: 550 !important;
+    line-height: 1.42 !important;
+    margin: 0 !important;
+}
+
+/* Reduce gap before divider */
+section[data-testid="stSidebar"] hr {
+    margin: 0.9rem 0 1.05rem 0 !important;
+}
+
+/* Filters block starts cleanly */
+.st-key-sidebar_filter_header {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* =========================================================
+   SIDEBAR TOP GAP REMOVE — FINAL SAFE PATCH
+   Goal: Unified Mentor logo ko sidebar ke bilkul top ke close lana
+========================================================= */
+
+/* Sidebar outer + inner top spacing reduce */
+section[data-testid="stSidebar"] {
+    padding-top: 0 !important;
+}
+
+section[data-testid="stSidebar"] > div,
+section[data-testid="stSidebar"] > div:first-child {
+    padding-top: 0.25rem !important;
+    margin-top: 0 !important;
+}
+
+/* Remove top gap from Streamlit vertical blocks */
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
+    gap: 0.45rem !important;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div:first-child,
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:first-child {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* New sidebar logo container */
+.st-key-sidebar_top_brand {
+    padding: 0 !important;
+    margin: 0 0 0.45rem 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Remove card/wrapper styling around logo */
+.st-key-sidebar_top_brand div,
+.st-key-sidebar_top_brand [data-testid="stImage"],
+.st-key-sidebar_top_brand [data-testid="stImage"] div {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Logo image final top placement */
+.st-key-sidebar_top_brand img {
+    width: 100% !important;
+    max-width: 230px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block !important;
+
+    /* top gap control */
+    margin: 0 auto 0.45rem auto !important;
+    padding: 0 !important;
+
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+
+    filter: drop-shadow(0 5px 10px rgba(31, 42, 68, 0.10)) !important;
+}
+
+/* Project summary sits closer below logo */
+.st-key-sidebar_project_summary {
+    margin-top: 0.15rem !important;
+}
+
+/* Divider closer after summary */
+section[data-testid="stSidebar"] hr {
+    margin-top: 0.85rem !important;
+}
+
+/* =========================================================
+   SIDEBAR LOGO TOP GAP — HARD FINAL FIX
+   Goal: Unified Mentor logo ko sidebar ke top ke close lana
+========================================================= */
+
+/* Sidebar internal reserved top space remove */
+section[data-testid="stSidebar"] {
+    padding-top: 0 !important;
+}
+
+section[data-testid="stSidebar"] > div,
+section[data-testid="stSidebar"] [data-testid="stSidebarContent"],
+section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"] {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* Remove top gap from first Streamlit blocks */
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"],
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div,
+section[data-testid="stSidebar"] [data-testid="stElementContainer"] {
+    padding-top: 0 !important;
+}
+
+/* First sidebar element should start at top */
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div:first-child,
+section[data-testid="stSidebar"] [data-testid="stElementContainer"]:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Logo brand block: pull upward to remove Streamlit reserved blank space */
+.st-key-sidebar_top_brand {
+    margin-top: -2.15rem !important;
+    margin-bottom: 0.55rem !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Remove every wrapper around logo */
+.st-key-sidebar_top_brand,
+.st-key-sidebar_top_brand *,
+.st-key-sidebar_top_brand [data-testid="stImage"],
+.st-key-sidebar_top_brand [data-testid="stImage"] *,
+.st-key-sidebar_top_brand [data-testid="stImage"] > div {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Logo final placement */
+.st-key-sidebar_top_brand img {
+    width: 100% !important;
+    max-width: 230px !important;
+    height: auto !important;
+    display: block !important;
+    object-fit: contain !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    filter: drop-shadow(0 5px 10px rgba(31, 42, 68, 0.10)) !important;
+}
+
+/* Project summary closer after logo */
+.st-key-sidebar_project_summary {
+    margin-top: 0.35rem !important;
+    padding-top: 0 !important;
+}
+
+/* If Streamlit adds hidden spacing before first block */
+section[data-testid="stSidebar"] div:empty {
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+}
+
+/* =========================================================
+   STEP 4C-R3 — FINAL HEADER REBUILD
+   Scope: Desktop + Mobile
+   Goal: Nassau Candy logo + title perfectly centered
+========================================================= */
+
+/* Header card shell */
+.st-key-header_card {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    text-align: center !important;
+
+    padding: 1.35rem 1.5rem 1.55rem 1.5rem !important;
+    margin: 0.8rem 0 1.45rem 0 !important;
+
+    border-radius: 28px !important;
+    border: 1px solid rgba(184, 149, 91, 0.18) !important;
+
+    background:
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,250,240,0.94)) !important;
+
+    box-shadow:
+        0 18px 42px rgba(31, 42, 68, 0.10),
+        inset 0 1px 0 rgba(255,255,255,0.85) !important;
+
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* Top premium accent line */
+.st-key-header_card::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 6px !important;
+    background: linear-gradient(90deg, #ff806d 0%, #d8ad4f 45%, #0f8b72 100%) !important;
+    z-index: 2 !important;
+}
+
+/* Logo area */
+.st-key-header_logo_area,
+.st-key-header_logo_area > div,
+.st-key-header_logo_area [data-testid="stImage"],
+.st-key-header_logo_area [data-testid="stImage"] > div {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    text-align: center !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+/* Actual logo */
+.st-key-header_logo_area img {
+    display: block !important;
+    width: auto !important;
+    max-width: 300px !important;
+    height: auto !important;
+    object-fit: contain !important;
+
+    margin: 0 auto 1.05rem auto !important;
+    padding: 0 !important;
+
+    float: none !important;
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+
+    filter: drop-shadow(0 6px 12px rgba(31, 42, 68, 0.08)) !important;
+}
+
+/* Title area */
+.st-key-header_title_area,
+.st-key-header_title_area > div,
+.st-key-header_title_area [data-testid="stMarkdownContainer"] {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    display: block !important;
+    text-align: center !important;
+
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+/* Header title */
+.st-key-header_title_area h1,
+.st-key-header_title_area h2,
+.st-key-header_title_area h3,
+.st-key-header_title_area p {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    text-align: center !important;
+    margin: 0 auto !important;
+
+    color: #182236 !important;
+    font-weight: 950 !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.35px !important;
+
+    text-transform: uppercase !important;
+}
+
+/* Desktop title sizing */
+.st-key-header_title_area h2 {
+    font-size: clamp(2rem, 2.5vw, 3rem) !important;
+}
+
+/* Remove unwanted link icon beside markdown heading if visible */
+.st-key-header_title_area a {
+    display: none !important;
+}
+
+/* =========================================================
+   MOBILE HEADER
+========================================================= */
+@media (max-width: 600px) {
+
+    .st-key-header_card {
+        padding: 1.25rem 1rem 1.35rem 1rem !important;
+        margin: 0.9rem 0 1.1rem 0 !important;
+        border-radius: 24px !important;
+    }
+
+    .st-key-header_logo_area img {
+        max-width: 245px !important;
+        margin: 0 auto 0.9rem auto !important;
+    }
+
+    .st-key-header_title_area h2 {
+        font-size: clamp(1.35rem, 6.4vw, 2rem) !important;
+        line-height: 1.14 !important;
+        letter-spacing: -0.25px !important;
+        text-align: center !important;
+    }
+}
+
+/* =========================================================
+   STEP 4C FINAL REAL FIX — HEADER DESKTOP + MOBILE
+   Works with cropped/trimmed logo from app.py
+========================================================= */
+
+/* Header shell */
+.st-key-header_card {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+
+    padding: 1.35rem 1.5rem 1.55rem 1.5rem !important;
+    margin: 0.8rem 0 1.45rem 0 !important;
+
+    border-radius: 28px !important;
+    border: 1px solid rgba(184, 149, 91, 0.18) !important;
+    background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,250,240,0.94)) !important;
+    box-shadow:
+        0 18px 42px rgba(31, 42, 68, 0.10),
+        inset 0 1px 0 rgba(255,255,255,0.85) !important;
+
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* Top accent */
+.st-key-header_card::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 6px !important;
+    background: linear-gradient(90deg, #ff806d 0%, #d8ad4f 45%, #0f8b72 100%) !important;
+    z-index: 2 !important;
+}
+
+/* Logo container center */
+.st-key-header_logo_area,
+.st-key-header_logo_area > div,
+.st-key-header_logo_area [data-testid="stImage"],
+.st-key-header_logo_area [data-testid="stImage"] > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+/* IMPORTANT: neutralize old .st-key-header_card img width:100 rule */
+.st-key-header_card .st-key-header_logo_area img,
+.st-key-header_logo_area img {
+    display: block !important;
+    width: auto !important;
+    max-width: 300px !important;
+    max-height: none !important;
+    height: auto !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    margin: 0 auto 1rem auto !important;
+    padding: 0 !important;
+    float: none !important;
+    position: static !important;
+    transform: none !important;
+    filter: drop-shadow(0 6px 12px rgba(31, 42, 68, 0.08)) !important;
+}
+
+/* Title center */
+.st-key-header_title_area,
+.st-key-header_title_area > div,
+.st-key-header_title_area [data-testid="stMarkdownContainer"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+.st-key-header_title_area h1,
+.st-key-header_title_area h2,
+.st-key-header_title_area h3,
+.st-key-header_title_area p {
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    color: #182236 !important;
+    font-weight: 950 !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.35px !important;
+    text-transform: uppercase !important;
+}
+
+.st-key-header_title_area h2 {
+    font-size: clamp(2rem, 2.5vw, 3rem) !important;
+}
+
+/* Hide markdown anchor/link icon */
+.st-key-header_title_area a {
+    display: none !important;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .st-key-header_card {
+        padding: 1.15rem 0.9rem 1.3rem 0.9rem !important;
+        margin: 0.9rem 0 1.1rem 0 !important;
+        border-radius: 24px !important;
+    }
+
+    .st-key-header_card .st-key-header_logo_area img,
+    .st-key-header_logo_area img {
+        max-width: 245px !important;
+        width: auto !important;
+        max-height: none !important;
+        margin: 0 auto 0.85rem auto !important;
+    }
+
+    .st-key-header_title_area h2 {
+        font-size: clamp(1.35rem, 6.4vw, 2rem) !important;
+        line-height: 1.14 !important;
+        letter-spacing: -0.25px !important;
+        text-align: center !important;
+    }
+}
+
+/* =========================================================
+   STEP 4C FINAL OVERRIDE — HEADER CENTER LOCK
+   Desktop + Mobile
+========================================================= */
+
+.st-key-header_card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+.st-key-header_logo_area,
+.st-key-header_logo_area > div,
+.st-key-header_logo_area [data-testid="stImage"],
+.st-key-header_logo_area [data-testid="stImage"] > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* Highest priority image rule */
+.st-key-header_card .st-key-header_logo_area img,
+.st-key-header_logo_area img {
+    display: block !important;
+    width: auto !important;
+    max-width: 300px !important;
+    max-height: none !important;
+    height: auto !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    margin: 0 auto 1rem auto !important;
+    padding: 0 !important;
+    float: none !important;
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+}
+
+.st-key-header_title_area,
+.st-key-header_title_area [data-testid="stMarkdownContainer"],
+.st-key-header_title_area h2 {
+    width: 100% !important;
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+@media (max-width: 600px) {
+    .st-key-header_card .st-key-header_logo_area img,
+    .st-key-header_logo_area img {
+        max-width: 245px !important;
+        margin: 0 auto 0.85rem auto !important;
+    }
+
+    .st-key-header_title_area h2 {
+        font-size: clamp(1.35rem, 6.4vw, 2rem) !important;
+        line-height: 1.14 !important;
+        text-align: center !important;
+    }
+}
+
+/* =========================================================
+   STEP 4C-D2 — FINAL HEADER LAYOUT
+   Desktop: logo left + title right in one line
+   Mobile: logo center + title center stacked
+========================================================= */
+
+/* Header card shell */
+.st-key-header_card {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    padding: 1.15rem 1.35rem 1.2rem 1.35rem !important;
+    margin: 0.8rem 0 1.45rem 0 !important;
+
+    border-radius: 28px !important;
+    border: 1px solid rgba(184, 149, 91, 0.18) !important;
+    background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,250,240,0.94)) !important;
+
+    box-shadow:
+        0 18px 42px rgba(31, 42, 68, 0.10),
+        inset 0 1px 0 rgba(255,255,255,0.85) !important;
+
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* Top accent line */
+.st-key-header_card::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 6px !important;
+    background: linear-gradient(90deg, #ff806d 0%, #d8ad4f 45%, #0f8b72 100%) !important;
+    z-index: 2 !important;
+}
+
+/* Desktop horizontal alignment */
+.st-key-header_card [data-testid="stHorizontalBlock"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1.2rem !important;
+}
+
+/* Logo alignment */
+.st-key-header_card [data-testid="stImage"],
+.st-key-header_card [data-testid="stImage"] > div {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Logo size */
+.st-key-header_card [data-testid="stImage"] img {
+    width: auto !important;
+    max-width: 230px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    float: none !important;
+}
+
+/* Title area */
+.st-key-header_title_area,
+.st-key-header_title_area [data-testid="stMarkdownContainer"] {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Desktop title one-line */
+.st-key-header_title_area h2 {
+    color: #182236 !important;
+    font-size: clamp(1.65rem, 2.05vw, 2.45rem) !important;
+    font-weight: 950 !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.35px !important;
+    text-transform: uppercase !important;
+    text-align: left !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    white-space: nowrap !important;
+    overflow: visible !important;
+}
+
+/* Hide markdown anchor/link icon */
+.st-key-header_title_area a {
+    display: none !important;
+}
+
+/* =========================================================
+   MOBILE HEADER STACKED LAYOUT
+========================================================= */
+@media (max-width: 600px) {
+    .st-key-header_card {
+        padding: 1.15rem 0.95rem 1.3rem 0.95rem !important;
+        margin: 0.9rem 0 1.1rem 0 !important;
+        border-radius: 24px !important;
+        text-align: center !important;
+    }
+
+    .st-key-header_card [data-testid="stHorizontalBlock"] {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.85rem !important;
+    }
+
+    .st-key-header_card [data-testid="column"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 1 1 100% !important;
+        text-align: center !important;
+    }
+
+    .st-key-header_card [data-testid="stImage"],
+    .st-key-header_card [data-testid="stImage"] > div {
+        width: 100% !important;
+        justify-content: center !important;
+        text-align: center !important;
+        margin: 0 auto !important;
+    }
+
+    .st-key-header_card [data-testid="stImage"] img {
+        max-width: 245px !important;
+        margin: 0 auto !important;
+    }
+
+    .st-key-header_title_area h2 {
+        font-size: clamp(1.35rem, 6.4vw, 2rem) !important;
+        line-height: 1.14 !important;
+        letter-spacing: -0.25px !important;
+        text-align: center !important;
+        white-space: normal !important;
+        margin: 0 auto !important;
+    }
+}
+
+/* =========================================================
+   MOBILE ONLY HEADER FIX
+   Desktop layout untouched
+   Mobile: logo top center + title below center
+========================================================= */
+
+@media (max-width: 768px) {
+
+    /* Header card mobile shell */
+    .st-key-header_card {
+        padding: 1.15rem 0.95rem 1.25rem 0.95rem !important;
+        margin: 0.85rem 0 1.1rem 0 !important;
+        border-radius: 24px !important;
+        text-align: center !important;
+        overflow: hidden !important;
+    }
+
+    /* Force Streamlit columns to stack on mobile */
+    .st-key-header_card [data-testid="stHorizontalBlock"] {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.85rem !important;
+        width: 100% !important;
+    }
+
+    .st-key-header_card [data-testid="column"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 1 1 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 0 !important;
+        margin: 0 auto !important;
+    }
+
+    /* Nassau Candy logo wrapper center */
+    .st-key-header_card [data-testid="stImage"],
+    .st-key-header_card [data-testid="stImage"] > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+    }
+
+    /* Actual Nassau Candy logo mobile size + center */
+    .st-key-header_card [data-testid="stImage"] img {
+        display: block !important;
+        width: auto !important;
+        max-width: 235px !important;
+        height: auto !important;
+        object-fit: contain !important;
+        object-position: center center !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        float: none !important;
+        position: static !important;
+        transform: none !important;
+    }
+
+    /* Title container center */
+    .st-key-header_title_area,
+    .st-key-header_title_area > div,
+    .st-key-header_title_area [data-testid="stMarkdownContainer"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: block !important;
+        text-align: center !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+    }
+
+    /* Mobile heading fix */
+    .st-key-header_title_area h2 {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        text-align: center !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+
+        font-size: clamp(1.35rem, 6.2vw, 1.9rem) !important;
+        line-height: 1.14 !important;
+        letter-spacing: -0.25px !important;
+
+        white-space: normal !important;
+        overflow-wrap: normal !important;
+        word-break: normal !important;
+    }
+
+    /* Hide heading anchor/link icon on mobile */
+    .st-key-header_title_area a {
+        display: none !important;
+    }
+}
+
+/* =========================================================
+   STEP 4C-M2 — FINAL RESPONSIVE HEADER SPLIT
+   Desktop: logo left + title right
+   Mobile: logo center + title below
+========================================================= */
+
+/* Default visibility */
+.st-key-desktop_header_card {
+    display: block !important;
+}
+
+.st-key-mobile_header_card {
+    display: none !important;
+}
+
+/* Shared header shell */
+.st-key-desktop_header_card,
+.st-key-mobile_header_card {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    padding: 1.05rem 1.35rem 1.1rem 1.35rem !important;
+    margin: 0.8rem 0 1.45rem 0 !important;
+
+    border-radius: 28px !important;
+    border: 1px solid rgba(184, 149, 91, 0.18) !important;
+    background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,250,240,0.94)) !important;
+
+    box-shadow:
+        0 18px 42px rgba(31, 42, 68, 0.10),
+        inset 0 1px 0 rgba(255,255,255,0.85) !important;
+
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* Accent line */
+.st-key-desktop_header_card::before,
+.st-key-mobile_header_card::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 6px !important;
+    background: linear-gradient(90deg, #ff806d 0%, #d8ad4f 45%, #0f8b72 100%) !important;
+    z-index: 2 !important;
+}
+
+/* Desktop horizontal alignment */
+.st-key-desktop_header_card [data-testid="stHorizontalBlock"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1.2rem !important;
+}
+
+/* Desktop logo */
+.st-key-desktop_header_card [data-testid="stImage"],
+.st-key-desktop_header_card [data-testid="stImage"] > div {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.st-key-desktop_header_card [data-testid="stImage"] img {
+    width: auto !important;
+    max-width: 230px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Desktop title one line */
+.st-key-desktop_header_card h2 {
+    color: #182236 !important;
+    font-size: clamp(1.65rem, 2.05vw, 2.45rem) !important;
+    font-weight: 950 !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.35px !important;
+    text-transform: uppercase !important;
+    text-align: left !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    white-space: nowrap !important;
+    overflow: visible !important;
+}
+
+/* Hide markdown anchor icons */
+.st-key-desktop_header_card a,
+.st-key-mobile_header_card a {
+    display: none !important;
+}
+
+/* =========================================================
+   MOBILE HEADER
+========================================================= */
+@media (max-width: 768px) {
+
+    /* Hide desktop header */
+    .st-key-desktop_header_card {
+        display: none !important;
+    }
+
+    /* Show mobile header */
+    .st-key-mobile_header_card {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+
+        padding: 1.15rem 0.95rem 1.25rem 0.95rem !important;
+        margin: 0.85rem 0 1.1rem 0 !important;
+        border-radius: 24px !important;
+    }
+
+    /* Mobile logo wrapper */
+    .st-key-mobile_header_card [data-testid="stImage"],
+    .st-key-mobile_header_card [data-testid="stImage"] > div {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+
+        margin: 0 auto !important;
+        padding: 0 !important;
+    }
+
+    /* Mobile logo actual image */
+    .st-key-mobile_header_card [data-testid="stImage"] img {
+        display: block !important;
+        width: auto !important;
+        max-width: 235px !important;
+        height: auto !important;
+        object-fit: contain !important;
+        object-position: center center !important;
+
+        margin: 0 auto 0.85rem auto !important;
+        padding: 0 !important;
+
+        float: none !important;
+        position: static !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+    }
+
+    /* Mobile heading */
+    .st-key-mobile_header_card h2 {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        color: #182236 !important;
+        font-size: clamp(1.35rem, 6.2vw, 1.9rem) !important;
+        font-weight: 950 !important;
+        line-height: 1.14 !important;
+        letter-spacing: -0.25px !important;
+        text-transform: uppercase !important;
+        text-align: center !important;
+
+        white-space: normal !important;
+        overflow-wrap: normal !important;
+        word-break: normal !important;
+
+        margin: 0 auto !important;
+        padding: 0 !important;
+    }
+
+    .st-key-mobile_header_card [data-testid="stMarkdownContainer"] {
+        width: 100% !important;
+        text-align: center !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+    }
+}
+
+/* Desktop protection */
+@media (min-width: 769px) {
+    .st-key-mobile_header_card {
+        display: none !important;
+    }
+
+    .st-key-desktop_header_card {
+        display: block !important;
+    }
+}
+
+/* =========================================================
+   STEP 5B — FINAL NASSAU LOGO CLEANER + VISIBILITY POLISH
+   Scope: Desktop + Mobile
+   Goal:
+   - cleaner logo
+   - sharper visibility
+   - better contrast
+   - premium polished feel
+========================================================= */
+
+/* Logo wrapper cleanup */
+.st-key-header_logo_area,
+.st-key-header_logo_area > div,
+.st-key-header_logo_area [data-testid="stImage"],
+.st-key-header_logo_area [data-testid="stImage"] > div {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    text-align: center !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Final Nassau Candy logo polish */
+.st-key-header_logo_area img {
+    display: block !important;
+    width: auto !important;
+    max-width: 280px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+
+    margin: 0 auto 0.95rem auto !important;
+    padding: 0 !important;
+
+    background: transparent !important;
+    border-radius: 0 !important;
+
+    image-rendering: -webkit-optimize-contrast !important;
+    image-rendering: crisp-edges !important;
+
+    filter:
+        contrast(1.14)
+        brightness(1.03)
+        saturate(1.06)
+        drop-shadow(0 6px 16px rgba(31, 42, 68, 0.10)) !important;
+
+    opacity: 1 !important;
+}
+
+/* Remove extra space under logo */
+.st-key-header_logo_area {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Header title spacing tighten */
+.st-key-header_title_area {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Desktop fine tuning */
+@media (min-width: 769px) {
+    .st-key-header_logo_area img {
+        max-width: 280px !important;
+        margin-bottom: 0.8rem !important;
+    }
+}
+
+/* Mobile fine tuning */
+@media (max-width: 768px) {
+    .st-key-header_logo_area img {
+        max-width: 215px !important;
+        margin: 0 auto 0.75rem auto !important;
+
+        filter:
+            contrast(1.12)
+            brightness(1.03)
+            saturate(1.05)
+            drop-shadow(0 4px 10px rgba(31, 42, 68, 0.08)) !important;
+    }
+}
