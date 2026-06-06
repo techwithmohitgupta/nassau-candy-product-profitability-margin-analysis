@@ -1,10 +1,11 @@
+from pathlib import Path
+from PIL import Image, ImageChops
+
 import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
-from pathlib import Path
-from PIL import Image, ImageChops
 
 # =========================================================
 # PAGE CONFIG
@@ -17,7 +18,7 @@ st.set_page_config(
 )
 
 # =========================================================
-# PATH CONFIG
+# FILE PATH CONFIG
 # =========================================================
 BASE_DIR = Path(__file__).resolve().parent
 ASSETS_DIR = BASE_DIR / "assets"
@@ -298,6 +299,20 @@ def short_label(value, max_chars=28) -> str:
 
     return text[: max_chars - 3] + "..."
 
+def render_product_insight_card(title, insight_1, insight_2, insight_3, decision):
+    insight_html = (
+        '<div class="product-insight-card">'
+        f'<div class="product-insight-title">{title}</div>'
+        '<div class="product-insight-grid">'
+        f'<div class="product-insight-box"><span>Key finding</span><p>{insight_1}</p></div>'
+        f'<div class="product-insight-box"><span>Business meaning</span><p>{insight_2}</p></div>'
+        f'<div class="product-insight-box"><span>Risk / opportunity</span><p>{insight_3}</p></div>'
+        '</div>'
+        f'<div class="product-insight-action"><strong>Decision guidance:</strong> {decision}</div>'
+        '</div>'
+    )
+
+    st.markdown(insight_html, unsafe_allow_html=True)
 
 # =========================================================
 # STEP 6B — CHART LABEL, LEGEND & TOOLTIP REFINEMENT
@@ -649,20 +664,24 @@ def apply_nc_plotly_theme(
     legend_orientation: str = "h",
     legend_x: float = 0.5,
 ):
-    """Apply a consistent premium Plotly layout without changing chart data."""
+    """Apply readable Plotly styling without breaking chart layout."""
     if margin is None:
-        margin = dict(l=18, r=46, t=22, b=78)
+        margin = dict(l=36, r=54, t=30, b=82)
 
     layout_updates = {
         "height": height,
         "margin": margin,
         "plot_bgcolor": "rgba(0,0,0,0)",
         "paper_bgcolor": "rgba(0,0,0,0)",
-        "font": dict(color=NC_COLORS["text"], size=12, family="Inter, Segoe UI, Arial"),
+        "font": dict(
+            color=NC_COLORS["text"],
+            size=12.5,
+            family="Inter, Segoe UI, Arial",
+        ),
         "hoverlabel": dict(
             bgcolor="white",
-            bordercolor="rgba(36,50,74,0.16)",
-            font_size=12,
+            bordercolor="rgba(36,50,74,0.18)",
+            font_size=12.5,
             font_color=NC_COLORS["text"],
             namelength=-1,
         ),
@@ -680,7 +699,10 @@ def apply_nc_plotly_theme(
             y=legend_y,
             xanchor="center",
             x=legend_x,
-            font=dict(size=10, color=NC_COLORS["text"]),
+            font=dict(
+                size=11,
+                color=NC_COLORS["text"],
+            ),
             title_text="",
             tracegroupgap=8,
             itemsizing="constant",
@@ -693,20 +715,39 @@ def apply_nc_plotly_theme(
     fig.update_xaxes(
         showline=True,
         linewidth=1,
-        linecolor="rgba(36, 50, 74, 0.16)",
-        gridcolor=NC_COLORS["grid"],
-        zerolinecolor=NC_COLORS["zero"],
-        tickfont=dict(size=10.5, color=NC_COLORS["axis"]),
-        title_font=dict(size=11.5, color=NC_COLORS["axis"]),
+        linecolor="rgba(36, 50, 74, 0.18)",
+        gridcolor="rgba(36, 50, 74, 0.10)",
+        zerolinecolor="rgba(36, 50, 74, 0.16)",
+        tickfont=dict(size=11.5, color=NC_COLORS["axis"]),
+        title_font=dict(size=12.5, color=NC_COLORS["axis"]),
         automargin=True,
     )
+
     fig.update_yaxes(
         showline=False,
-        gridcolor=NC_COLORS["grid"],
-        zerolinecolor=NC_COLORS["zero"],
-        tickfont=dict(size=10.5, color=NC_COLORS["axis"]),
-        title_font=dict(size=11.5, color=NC_COLORS["axis"]),
+        gridcolor="rgba(36, 50, 74, 0.10)",
+        zerolinecolor="rgba(36, 50, 74, 0.16)",
+        tickfont=dict(size=11.5, color=NC_COLORS["axis"]),
+        title_font=dict(size=12.5, color=NC_COLORS["axis"]),
         automargin=True,
+    )
+
+    fig.update_traces(
+        textfont=dict(
+            size=11.5,
+            color=NC_COLORS["text"],
+            family="Inter, Segoe UI, Arial",
+        ),
+        selector=dict(type="bar"),
+    )
+
+    fig.update_traces(
+        textfont=dict(
+            size=11,
+            color=NC_COLORS["text"],
+            family="Inter, Segoe UI, Arial",
+        ),
+        selector=dict(type="pie"),
     )
 
     return fig
@@ -2007,6 +2048,58 @@ with st.container(key="risk_monitor_zone"):
             value=fmt_pct(margin_threshold, 0),
             delta="Risk flag benchmark",
         )
+        
+    calculation_guide_html = (
+        '<div class="calculation-note-card">'
+        '<div class="calculation-note-label">Calculation Guide</div>'
+        '<div class="calculation-note-title">How KPI and margin risk values are calculated</div>'
+
+        '<div class="calculation-note-grid">'
+
+        '<div class="calculation-note-box">'
+        '<div class="calculation-box-heading">What the KPI values show</div>'
+        '<ul class="calculation-bullet-list">'
+        '<li>Shows profitability strength for the current filter selection.</li>'
+        '<li>Helps compare margin, unit profit, revenue share, and profit share.</li>'
+        '<li>Also shows whether margin performance is stable or changing over time.</li>'
+        '</ul>'
+        '</div>'
+
+        '<div class="calculation-note-box">'
+        '<div class="calculation-box-heading">How KPI values are calculated</div>'
+        '<ul class="calculation-bullet-list">'
+        '<li><strong>Gross Margin:</strong> Gross Profit ÷ Sales.</li>'
+        '<li><strong>Profit per Unit:</strong> Gross Profit ÷ Units.</li>'
+        '<li><strong>Revenue Contribution:</strong> Filtered Sales ÷ Total Sales.</li>'
+        '<li><strong>Profit Contribution:</strong> Filtered Profit ÷ Total Profit.</li>'
+        '<li><strong>Margin Volatility:</strong> Margin variation over time.</li>'
+        '</ul>'
+        '</div>'
+
+        '<div class="calculation-note-box">'
+        '<div class="calculation-box-heading">Why margin threshold risk matters</div>'
+        '<ul class="calculation-bullet-list">'
+        '<li>The selected threshold works as a margin-risk benchmark.</li>'
+        '<li>Products below this margin level are treated as risk items.</li>'
+        '<li>This helps identify products that may weaken profitability even when sales are present.</li>'
+        '</ul>'
+        '</div>'
+
+        '<div class="calculation-note-box">'
+        '<div class="calculation-box-heading">How risk monitor values are calculated</div>'
+        '<ul class="calculation-bullet-list">'
+        '<li><strong>Products Below Threshold:</strong> Count of products below selected margin benchmark.</li>'
+        '<li><strong>Revenue at Risk:</strong> Sales generated by below-threshold products.</li>'
+        '<li><strong>Profit at Risk:</strong> Gross profit generated by below-threshold products.</li>'
+        '<li><strong>Selected Threshold:</strong> Current margin benchmark chosen from the slider.</li>'
+        '</ul>'
+        '</div>'
+
+        '</div>'
+        '</div>'
+    )
+
+    st.markdown(calculation_guide_html, unsafe_allow_html=True)
     
 # =========================================================
 # STEP 1E — DASHBOARD MODULES TAB SHELL
@@ -2079,37 +2172,111 @@ with tab_product:
         margin_leaderboard_df["product_short"] = margin_leaderboard_df["product_name"].apply(
             lambda x: compact_product_label(x, 28)
         )
+        
+# -----------------------------
+# STEP 3A — Product module dynamic business insight metrics
+# These values update automatically with date, division, product search, and margin threshold filters.
+# -----------------------------
+        top_product_row = product_profitability_df.sort_values("profit", ascending=False).iloc[0]
 
-        overview_1, overview_2, overview_3 = st.columns(3)
+        top_product_name = top_product_row["product_name"]
+        top_product_profit = top_product_row["profit"]
+        top_product_sales = top_product_row["sales"]
+        top_product_margin = top_product_row["gross_margin_pct"]
+        top_product_share = top_product_row["profit_contribution_pct"]
 
-        with overview_1:
-            st.metric(
-                label="Products in View",
-                value=f"{len(product_profitability_df):,}",
-                delta="Filtered product count",
-            )
+        lowest_margin_row = product_profitability_df.sort_values(
+            "gross_margin_pct",
+            ascending=True,
+        ).iloc[0]
 
-        with overview_2:
-            best_product = (
-                product_profitability_df.iloc[0]["product_name"]
-                if not product_profitability_df.empty
-                else "N/A"
-            )
+        lowest_margin_product = lowest_margin_row["product_name"]
+        lowest_margin_value = lowest_margin_row["gross_margin_pct"]
+        lowest_margin_profit = lowest_margin_row["profit"]
+        lowest_margin_sales = lowest_margin_row["sales"]
 
-            st.metric(
-                label="Top Profit Product",
-                value=short_label(best_product, 24),
-                delta="Highest filtered profit",
-            )
+        below_threshold_df = product_profitability_df[
+            product_profitability_df["gross_margin_pct"] < margin_threshold
+        ].copy()
 
-        with overview_3:
-            avg_product_margin = product_profitability_df["gross_margin_pct"].mean()
+        below_threshold_count = below_threshold_df["product_name"].nunique()
+        below_threshold_sales = below_threshold_df["sales"].sum() if not below_threshold_df.empty else 0
+        below_threshold_profit = below_threshold_df["profit"].sum() if not below_threshold_df.empty else 0
 
-            st.metric(
-                label="Avg Product Margin",
-                value=fmt_pct(avg_product_margin, 1),
-                delta="Average across products",
-            )
+        total_product_profit = product_profitability_df["profit"].sum()
+        total_product_sales = product_profitability_df["sales"].sum()
+
+        top_3_profit_share = (
+            product_profitability_df.sort_values("profit", ascending=False).head(3)["profit"].sum()
+            / total_product_profit * 100
+            if total_product_profit != 0
+            else 0
+        )
+
+        top_3_sales_share = (
+           product_profitability_df.sort_values("sales", ascending=False).head(3)["sales"].sum()
+           / total_product_sales * 100
+           if total_product_sales != 0
+           else 0
+        )
+
+        profit_gap = (
+           product_profitability_df.sort_values("profit", ascending=False).iloc[0]["profit"]
+           - product_profitability_df.sort_values("profit", ascending=True).iloc[0]["profit"]
+           if len(product_profitability_df) > 1
+           else 0
+        )
+
+        margin_gap = (
+           product_profitability_df["gross_margin_pct"].max()
+           - product_profitability_df["gross_margin_pct"].min()
+           if len(product_profitability_df) > 1
+           else 0
+        )
+
+        with st.container(key="product_overview_kpi_row"):
+            overview_1, overview_2, overview_3 = st.columns([0.82, 1.62, 0.82], gap="large")
+
+            with overview_1:
+                st.metric(
+                    label="Products in View",
+                    value=f"{len(product_profitability_df):,}",
+                    delta="Filtered product count",
+                )
+
+            with overview_2:
+                best_product = (
+                    product_profitability_df.iloc[0]["product_name"]
+                    if not product_profitability_df.empty
+                    else "N/A"
+                )
+
+                if best_product != "N/A" and " - " in best_product:
+                    best_product_main, best_product_detail = best_product.split(" - ", 1)
+                else:
+                    best_product_main = best_product
+                    best_product_detail = ""
+
+                top_product_card_html = (
+                    '<div class="custom-kpi-card top-product-card">'
+                    '<div class="custom-kpi-label">Top Profit Product</div>'
+                    f'<div class="custom-kpi-value">{best_product_main}</div>'
+                    f'<div class="custom-kpi-subvalue">{best_product_detail}</div>'
+                    '<div class="custom-kpi-delta">Highest filtered profit</div>'
+                    f'<div class="custom-kpi-full">Full product: {best_product}</div>'
+                    '</div>'
+                )
+
+                st.markdown(top_product_card_html, unsafe_allow_html=True)
+
+            with overview_3:
+                avg_product_margin = product_profitability_df["gross_margin_pct"].mean()
+
+                st.metric(
+                    label="Avg Product Margin",
+                    value=fmt_pct(avg_product_margin, 1),
+                    delta="Average across products",
+                )
 
         chart_col_1, chart_col_2 = st.columns([1.2, 0.9])
 
@@ -2372,6 +2539,52 @@ with tab_product:
 
             st.plotly_chart(donut_chart, use_container_width=True, config=PLOTLY_CONFIG)
 
+
+        insight_col_1, insight_col_2 = st.columns([1.2, 0.9])
+
+        with insight_col_1:
+            render_product_insight_card(
+                title="Profit Contribution by Product — Dynamic Business Insight",
+                insight_1=(
+                    f"<strong>{top_product_name}</strong> is the strongest visible profit driver, "
+                    f"generating <strong>{fmt_money(top_product_profit, 0)}</strong> gross profit "
+                    f"from <strong>{fmt_money(top_product_sales, 0)}</strong> sales."
+                ),
+                insight_2=(
+                    f"This product holds a <strong>{fmt_pct(top_product_margin, 1)}</strong> gross margin "
+                    f"and contributes <strong>{fmt_pct(top_product_share, 1)}</strong> of filtered profit."
+                ),
+                insight_3=(
+                    f"The profit gap between the strongest and weakest visible product is approximately "
+                    f"<strong>{fmt_money(profit_gap, 0)}</strong>, showing uneven profit contribution across the portfolio."
+                ),
+                decision=(
+                    "Prioritize high-profit products for inventory availability, promotion planning, and portfolio protection. "
+                    "Products with weak profit contribution should be reviewed for pricing, cost structure, or product rationalization."
+                ),
+            )
+
+        with insight_col_2:
+            render_product_insight_card(
+                title="Profit Contribution Share — Dynamic Business Insight",
+                insight_1=(
+                    f"The largest profit contributor is <strong>{top_product_name}</strong>, "
+                    f"with approximately <strong>{fmt_pct(top_product_share, 1)}</strong> of filtered profit."
+                ),
+                insight_2=(
+                    f"The top 3 products contribute around <strong>{fmt_pct(top_3_profit_share, 1)}</strong> "
+                    f"of filtered profit, while the top 3 revenue products contribute around "
+                    f"<strong>{fmt_pct(top_3_sales_share, 1)}</strong> of filtered sales."
+                ),
+                insight_3=(
+                    "If profit share is concentrated in a few products, the business becomes more dependent on limited product lines."
+                ),
+                decision=(
+                    "Use this view to check whether the portfolio is balanced or dependent on a small number of products. "
+                    "If dependency is high, protect core products and develop backup profit drivers."
+                ),
+            )
+
         st.markdown("#### Product-Level Margin Leaderboard")
 
         leaderboard_view = product_profitability_df[
@@ -2427,7 +2640,76 @@ with tab_product:
             height=leaderboard_height,
             column_config=get_table_column_config(leaderboard_display),
         )
+        
+        render_product_insight_card(
+            title="Product-Level Margin Leaderboard — Dynamic Business Insight",
+            insight_1=(
+                f"<strong>{lowest_margin_product}</strong> has the weakest visible margin at "
+                f"<strong>{fmt_pct(lowest_margin_value, 1)}</strong>, with "
+                f"<strong>{fmt_money(lowest_margin_profit, 0)}</strong> gross profit from "
+                f"<strong>{fmt_money(lowest_margin_sales, 0)}</strong> sales."
+            ),
+            insight_2=(
+                f"<strong>{below_threshold_count}</strong> product(s) are below the selected "
+                f"<strong>{fmt_pct(margin_threshold, 0)}</strong> margin threshold."
+            ),
+            insight_3=(
+                f"Below-threshold products represent approximately "
+                f"<strong>{fmt_money(below_threshold_sales, 0)}</strong> revenue exposure and "
+                f"<strong>{fmt_money(below_threshold_profit, 0)}</strong> profit exposure."
+            ),
+            decision=(
+                "Use this table to identify products needing repricing, cost renegotiation, promotion control, "
+                "or discontinuation review. Healthy-margin products should be protected as stable portfolio contributors."
+            ),
+        )
+        
+        product_final_summary_html = (
+               '<div class="product-business-summary">'
+               '<div class="product-summary-label">Business Trends & Recommendations</div>'
+               '<div class="product-summary-title">Product Profitability Decision Summary</div>'
 
+               '<div class="product-summary-grid">'
+
+               '<div class="product-summary-box">'
+               '<span>Profit driver</span>'
+              f'<p><strong>{top_product_name}</strong> is the leading profit contributor with '
+              f'<strong>{fmt_money(top_product_profit, 0)}</strong> gross profit, '
+              f'<strong>{fmt_pct(top_product_margin, 1)}</strong> margin, and '
+              f'<strong>{fmt_pct(top_product_share, 1)}</strong> profit contribution.</p>'
+            '</div>'
+
+            '<div class="product-summary-box">'
+            '<span>Margin risk</span>'
+            f'<p><strong>{below_threshold_count}</strong> product(s) are below the selected '
+            f'<strong>{fmt_pct(margin_threshold, 0)}</strong> threshold, creating '
+            f'<strong>{fmt_money(below_threshold_sales, 0)}</strong> revenue exposure and '
+            f'<strong>{fmt_money(below_threshold_profit, 0)}</strong> profit exposure.</p>'
+            '</div>'
+
+            '<div class="product-summary-box">'
+            '<span>Weakest margin</span>'
+            f'<p><strong>{lowest_margin_product}</strong> has the lowest visible margin at '
+            f'<strong>{fmt_pct(lowest_margin_value, 1)}</strong>, making it the first candidate for pricing or cost review.</p>'
+            '</div>'
+
+            '<div class="product-summary-box">'
+            '<span>Portfolio dependency</span>'
+           f'<p>The top 3 products contribute <strong>{fmt_pct(top_3_profit_share, 1)}</strong> of filtered profit. '
+           f'The margin spread across visible products is <strong>{fmt_pct(margin_gap, 1)}</strong>, showing how uneven product profitability is.</p>'
+            '</div>'
+
+            '</div>'
+
+            '<div class="product-summary-action">'
+            '<strong>Recommended business action:</strong> Protect the strongest profit drivers, review below-threshold products, '
+            'and investigate whether low-margin products need repricing, cost renegotiation, promotion limits, or portfolio rationalization.'
+            '</div>'
+            '</div>'
+        )
+
+        st.markdown(product_final_summary_html, unsafe_allow_html=True)
+        
 # =========================================================
 # TAB 2 — DIVISION PERFORMANCE DASHBOARD
 # =========================================================
@@ -2456,8 +2738,33 @@ with tab_division:
 
         top_division = top_profit_row["division_name"]
         top_division_profit = top_profit_row["profit"]
+        top_division_sales = top_profit_row["sales"]
+        top_profit_division_margin = top_profit_row["gross_margin_pct"]
+        top_division_share = top_profit_row["profit_contribution_pct"]
+
+        top_revenue_division = top_revenue_row["division_name"]
+        top_revenue_sales = top_revenue_row["sales"]
+        top_revenue_profit = top_revenue_row["profit"]
+        top_revenue_margin = top_revenue_row["gross_margin_pct"]
+
+        top_margin_division = top_margin_row["division_name"]
         top_division_margin = top_margin_row["gross_margin_pct"]
         avg_division_margin = division_performance_df["gross_margin_pct"].mean()
+
+        lowest_division_row = division_performance_df.sort_values("gross_margin_pct", ascending=True).iloc[0]
+        lowest_margin_division = lowest_division_row["division_name"]
+        lowest_division_margin = lowest_division_row["gross_margin_pct"]
+        lowest_division_profit = lowest_division_row["profit"]
+
+        below_threshold_division_count = int(
+            division_performance_df["gross_margin_pct"].lt(margin_threshold).sum()
+        )
+
+        division_profit_gap = (
+            division_performance_df["profit"].max() - division_performance_df["profit"].min()
+            if len(division_performance_df) > 1
+            else 0
+        )
 
         div_kpi_1, div_kpi_2, div_kpi_3, div_kpi_4 = st.columns(4)
 
@@ -2492,7 +2799,7 @@ with tab_division:
         div_chart_col_1, div_chart_col_2 = st.columns([1.15, 1])
 
         with div_chart_col_1:
-            st.markdown("#### Revenue vs Profit by Division")
+            st.markdown("#### Revenue vs Profit Comparison by Division")
 
             division_melted = division_performance_df.melt(
                 id_vars=["division_name"],
@@ -2547,9 +2854,9 @@ with tab_division:
             revenue_profit_chart.update_layout(
                 height=438,
                 margin=dict(l=12, r=38, t=24, b=62),
-                xaxis_title=None,
-                yaxis_title="Amount",
-                legend_title_text="",
+                xaxis_title="Division",
+                yaxis_title="Revenue / Gross Profit ($)",
+                legend_title_text="Metric",
                 legend=dict(
                     orientation="h",
                     yanchor="bottom",
@@ -2717,6 +3024,53 @@ with tab_division:
 
                     st.plotly_chart(margin_distribution_chart, use_container_width=True, config=PLOTLY_CONFIG)
 
+        division_insight_col_1, division_insight_col_2 = st.columns([1.15, 1])
+
+        with division_insight_col_1:
+            render_product_insight_card(
+                title="Revenue vs Profit by Division — Dynamic Business Insight",
+                insight_1=(
+                    f"<strong>{top_division}</strong> is the strongest profit division, "
+                    f"generating <strong>{fmt_money(top_division_profit, 0)}</strong> gross profit "
+                    f"from <strong>{fmt_money(top_division_sales, 0)}</strong> revenue."
+                ),
+                insight_2=(
+                    f"The highest-revenue division is <strong>{top_revenue_division}</strong> with "
+                    f"<strong>{fmt_money(top_revenue_sales, 0)}</strong> revenue and "
+                    f"<strong>{fmt_money(top_revenue_profit, 0)}</strong> gross profit."
+                ),
+                insight_3=(
+                    f"The profit gap across visible divisions is approximately "
+                    f"<strong>{fmt_money(division_profit_gap, 0)}</strong>, showing how uneven division-level profitability is."
+                ),
+                decision=(
+                    "Compare revenue and profit together before making promotion or inventory decisions. "
+                    "A high-revenue division with weaker profit should be reviewed for pricing, cost pressure, or product mix imbalance."
+                ),
+            )
+
+        with division_insight_col_2:
+            render_product_insight_card(
+                title="Margin Distribution by Division — Dynamic Business Insight",
+                insight_1=(
+                    f"<strong>{top_margin_division}</strong> has the strongest visible division margin at "
+                    f"<strong>{fmt_pct(top_division_margin, 1)}</strong>."
+                ),
+                insight_2=(
+                    f"The average division margin is <strong>{fmt_pct(avg_division_margin, 1)}</strong>, "
+                    f"while <strong>{lowest_margin_division}</strong> has the weakest margin at "
+                    f"<strong>{fmt_pct(lowest_division_margin, 1)}</strong>."
+                ),
+                insight_3=(
+                    f"<strong>{below_threshold_division_count}</strong> division(s) are below the selected "
+                    f"<strong>{fmt_pct(margin_threshold, 0)}</strong> margin benchmark."
+                ),
+                decision=(
+                    "Use the margin distribution view to detect structural margin issues. "
+                    "Divisions with low or unstable margins should be reviewed for product mix, sourcing cost, and pricing strategy."
+                ),
+            )
+
         st.markdown("#### Division Performance Summary")
 
         division_table = division_performance_df[
@@ -2772,6 +3126,42 @@ with tab_division:
             column_config=get_table_column_config(division_display),
         )
 
+        division_summary_html = (
+            '<div class="product-business-summary">'
+            '<div class="product-summary-label">Business Trends & Recommendations</div>'
+            '<div class="product-summary-title">Division Performance Decision Summary</div>'
+            '<div class="product-summary-grid">'
+            '<div class="product-summary-box">'
+            '<span>Profit leadership</span>'
+            f'<p><strong>{top_division}</strong> leads division profitability with '
+            f'<strong>{fmt_money(top_division_profit, 0)}</strong> gross profit and '
+            f'<strong>{fmt_pct(top_profit_division_margin, 1)}</strong> margin.</p>'
+            '</div>'
+            '<div class="product-summary-box">'
+            '<span>Revenue-profit balance</span>'
+            f'<p><strong>{top_revenue_division}</strong> leads revenue with '
+            f'<strong>{fmt_money(top_revenue_sales, 0)}</strong>. Compare this with profit to detect revenue-heavy but margin-light performance.</p>'
+            '</div>'
+            '<div class="product-summary-box">'
+            '<span>Margin pressure</span>'
+            f'<p><strong>{lowest_margin_division}</strong> has the weakest visible margin at '
+            f'<strong>{fmt_pct(lowest_division_margin, 1)}</strong>, indicating possible division-level cost or pricing pressure.</p>'
+            '</div>'
+            '<div class="product-summary-box">'
+            '<span>Threshold risk</span>'
+            f'<p><strong>{below_threshold_division_count}</strong> division(s) are below the selected '
+            f'<strong>{fmt_pct(margin_threshold, 0)}</strong> benchmark and need closer performance review.</p>'
+            '</div>'
+            '</div>'
+            '<div class="product-summary-action">'
+            '<strong>Recommended business action:</strong> Protect strong-margin divisions, investigate low-margin divisions, '
+            'and compare revenue leadership against profit leadership before deciding pricing, promotions, and product portfolio priorities.'
+            '</div>'
+            '</div>'
+        )
+
+        st.markdown(division_summary_html, unsafe_allow_html=True)
+
 # =========================================================
 # TAB 3 — COST VS MARGIN DIAGNOSTICS
 # =========================================================
@@ -2805,6 +3195,25 @@ with tab_cost:
                 ["cost_to_sales_pct", "sales"],
                 ascending=[False, False],
             ).iloc[0]
+
+        highest_cost_load_row = cost_view_df.sort_values(
+            ["cost_to_sales_pct", "sales"],
+            ascending=[False, False],
+        ).iloc[0]
+
+        strongest_margin_cost_row = cost_view_df.sort_values(
+            "gross_margin_pct",
+            ascending=False,
+        ).iloc[0]
+
+        margin_risk_df = cost_view_df[cost_view_df["margin_status"].eq("Below Threshold")].copy()
+        margin_risk_sales = margin_risk_df["sales"].sum() if not margin_risk_df.empty else 0
+        margin_risk_profit = margin_risk_df["profit"].sum() if not margin_risk_df.empty else 0
+        margin_risk_cost = margin_risk_df["cost"].sum() if not margin_risk_df.empty else 0
+
+        stable_product_count = int(cost_view_df["risk_flag"].eq("Stable").sum())
+        high_cost_product_count = int(cost_view_df["risk_flag"].eq("High Cost Load").sum())
+        profit_risk_product_count = int(cost_view_df["risk_flag"].eq("Profit Risk").sum())
 
         cost_kpi_1, cost_kpi_2, cost_kpi_3, cost_kpi_4 = st.columns(4)
 
@@ -3064,6 +3473,51 @@ with tab_cost:
 
             st.plotly_chart(risk_flag_chart, use_container_width=True, config=PLOTLY_CONFIG)
 
+        cost_insight_col_1, cost_insight_col_2 = st.columns([1.2, 0.9])
+
+        with cost_insight_col_1:
+            render_product_insight_card(
+                title="Cost vs Sales Scatter Plot — Dynamic Business Insight",
+                insight_1=(
+                    f"<strong>{highest_cost_load_row['product_name']}</strong> has the highest cost-to-sales pressure at "
+                    f"<strong>{fmt_pct(highest_cost_load_row['cost_to_sales_pct'], 1)}</strong>."
+                ),
+                insight_2=(
+                    f"The current filtered portfolio has a weighted cost-to-sales ratio of "
+                    f"<strong>{fmt_pct(weighted_cost_to_sales, 1)}</strong>, showing how much sales value is absorbed by cost."
+                ),
+                insight_3=(
+                    f"<strong>{low_margin_products}</strong> product(s) are below the selected "
+                    f"<strong>{fmt_pct(margin_threshold, 0)}</strong> margin benchmark."
+                ),
+                decision=(
+                    "Use this scatter plot to separate healthy scale from cost-heavy performance. "
+                    "Products with high cost and weak margins should be prioritized for sourcing, pricing, or cost renegotiation review."
+                ),
+            )
+
+        with cost_insight_col_2:
+            render_product_insight_card(
+                title="Margin Risk Flags — Dynamic Business Insight",
+                insight_1=(
+                    f"<strong>{highest_risk_row['product_name']}</strong> is the highest current risk signal with "
+                    f"<strong>{fmt_pct(highest_risk_row['gross_margin_pct'], 1)}</strong> gross margin."
+                ),
+                insight_2=(
+                    f"Below-threshold products carry approximately <strong>{fmt_money(margin_risk_sales, 0)}</strong> sales, "
+                    f"<strong>{fmt_money(margin_risk_cost, 0)}</strong> cost, and "
+                    f"<strong>{fmt_money(margin_risk_profit, 0)}</strong> gross profit."
+                ),
+                insight_3=(
+                    f"Risk mix: <strong>{stable_product_count}</strong> stable, "
+                    f"<strong>{high_cost_product_count}</strong> high-cost-load, and "
+                    f"<strong>{profit_risk_product_count}</strong> profit-risk product(s)."
+                ),
+                decision=(
+                    "Use risk flags to prioritize action. Margin-risk items need pricing or cost review, while high-cost-load items may require sourcing or operational efficiency improvements."
+                ),
+            )
+
         st.markdown("#### Cost Diagnostic Product Table")
 
         cost_table = cost_view_df[
@@ -3124,6 +3578,43 @@ with tab_cost:
             column_config=get_table_column_config(cost_display),
         )
 
+        cost_summary_html = (
+            '<div class="product-business-summary">'
+            '<div class="product-summary-label">Business Trends & Recommendations</div>'
+            '<div class="product-summary-title">Cost Diagnostics Decision Summary</div>'
+            '<div class="product-summary-grid">'
+            '<div class="product-summary-box">'
+            '<span>Cost pressure</span>'
+            f'<p><strong>{highest_cost_load_row["product_name"]}</strong> has the highest cost-to-sales pressure at '
+            f'<strong>{fmt_pct(highest_cost_load_row["cost_to_sales_pct"], 1)}</strong>.</p>'
+            '</div>'
+            '<div class="product-summary-box">'
+            '<span>Margin risk exposure</span>'
+            f'<p><strong>{low_margin_products}</strong> low-margin product(s) create '
+            f'<strong>{fmt_money(margin_risk_sales, 0)}</strong> sales exposure and '
+            f'<strong>{fmt_money(margin_risk_profit, 0)}</strong> profit under review.</p>'
+            '</div>'
+            '<div class="product-summary-box">'
+            '<span>Strong margin signal</span>'
+            f'<p><strong>{strongest_margin_cost_row["product_name"]}</strong> has the strongest visible margin at '
+            f'<strong>{fmt_pct(strongest_margin_cost_row["gross_margin_pct"], 1)}</strong>.</p>'
+            '</div>'
+            '<div class="product-summary-box">'
+            '<span>Portfolio risk mix</span>'
+            f'<p>The visible product mix includes <strong>{stable_product_count}</strong> stable product(s), '
+            f'<strong>{high_cost_product_count}</strong> high-cost-load item(s), and '
+            f'<strong>{profit_risk_product_count}</strong> profit-risk item(s).</p>'
+            '</div>'
+            '</div>'
+            '<div class="product-summary-action">'
+            '<strong>Recommended business action:</strong> Prioritize below-threshold and high-cost products for repricing, '
+            'supplier renegotiation, manufacturing cost review, or discontinuation analysis. Protect stable products with healthy margins.'
+            '</div>'
+            '</div>'
+        )
+
+        st.markdown(cost_summary_html, unsafe_allow_html=True)
+
 # =========================================================
 # TAB 4 — PROFIT CONCENTRATION ANALYSIS
 # =========================================================
@@ -3165,6 +3656,21 @@ with tab_pareto:
         else:
             dependency_risk_level = "Balanced Portfolio"
 
+        top_concentration_row = concentration_df.iloc[0]
+        top_concentration_product = top_concentration_row["product_name"]
+        top_concentration_profit = top_concentration_row["profit"]
+        top_concentration_margin = top_concentration_row["gross_margin_pct"]
+        top_concentration_cumulative = top_concentration_row["cumulative_profit_pct"]
+
+        core_driver_df = concentration_df[concentration_df["pareto_tier"].eq("Core 80% Driver")].copy()
+        long_tail_df = concentration_df[concentration_df["pareto_tier"].eq("Long-Tail Profit")].copy()
+        long_tail_count = len(long_tail_df)
+        long_tail_profit_share = (
+            long_tail_df["profit"].sum() / total_concentration_profit * 100
+            if total_concentration_profit
+            else 0
+        )
+
         pareto_kpi_1, pareto_kpi_2, pareto_kpi_3, pareto_kpi_4 = st.columns(4)
 
         with pareto_kpi_1:
@@ -3189,11 +3695,39 @@ with tab_pareto:
             )
 
         with pareto_kpi_4:
-            st.metric(
-                label="Dependency Risk Level",
-                value=dependency_risk_level,
-                delta=f"Top 3: {fmt_pct(top_3_profit_share, 1)}",
+            dependency_display = (
+               dependency_risk_level.replace(" Dependency", "")
+               if dependency_risk_level != "N/A"
+               else "N/A"
             )
+
+            top3_profit_share = 0
+
+            if not concentration_df.empty:
+                if "profit_contribution_pct" in concentration_df.columns:
+                    top3_profit_share = concentration_df.head(3)["profit_contribution_pct"].sum()
+
+                elif "profit_share_pct" in concentration_df.columns:
+                    top3_profit_share = concentration_df.head(3)["profit_share_pct"].sum()
+
+                elif "gross_profit" in concentration_df.columns:
+                    total_profit_for_share = concentration_df["gross_profit"].sum()
+                    top3_profit_share = (
+                        concentration_df.head(3)["gross_profit"].sum() / total_profit_for_share * 100
+                        if total_profit_for_share != 0
+                        else 0
+                    )
+
+            dependency_card_html = (
+                '<div class="custom-kpi-card dependency-risk-card">'
+                '<div class="custom-kpi-label">Dependency Risk Level</div>'
+                f'<div class="dependency-kpi-value">{dependency_display}</div>'
+                f'<div class="custom-kpi-delta">Top 3: {top3_profit_share:.1f}%</div>'
+                f'<div class="custom-kpi-full">Full risk level: {dependency_risk_level}</div>'
+                '</div>'
+            )
+
+            st.markdown(dependency_card_html, unsafe_allow_html=True)
 
         pareto_chart_col_1, pareto_chart_col_2 = st.columns([1.25, 0.85])
 
@@ -3297,7 +3831,7 @@ with tab_pareto:
             pareto_chart.update_layout(
                 height=470,
                 margin=dict(l=12, r=42, t=24, b=92),
-                xaxis_title=None,
+                xaxis_title="Products",
                 yaxis_title="Gross Profit",
                 yaxis2=dict(
                     title="Cumulative Profit %",
@@ -3354,14 +3888,14 @@ with tab_pareto:
                 yaxis2=dict(
                     title=dict(
                         text="Cumulative Profit %",
-                        font=dict(color=NC_COLORS["axis"], size=11),
+                        font=dict(color="#0f172a", size=14),
                     ),
                     overlaying="y",
                     side="right",
                     range=[0, 105],
                     showgrid=False,
                     tickformat=".0f",
-                    tickfont=dict(color=NC_COLORS["axis"], size=10),
+                    tickfont=dict(color="#1f2937", size=13),
                 )
             )
 
@@ -3515,6 +4049,49 @@ with tab_pareto:
 
             st.plotly_chart(dependency_chart, use_container_width=True, config=PLOTLY_CONFIG)
 
+        concentration_insight_col_1, concentration_insight_col_2 = st.columns([1.25, 0.85])
+
+        with concentration_insight_col_1:
+            render_product_insight_card(
+                title="Pareto Profit Concentration — Dynamic Business Insight",
+                insight_1=(
+                    f"<strong>{top_concentration_product}</strong> is the leading profit contributor with "
+                    f"<strong>{fmt_money(top_concentration_profit, 0)}</strong> gross profit and "
+                    f"<strong>{fmt_pct(top_1_profit_share, 1)}</strong> profit share."
+                ),
+                insight_2=(
+                    f"<strong>{core_80_count}</strong> product(s) drive the core 80% profit zone, "
+                    f"showing how concentrated the current profit base is."
+                ),
+                insight_3=(
+                    f"The long-tail group contains <strong>{long_tail_count}</strong> product(s) contributing "
+                    f"approximately <strong>{fmt_pct(long_tail_profit_share, 1)}</strong> of filtered profit."
+                ),
+                decision=(
+                    "Use the Pareto view to protect core profit drivers and evaluate whether long-tail products justify their cost, shelf space, and operational complexity."
+                ),
+            )
+
+        with concentration_insight_col_2:
+            render_product_insight_card(
+                title="Dependency Indicators — Dynamic Business Insight",
+                insight_1=(
+                    f"The current dependency level is <strong>{dependency_risk_level}</strong>."
+                ),
+                insight_2=(
+                    f"Top 1, Top 3, and Top 5 product groups contribute "
+                    f"<strong>{fmt_pct(top_1_profit_share, 1)}</strong>, "
+                    f"<strong>{fmt_pct(top_3_profit_share, 1)}</strong>, and "
+                    f"<strong>{fmt_pct(top_5_profit_share, 1)}</strong> of filtered profit."
+                ),
+                insight_3=(
+                    f"If a small group of products drives most profit, any demand, supply, or margin issue in those items can create portfolio-level risk."
+                ),
+                decision=(
+                    "Use dependency indicators to decide whether the portfolio needs diversification, stronger backup profit drivers, or protection for core products."
+                ),
+            )
+
         st.markdown("#### Profit Concentration Product Table")
 
         concentration_table = concentration_df[
@@ -3572,6 +4149,41 @@ with tab_pareto:
             height=concentration_table_height,
             column_config=get_table_column_config(concentration_display),
         )
+
+        concentration_summary_html = (
+            '<div class="product-business-summary">'
+            '<div class="product-summary-label">Business Trends & Recommendations</div>'
+            '<div class="product-summary-title">Profit Concentration Decision Summary</div>'
+            '<div class="product-summary-grid">'
+            '<div class="product-summary-box">'
+            '<span>Top dependency product</span>'
+            f'<p><strong>{top_concentration_product}</strong> contributes '
+            f'<strong>{fmt_pct(top_1_profit_share, 1)}</strong> of filtered profit with '
+            f'<strong>{fmt_money(top_concentration_profit, 0)}</strong> gross profit.</p>'
+            '</div>'
+            '<div class="product-summary-box">'
+            '<span>Core profit drivers</span>'
+            f'<p><strong>{core_80_count}</strong> product(s) are classified as core 80% drivers, showing where profit protection should be focused.</p>'
+            '</div>'
+            '<div class="product-summary-box">'
+            '<span>Dependency risk</span>'
+            f'<p>The current portfolio shows <strong>{dependency_risk_level}</strong>, with the top 3 products contributing '
+            f'<strong>{fmt_pct(top_3_profit_share, 1)}</strong> of filtered profit.</p>'
+            '</div>'
+            '<div class="product-summary-box">'
+            '<span>Long-tail contribution</span>'
+            f'<p><strong>{long_tail_count}</strong> long-tail product(s) contribute approximately '
+            f'<strong>{fmt_pct(long_tail_profit_share, 1)}</strong> of filtered profit.</p>'
+            '</div>'
+            '</div>'
+            '<div class="product-summary-action">'
+            '<strong>Recommended business action:</strong> Protect core profit drivers, reduce over-dependency risk, '
+            'and review long-tail products for margin contribution, strategic value, or rationalization potential.'
+            '</div>'
+            '</div>'
+        )
+
+        st.markdown(concentration_summary_html, unsafe_allow_html=True)
 
 # =========================================================
 # END OF STEP 4A

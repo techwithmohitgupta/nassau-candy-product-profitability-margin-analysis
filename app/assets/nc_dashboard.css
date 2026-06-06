@@ -2899,3 +2899,1489 @@ section[data-testid="stSidebar"] div:empty {
             drop-shadow(0 4px 10px rgba(31, 42, 68, 0.08)) !important;
     }
 }
+
+/* =========================================================
+   UPGRADED CALCULATION GUIDE
+   Clear What / Why / How explanation for recruiter/evaluator
+========================================================= */
+
+.calculation-note-card {
+    width: 100% !important;
+    margin: 1.05rem 0 0.5rem 0 !important;
+    padding: 16px 18px !important;
+
+    background: linear-gradient(135deg, #fffdf8 0%, #f4ead4 100%) !important;
+    border: 1px solid rgba(36, 50, 74, 0.12) !important;
+    border-left: 5px solid #0f8b72 !important;
+    border-radius: 18px !important;
+
+    box-shadow: 0 10px 24px rgba(36, 50, 74, 0.065) !important;
+    box-sizing: border-box !important;
+}
+
+.calculation-note-label {
+    color: #0f5f55 !important;
+    font-size: 10.8px !important;
+    font-weight: 950 !important;
+    letter-spacing: 0.85px !important;
+    text-transform: uppercase !important;
+    margin-bottom: 0.25rem !important;
+}
+
+.calculation-note-title {
+    color: #0f172a !important;
+    font-size: 17px !important;
+    font-weight: 950 !important;
+    line-height: 1.3 !important;
+    margin-bottom: 0.9rem !important;
+}
+
+.calculation-note-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+}
+
+.calculation-note-box {
+    padding: 12px 13px !important;
+    background: rgba(255, 255, 255, 0.68) !important;
+    border: 1px solid rgba(36, 50, 74, 0.10) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 6px 14px rgba(36, 50, 74, 0.045) !important;
+}
+
+.calculation-box-heading {
+    color: #102a43 !important;
+    font-size: 12.3px !important;
+    font-weight: 950 !important;
+    line-height: 1.35 !important;
+    margin-bottom: 0.35rem !important;
+}
+
+.calculation-box-text {
+    color: #1f2937 !important;
+    font-size: 12.35px !important;
+    line-height: 1.58 !important;
+    font-weight: 720 !important;
+}
+
+.calculation-box-text strong {
+    color: #0f172a !important;
+    font-weight: 950 !important;
+}
+
+/* Tablet */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .calculation-note-card {
+        padding: 14px 15px !important;
+        border-radius: 16px !important;
+    }
+
+    .calculation-note-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .calculation-note-title {
+        font-size: 16px !important;
+    }
+
+    .calculation-box-text {
+        font-size: 12.2px !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .calculation-note-card {
+        padding: 13px 13px !important;
+        border-radius: 15px !important;
+        margin-top: 0.85rem !important;
+    }
+
+    .calculation-note-title {
+        font-size: 15px !important;
+        line-height: 1.32 !important;
+        margin-bottom: 0.75rem !important;
+    }
+
+    .calculation-note-grid {
+        grid-template-columns: 1fr !important;
+        gap: 9px !important;
+    }
+
+    .calculation-note-box {
+        padding: 11px 12px !important;
+        border-radius: 13px !important;
+    }
+
+    .calculation-box-heading {
+        font-size: 11.8px !important;
+    }
+
+    .calculation-box-text {
+        font-size: 11.7px !important;
+        line-height: 1.52 !important;
+    }
+}
+
+/* =========================================================
+   FINAL CALCULATION GUIDE READABILITY UPGRADE
+   Bigger text, better spacing, clearer recruiter readability
+========================================================= */
+
+.calculation-note-card {
+    padding: 20px 22px !important;
+    border-radius: 20px !important;
+    margin: 1.2rem 0 0.9rem 0 !important;
+    background: linear-gradient(135deg, #fffdf8 0%, #f5ecd8 100%) !important;
+    border-left: 6px solid #0f8b72 !important;
+}
+
+.calculation-note-label {
+    font-size: 11.5px !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 0.35rem !important;
+}
+
+.calculation-note-title {
+    font-size: 20px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 1.15rem !important;
+    color: #0f172a !important;
+    font-weight: 950 !important;
+}
+
+.calculation-note-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+}
+
+.calculation-note-box {
+    padding: 16px 17px !important;
+    border-radius: 16px !important;
+    background: rgba(255, 255, 255, 0.78) !important;
+    border: 1px solid rgba(36, 50, 74, 0.13) !important;
+    box-shadow: 0 8px 18px rgba(36, 50, 74, 0.055) !important;
+}
+
+.calculation-box-heading {
+    font-size: 14.2px !important;
+    line-height: 1.35 !important;
+    margin-bottom: 0.55rem !important;
+    color: #0f172a !important;
+    font-weight: 950 !important;
+}
+
+.calculation-box-text {
+    font-size: 13.7px !important;
+    line-height: 1.72 !important;
+    color: #1f2937 !important;
+    font-weight: 760 !important;
+}
+
+.calculation-box-text strong {
+    color: #0f172a !important;
+    font-weight: 950 !important;
+}
+
+/* Make formula words easier to scan */
+.calculation-note-box:nth-child(2) .calculation-box-text strong,
+.calculation-note-box:nth-child(4) .calculation-box-text strong {
+    display: inline-block !important;
+    margin-top: 0.18rem !important;
+}
+
+/* Tablet */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .calculation-note-card {
+        padding: 18px 18px !important;
+    }
+
+    .calculation-note-title {
+        font-size: 18px !important;
+    }
+
+    .calculation-note-grid {
+        grid-template-columns: 1fr !important;
+        gap: 13px !important;
+    }
+
+    .calculation-note-box {
+        padding: 15px !important;
+    }
+
+    .calculation-box-heading {
+        font-size: 13.6px !important;
+    }
+
+    .calculation-box-text {
+        font-size: 13.2px !important;
+        line-height: 1.65 !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .calculation-note-card {
+        padding: 15px 14px !important;
+        border-radius: 16px !important;
+        margin-top: 0.95rem !important;
+    }
+
+    .calculation-note-title {
+        font-size: 16.4px !important;
+        line-height: 1.35 !important;
+        margin-bottom: 0.9rem !important;
+    }
+
+    .calculation-note-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .calculation-note-box {
+        padding: 13px 12px !important;
+        border-radius: 14px !important;
+    }
+
+    .calculation-box-heading {
+        font-size: 12.8px !important;
+        margin-bottom: 0.45rem !important;
+    }
+
+    .calculation-box-text {
+        font-size: 12.2px !important;
+        line-height: 1.58 !important;
+    }
+}
+
+/* =========================================================
+   FINAL CALCULATION GUIDE BULLET READABILITY PATCH
+   Bigger text + bullet structure + stronger visibility
+========================================================= */
+
+.calculation-note-card {
+    padding: 22px 24px !important;
+    border-radius: 20px !important;
+    margin: 1.25rem 0 1rem 0 !important;
+    background: linear-gradient(135deg, #fffdf8 0%, #f4ecd9 100%) !important;
+    border: 1px solid rgba(15, 139, 114, 0.16) !important;
+    border-left: 6px solid #0f8b72 !important;
+    box-shadow: 0 12px 26px rgba(36, 50, 74, 0.075) !important;
+}
+
+.calculation-note-label {
+    color: #0b6459 !important;
+    font-size: 11.8px !important;
+    font-weight: 950 !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    margin-bottom: 0.35rem !important;
+}
+
+.calculation-note-title {
+    color: #0f172a !important;
+    font-size: 21px !important;
+    font-weight: 950 !important;
+    line-height: 1.3 !important;
+    margin-bottom: 1.2rem !important;
+}
+
+.calculation-note-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+}
+
+.calculation-note-box {
+    padding: 17px 18px !important;
+    border-radius: 17px !important;
+    background: rgba(255, 255, 255, 0.86) !important;
+    border: 1px solid rgba(36, 50, 74, 0.14) !important;
+    box-shadow: 0 8px 18px rgba(36, 50, 74, 0.06) !important;
+}
+
+.calculation-box-heading {
+    color: #0f172a !important;
+    font-size: 15px !important;
+    font-weight: 950 !important;
+    line-height: 1.35 !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.calculation-bullet-list {
+    margin: 0 !important;
+    padding-left: 1.15rem !important;
+    color: #111827 !important;
+}
+
+.calculation-bullet-list li {
+    color: #111827 !important;
+    font-size: 14.2px !important;
+    line-height: 1.72 !important;
+    font-weight: 780 !important;
+    margin-bottom: 0.32rem !important;
+}
+
+.calculation-bullet-list li::marker {
+    color: #0f8b72 !important;
+    font-size: 1.05em !important;
+}
+
+.calculation-bullet-list strong {
+    color: #020617 !important;
+    font-weight: 950 !important;
+}
+
+/* Tablet */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .calculation-note-card {
+        padding: 18px 18px !important;
+    }
+
+    .calculation-note-title {
+        font-size: 18px !important;
+    }
+
+    .calculation-note-grid {
+        grid-template-columns: 1fr !important;
+        gap: 13px !important;
+    }
+
+    .calculation-note-box {
+        padding: 15px 16px !important;
+    }
+
+    .calculation-box-heading {
+        font-size: 14px !important;
+    }
+
+    .calculation-bullet-list li {
+        font-size: 13.4px !important;
+        line-height: 1.65 !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .calculation-note-card {
+        padding: 15px 14px !important;
+        border-radius: 16px !important;
+        margin-top: 0.95rem !important;
+    }
+
+    .calculation-note-title {
+        font-size: 16.5px !important;
+        line-height: 1.35 !important;
+        margin-bottom: 0.9rem !important;
+    }
+
+    .calculation-note-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .calculation-note-box {
+        padding: 13px 12px !important;
+        border-radius: 14px !important;
+    }
+
+    .calculation-box-heading {
+        font-size: 13px !important;
+        margin-bottom: 0.55rem !important;
+    }
+
+    .calculation-bullet-list {
+        padding-left: 1rem !important;
+    }
+
+    .calculation-bullet-list li {
+        font-size: 12.3px !important;
+        line-height: 1.58 !important;
+        margin-bottom: 0.28rem !important;
+    }
+}
+
+/* =========================================================
+   CALCULATION GUIDE FINAL SOFT POLISH
+   Reduce over-bold feel, improve professional readability
+========================================================= */
+
+.calculation-box-heading {
+    font-size: 14.5px !important;
+    font-weight: 900 !important;
+    color: #0f172a !important;
+}
+
+.calculation-bullet-list li {
+    font-size: 13.8px !important;
+    line-height: 1.68 !important;
+    font-weight: 720 !important;
+    color: #111827 !important;
+    margin-bottom: 0.36rem !important;
+}
+
+.calculation-bullet-list strong {
+    font-weight: 900 !important;
+    color: #020617 !important;
+}
+
+.calculation-note-box {
+    min-height: 150px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+}
+
+@media (max-width: 1024px) {
+    .calculation-note-box {
+        min-height: auto !important;
+    }
+
+    .calculation-bullet-list li {
+        font-size: 13.1px !important;
+        line-height: 1.62 !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .calculation-bullet-list li {
+        font-size: 12.2px !important;
+        line-height: 1.56 !important;
+        font-weight: 720 !important;
+    }
+}
+
+/* =========================================================
+   PRODUCT OVERVIEW KPI ROW FINAL FIX
+   Compact side cards + wider center top product card
+========================================================= */
+
+.st-key-product_overview_kpi_row {
+    margin-top: 0.65rem !important;
+    margin-bottom: 1.25rem !important;
+}
+
+/* Side Streamlit metric cards: compact square-like feel */
+.st-key-product_overview_kpi_row [data-testid="stMetric"] {
+    min-height: 142px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+
+/* Center custom product card */
+.custom-kpi-card.top-product-card {
+    width: 100% !important;
+    min-height: 142px !important;
+    padding: 17px 22px !important;
+    border-radius: 18px !important;
+
+    background: linear-gradient(135deg, #fffdf8 0%, #fbf6ea 100%) !important;
+    border: 1px solid rgba(36, 50, 74, 0.12) !important;
+    border-top: 5px solid #15233f !important;
+    box-shadow: 0 14px 28px rgba(36, 50, 74, 0.075) !important;
+    box-sizing: border-box !important;
+}
+
+.custom-kpi-label {
+    color: #3b4964 !important;
+    font-size: 14px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.3px !important;
+    margin-bottom: 0.28rem !important;
+}
+
+.custom-kpi-value {
+    color: #14213d !important;
+    font-size: clamp(27px, 2.45vw, 36px) !important;
+    font-weight: 950 !important;
+    line-height: 1.02 !important;
+    margin-bottom: 0.1rem !important;
+    white-space: normal !important;
+}
+
+.custom-kpi-subvalue {
+    color: #14213d !important;
+    font-size: clamp(19px, 1.45vw, 24px) !important;
+    font-weight: 900 !important;
+    line-height: 1.12 !important;
+    margin-bottom: 0.42rem !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+}
+
+.custom-kpi-delta {
+    display: inline-block !important;
+    color: #102a43 !important;
+    background: rgba(15, 139, 114, 0.10) !important;
+    border-radius: 999px !important;
+    padding: 4px 10px !important;
+    font-size: 12.2px !important;
+    font-weight: 850 !important;
+    margin-bottom: 0.38rem !important;
+}
+
+.custom-kpi-full {
+    color: #374151 !important;
+    font-size: 12.4px !important;
+    font-weight: 760 !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+}
+
+/* Tablet */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .st-key-product_overview_kpi_row [data-testid="stMetric"],
+    .custom-kpi-card.top-product-card {
+        min-height: 132px !important;
+    }
+
+    .custom-kpi-card.top-product-card {
+        padding: 15px 17px !important;
+    }
+
+    .custom-kpi-value {
+        font-size: 28px !important;
+    }
+
+    .custom-kpi-subvalue {
+        font-size: 19px !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .st-key-product_overview_kpi_row [data-testid="stMetric"],
+    .custom-kpi-card.top-product-card {
+        min-height: auto !important;
+    }
+
+    .custom-kpi-card.top-product-card {
+        padding: 14px 13px !important;
+        border-radius: 16px !important;
+    }
+
+    .custom-kpi-label {
+        font-size: 13px !important;
+    }
+
+    .custom-kpi-value {
+        font-size: 25px !important;
+    }
+
+    .custom-kpi-subvalue {
+        font-size: 17px !important;
+    }
+
+    .custom-kpi-full {
+        font-size: 11.7px !important;
+    }
+}
+
+/* =========================================================
+   MODULE 4 DEPENDENCY RISK CUSTOM KPI CARD
+   Fixes Streamlit metric truncation for dependency risk level
+========================================================= */
+
+.custom-kpi-card.dependency-risk-card {
+    width: 100% !important;
+    min-height: 142px !important;
+    padding: 17px 20px !important;
+    border-radius: 18px !important;
+
+    background: linear-gradient(135deg, #fffdf8 0%, #fbf6ea 100%) !important;
+    border: 1px solid rgba(36, 50, 74, 0.12) !important;
+    border-top: 5px solid #15233f !important;
+    box-shadow: 0 14px 28px rgba(36, 50, 74, 0.075) !important;
+    box-sizing: border-box !important;
+}
+
+.dependency-kpi-value {
+    color: #14213d !important;
+    font-size: clamp(27px, 2.3vw, 34px) !important;
+    font-weight: 950 !important;
+    line-height: 1.05 !important;
+    margin-bottom: 0.48rem !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+}
+
+/* Keep dependency custom card aligned with normal metric cards */
+.custom-kpi-card.dependency-risk-card .custom-kpi-label {
+    margin-bottom: 0.45rem !important;
+}
+
+.custom-kpi-card.dependency-risk-card .custom-kpi-full {
+    margin-top: 0.25rem !important;
+}
+
+/* Tablet */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .custom-kpi-card.dependency-risk-card {
+        min-height: 132px !important;
+        padding: 15px 17px !important;
+    }
+
+    .dependency-kpi-value {
+        font-size: 28px !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .custom-kpi-card.dependency-risk-card {
+        min-height: auto !important;
+        padding: 14px 13px !important;
+        border-radius: 16px !important;
+    }
+
+    .dependency-kpi-value {
+        font-size: 24px !important;
+    }
+}
+
+/* =========================================================
+   STEP 3A FINAL — PRODUCT MODULE DYNAMIC BUSINESS INSIGHTS
+========================================================= */
+
+.product-insight-card {
+    margin: 0.9rem 0 1.35rem 0 !important;
+    padding: 16px 18px !important;
+    border-radius: 18px !important;
+    background: linear-gradient(135deg, #ffffff 0%, #f7fbf8 100%) !important;
+    border: 1px solid rgba(36, 50, 74, 0.12) !important;
+    border-left: 5px solid #0f8b72 !important;
+    box-shadow: 0 10px 22px rgba(36, 50, 74, 0.055) !important;
+}
+
+.product-insight-title {
+    color: #0f172a !important;
+    font-size: 16px !important;
+    font-weight: 950 !important;
+    margin-bottom: 0.85rem !important;
+}
+
+.product-insight-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+}
+
+.product-insight-box {
+    padding: 13px 14px !important;
+    border-radius: 14px !important;
+    background: rgba(255, 255, 255, 0.86) !important;
+    border: 1px solid rgba(36, 50, 74, 0.10) !important;
+}
+
+.product-insight-box span {
+    display: block !important;
+    color: #0f5f55 !important;
+    font-size: 11px !important;
+    font-weight: 950 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.55px !important;
+    margin-bottom: 0.35rem !important;
+}
+
+.product-insight-box p {
+    color: #111827 !important;
+    font-size: 13.2px !important;
+    line-height: 1.55 !important;
+    font-weight: 720 !important;
+    margin: 0 !important;
+}
+
+.product-insight-box strong {
+    color: #0f172a !important;
+    font-weight: 950 !important;
+}
+
+.product-insight-action {
+    margin-top: 13px !important;
+    padding: 13px 15px !important;
+    border-radius: 14px !important;
+    color: #111827 !important;
+    background: rgba(15, 139, 114, 0.08) !important;
+    border: 1px solid rgba(15, 139, 114, 0.14) !important;
+    font-size: 13.3px !important;
+    line-height: 1.55 !important;
+    font-weight: 760 !important;
+}
+
+.product-business-summary {
+    margin: 1.45rem 0 1.9rem 0 !important;
+    padding: 20px 22px !important;
+    border-radius: 22px !important;
+    background: linear-gradient(135deg, #fffdf8 0%, #f4ecd9 100%) !important;
+    border: 1px solid rgba(200, 155, 60, 0.24) !important;
+    border-left: 6px solid #c89b3c !important;
+    box-shadow: 0 16px 32px rgba(36, 50, 74, 0.08) !important;
+}
+
+.product-summary-label {
+    color: #0f5f55 !important;
+    font-size: 11.5px !important;
+    font-weight: 950 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.9px !important;
+    margin-bottom: 0.35rem !important;
+}
+
+.product-summary-title {
+    color: #0f172a !important;
+    font-size: 20px !important;
+    font-weight: 950 !important;
+    margin-bottom: 1rem !important;
+}
+
+.product-summary-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 13px !important;
+}
+
+.product-summary-box {
+    padding: 14px 15px !important;
+    border-radius: 15px !important;
+    background: rgba(255, 255, 255, 0.84) !important;
+    border: 1px solid rgba(36, 50, 74, 0.10) !important;
+}
+
+.product-summary-box span {
+    display: block !important;
+    color: #0f5f55 !important;
+    font-size: 11px !important;
+    font-weight: 950 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.45px !important;
+    margin-bottom: 0.35rem !important;
+}
+
+.product-summary-box p {
+    color: #111827 !important;
+    font-size: 13.4px !important;
+    line-height: 1.55 !important;
+    font-weight: 730 !important;
+    margin: 0 !important;
+}
+
+.product-summary-box strong {
+    color: #0f172a !important;
+    font-weight: 950 !important;
+}
+
+.product-summary-action {
+    margin-top: 14px !important;
+    padding: 14px 16px !important;
+    border-radius: 15px !important;
+    color: #111827 !important;
+    background: rgba(15, 139, 114, 0.09) !important;
+    border: 1px solid rgba(15, 139, 114, 0.16) !important;
+    font-size: 13.5px !important;
+    line-height: 1.55 !important;
+    font-weight: 770 !important;
+}
+
+@media (max-width: 1024px) {
+    .product-insight-grid,
+    .product-summary-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .product-insight-card,
+    .product-business-summary {
+        padding: 14px 13px !important;
+        border-radius: 16px !important;
+    }
+
+    .product-insight-title,
+    .product-summary-title {
+        font-size: 16px !important;
+    }
+
+    .product-insight-box p,
+    .product-summary-box p,
+    .product-insight-action,
+    .product-summary-action {
+        font-size: 12.4px !important;
+        line-height: 1.5 !important;
+    }
+}
+
+/* =========================================================
+   FINAL POLISH — MODULES 2, 3, 4 BUSINESS INSIGHT SECTIONS
+   Safe-mode CSS only. Existing Module 1 styling remains intact.
+========================================================= */
+
+/* Improve all reused insight cards for wider dashboard modules */
+.product-insight-card {
+    overflow: visible !important;
+}
+
+.product-insight-grid {
+    align-items: stretch !important;
+}
+
+.product-insight-box {
+    min-height: 132px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+}
+
+.product-insight-box span {
+    color: #075e54 !important;
+    font-size: 11.3px !important;
+    line-height: 1.35 !important;
+}
+
+.product-insight-box p {
+    color: #071827 !important;
+    font-size: 13.6px !important;
+    line-height: 1.62 !important;
+    font-weight: 760 !important;
+    word-break: normal !important;
+    overflow-wrap: anywhere !important;
+}
+
+.product-insight-action {
+    color: #071827 !important;
+    font-size: 13.8px !important;
+    line-height: 1.62 !important;
+    font-weight: 780 !important;
+}
+
+/* Better spacing between charts, insights, tables and summary blocks */
+[data-testid="stVerticalBlock"] > div:has(.product-insight-card) {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.85rem !important;
+}
+
+.product-business-summary {
+    margin-top: 1.65rem !important;
+    margin-bottom: 2.2rem !important;
+}
+
+.product-summary-box {
+    min-height: 96px !important;
+}
+
+.product-summary-box span {
+    color: #075e54 !important;
+    font-size: 11.4px !important;
+    line-height: 1.35 !important;
+}
+
+.product-summary-box p {
+    color: #071827 !important;
+    font-size: 13.8px !important;
+    line-height: 1.62 !important;
+    font-weight: 760 !important;
+    overflow-wrap: anywhere !important;
+}
+
+.product-summary-action {
+    color: #071827 !important;
+    font-size: 13.9px !important;
+    line-height: 1.62 !important;
+    font-weight: 800 !important;
+}
+
+/* Make module insight titles more premium/readable */
+.product-insight-title {
+    color: #071827 !important;
+    font-size: 16.4px !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0.1px !important;
+}
+
+.product-summary-title {
+    color: #071827 !important;
+    font-size: 20.5px !important;
+    line-height: 1.35 !important;
+}
+
+/* Module 2, 3, 4 right-side insight cards were narrow: improve text flow */
+@media (min-width: 1100px) {
+    .product-insight-card .product-insight-grid {
+        gap: 14px !important;
+    }
+
+    .product-insight-card {
+        padding: 18px 20px !important;
+    }
+
+    .product-insight-box {
+        padding: 14px 15px !important;
+    }
+}
+
+/* Tablet: stack cards to avoid dense text */
+@media (min-width: 701px) and (max-width: 1099px) {
+    .product-insight-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .product-insight-box {
+        min-height: auto !important;
+    }
+
+    .product-summary-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Mobile: clean readable business-story cards */
+@media (max-width: 700px) {
+    .product-insight-card {
+        padding: 15px 14px !important;
+        border-radius: 16px !important;
+        margin: 0.85rem 0 1.2rem 0 !important;
+    }
+
+    .product-insight-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .product-insight-box {
+        min-height: auto !important;
+        padding: 12px 13px !important;
+    }
+
+    .product-insight-title {
+        font-size: 15.5px !important;
+        line-height: 1.35 !important;
+    }
+
+    .product-insight-box p {
+        font-size: 12.8px !important;
+        line-height: 1.55 !important;
+    }
+
+    .product-insight-action {
+        font-size: 12.9px !important;
+        line-height: 1.55 !important;
+        padding: 12px 13px !important;
+    }
+
+    .product-business-summary {
+        padding: 15px 14px !important;
+        border-radius: 17px !important;
+        margin: 1.25rem 0 1.7rem 0 !important;
+    }
+
+    .product-summary-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .product-summary-title {
+        font-size: 16.5px !important;
+    }
+
+    .product-summary-box {
+        min-height: auto !important;
+        padding: 12px 13px !important;
+    }
+
+    .product-summary-box p,
+    .product-summary-action {
+        font-size: 12.8px !important;
+        line-height: 1.55 !important;
+    }
+}
+
+/* =========================================================
+   FINAL FIX — DASHBOARD MODULE TABS BALANCE + READABILITY
+   Safe-mode CSS only
+========================================================= */
+
+/* Dashboard module tab row: bigger, balanced, premium */
+div[data-testid="stTabs"] {
+    width: 100% !important;
+}
+
+/* Main tabs list container */
+div[data-testid="stTabs"] [role="tablist"] {
+    display: flex !important;
+    width: 100% !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 6px 0 10px 0 !important;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.14) !important;
+}
+
+/* Each tab button */
+div[data-testid="stTabs"] [role="tab"] {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    height: 48px !important;
+    padding: 0 18px !important;
+    border-radius: 14px !important;
+    background: linear-gradient(135deg, #fffaf0 0%, #f8edd2 100%) !important;
+    border: 1px solid rgba(36, 50, 74, 0.12) !important;
+    box-shadow: 0 8px 18px rgba(36, 50, 74, 0.045) !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+/* Tab text */
+div[data-testid="stTabs"] [role="tab"] p {
+    color: #071827 !important;
+    font-size: 15px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.15px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+}
+
+/* Active tab */
+div[data-testid="stTabs"] [role="tab"][aria-selected="true"] {
+    background: linear-gradient(135deg, #e6c15c 0%, #c89b3c 100%) !important;
+    border-color: rgba(200, 155, 60, 0.65) !important;
+    box-shadow: 0 12px 24px rgba(200, 155, 60, 0.20) !important;
+}
+
+/* Active tab text */
+div[data-testid="stTabs"] [role="tab"][aria-selected="true"] p {
+    color: #071827 !important;
+    font-weight: 950 !important;
+}
+
+/* Hover effect */
+div[data-testid="stTabs"] [role="tab"]:hover {
+    transform: translateY(-1px) !important;
+    border-color: rgba(15, 139, 114, 0.28) !important;
+    box-shadow: 0 12px 24px rgba(36, 50, 74, 0.075) !important;
+}
+
+/* Remove default small underline conflict */
+div[data-testid="stTabs"] [data-baseweb="tab-highlight"] {
+    height: 3px !important;
+    background-color: #ef4444 !important;
+    border-radius: 99px !important;
+}
+
+/* Tablet */
+@media (min-width: 701px) and (max-width: 1100px) {
+    div[data-testid="stTabs"] [role="tablist"] {
+        gap: 9px !important;
+    }
+
+    div[data-testid="stTabs"] [role="tab"] {
+        height: 46px !important;
+        padding: 0 12px !important;
+    }
+
+    div[data-testid="stTabs"] [role="tab"] p {
+        font-size: 13.5px !important;
+    }
+}
+
+/* Mobile: allow clean horizontal scroll instead of squeezing */
+@media (max-width: 700px) {
+    div[data-testid="stTabs"] [role="tablist"] {
+        justify-content: flex-start !important;
+        overflow-x: auto !important;
+        gap: 9px !important;
+        padding-bottom: 12px !important;
+        scrollbar-width: none !important;
+    }
+
+    div[data-testid="stTabs"] [role="tablist"]::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    div[data-testid="stTabs"] [role="tab"] {
+        flex: 0 0 auto !important;
+        min-width: 170px !important;
+        height: 44px !important;
+        padding: 0 14px !important;
+    }
+
+    div[data-testid="stTabs"] [role="tab"] p {
+        font-size: 13px !important;
+        white-space: nowrap !important;
+    }
+}
+
+/* =========================================================
+   FINAL PREMIUM FIX — DASHBOARD MODULE TABS
+   Premium interactive balanced tab system
+========================================================= */
+
+div[data-testid="stTabs"] [role="tablist"] {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    width: 100% !important;
+    gap: 14px !important;
+    padding: 10px 0 14px 0 !important;
+    margin-top: 0.45rem !important;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.16) !important;
+}
+
+/* Base tab */
+div[data-testid="stTabs"] [role="tab"] {
+    position: relative !important;
+    height: 58px !important;
+    padding: 0 18px !important;
+    border-radius: 18px !important;
+    background:
+        linear-gradient(145deg, rgba(255, 253, 247, 0.98) 0%, rgba(245, 238, 222, 0.98) 100%) !important;
+    border: 1px solid rgba(200, 155, 60, 0.28) !important;
+    box-shadow:
+        0 10px 24px rgba(36, 50, 74, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+    transition: all 0.22s ease-in-out !important;
+    overflow: hidden !important;
+}
+
+/* Premium top shine */
+div[data-testid="stTabs"] [role="tab"]::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.55) 45%,
+        transparent 100%
+    ) !important;
+    transform: translateX(-120%) !important;
+    transition: transform 0.45s ease !important;
+    pointer-events: none !important;
+}
+
+/* Tab text */
+div[data-testid="stTabs"] [role="tab"] p {
+    position: relative !important;
+    z-index: 2 !important;
+    color: #071827 !important;
+    font-size: 15.8px !important;
+    font-weight: 950 !important;
+    letter-spacing: 0.18px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+}
+
+/* Hover state */
+div[data-testid="stTabs"] [role="tab"]:hover {
+    transform: translateY(-2px) !important;
+    border-color: rgba(15, 139, 114, 0.38) !important;
+    background:
+        linear-gradient(145deg, #ffffff 0%, #f8f1df 100%) !important;
+    box-shadow:
+        0 16px 30px rgba(36, 50, 74, 0.11),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+div[data-testid="stTabs"] [role="tab"]:hover::before {
+    transform: translateX(120%) !important;
+}
+
+/* Active selected tab */
+div[data-testid="stTabs"] [role="tab"][aria-selected="true"] {
+    background:
+        linear-gradient(135deg, #f4cf6a 0%, #d7ad45 45%, #bf8f2d 100%) !important;
+    border-color: rgba(168, 118, 28, 0.65) !important;
+    box-shadow:
+        0 18px 34px rgba(200, 155, 60, 0.26),
+        inset 0 1px 0 rgba(255, 255, 255, 0.62) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Active tab bottom accent */
+div[data-testid="stTabs"] [role="tab"][aria-selected="true"]::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 18px !important;
+    right: 18px !important;
+    bottom: 7px !important;
+    height: 3px !important;
+    border-radius: 999px !important;
+    background: linear-gradient(90deg, #ef4444 0%, #0f8b72 100%) !important;
+}
+
+/* Active text */
+div[data-testid="stTabs"] [role="tab"][aria-selected="true"] p {
+    color: #071827 !important;
+    font-weight: 1000 !important;
+}
+
+/* Remove/neutralize default Streamlit tab underline conflict */
+div[data-testid="stTabs"] [data-baseweb="tab-highlight"] {
+    display: none !important;
+}
+
+/* Focus accessibility */
+div[data-testid="stTabs"] [role="tab"]:focus {
+    outline: 2px solid rgba(15, 139, 114, 0.32) !important;
+    outline-offset: 2px !important;
+}
+
+/* Tablet */
+@media (min-width: 701px) and (max-width: 1100px) {
+    div[data-testid="stTabs"] [role="tablist"] {
+        gap: 10px !important;
+    }
+
+    div[data-testid="stTabs"] [role="tab"] {
+        height: 52px !important;
+        padding: 0 12px !important;
+        border-radius: 15px !important;
+    }
+
+    div[data-testid="stTabs"] [role="tab"] p {
+        font-size: 13.6px !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+    div[data-testid="stTabs"] [role="tablist"] {
+        display: flex !important;
+        overflow-x: auto !important;
+        justify-content: flex-start !important;
+        gap: 10px !important;
+        padding: 8px 0 13px 0 !important;
+        scrollbar-width: none !important;
+    }
+
+    div[data-testid="stTabs"] [role="tablist"]::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    div[data-testid="stTabs"] [role="tab"] {
+        flex: 0 0 auto !important;
+        min-width: 190px !important;
+        height: 48px !important;
+        border-radius: 15px !important;
+        padding: 0 14px !important;
+    }
+
+    div[data-testid="stTabs"] [role="tab"] p {
+        font-size: 13.2px !important;
+    }
+
+    div[data-testid="stTabs"] [role="tab"][aria-selected="true"]::after {
+        left: 14px !important;
+        right: 14px !important;
+        bottom: 6px !important;
+    }
+}
+
+/* =========================================================
+   100% PREMIUM POLISH — DASHBOARD MODULE TABS
+   Refined active accent + premium inactive depth
+========================================================= */
+
+/* More refined inactive tab depth */
+div[data-testid="stTabs"] [role="tab"] {
+    background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.95) 0%, transparent 42%),
+        linear-gradient(145deg, rgba(255, 252, 244, 0.98) 0%, rgba(244, 236, 219, 0.98) 100%) !important;
+    border: 1px solid rgba(190, 150, 70, 0.34) !important;
+    box-shadow:
+        0 12px 24px rgba(15, 23, 42, 0.065),
+        0 2px 0 rgba(255, 255, 255, 0.75) inset,
+        0 -1px 0 rgba(120, 84, 30, 0.08) inset !important;
+}
+
+/* Premium inactive hover */
+div[data-testid="stTabs"] [role="tab"]:hover {
+    background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 1) 0%, transparent 45%),
+        linear-gradient(145deg, #ffffff 0%, #f6ecd4 100%) !important;
+    border-color: rgba(15, 139, 114, 0.44) !important;
+    box-shadow:
+        0 18px 34px rgba(15, 23, 42, 0.12),
+        0 2px 0 rgba(255, 255, 255, 0.9) inset,
+        0 -1px 0 rgba(15, 139, 114, 0.14) inset !important;
+}
+
+/* Refined active tab: gold + navy depth, less basic */
+div[data-testid="stTabs"] [role="tab"][aria-selected="true"] {
+    background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.45) 0%, transparent 38%),
+        linear-gradient(135deg, #f3d06d 0%, #d4a840 48%, #b98726 100%) !important;
+    border: 1px solid rgba(126, 86, 18, 0.55) !important;
+    box-shadow:
+        0 20px 38px rgba(185, 135, 38, 0.28),
+        0 4px 12px rgba(15, 23, 42, 0.10),
+        0 2px 0 rgba(255, 255, 255, 0.45) inset,
+        0 -2px 0 rgba(74, 52, 16, 0.16) inset !important;
+}
+
+/* Replace red-green underline with refined premium accent */
+div[data-testid="stTabs"] [role="tab"][aria-selected="true"]::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 22px !important;
+    right: 22px !important;
+    bottom: 7px !important;
+    height: 3px !important;
+    border-radius: 999px !important;
+    background: linear-gradient(90deg, #0b1f3a 0%, #163b5c 45%, #8a6422 100%) !important;
+    box-shadow: 0 2px 7px rgba(11, 31, 58, 0.22) !important;
+}
+
+/* Subtle active top glow */
+div[data-testid="stTabs"] [role="tab"][aria-selected="true"]::before {
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.45) 48%,
+        transparent 100%
+    ) !important;
+}
+
+/* Stronger premium text */
+div[data-testid="stTabs"] [role="tab"] p {
+    color: #0b1f3a !important;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.38) !important;
+}
+
+div[data-testid="stTabs"] [role="tab"][aria-selected="true"] p {
+    color: #071827 !important;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+
+/* Slightly cleaner tab row underline */
+div[data-testid="stTabs"] [role="tablist"] {
+    border-bottom: 1px solid rgba(11, 31, 58, 0.12) !important;
+}
+
+/* Mobile active accent refinement */
+@media (max-width: 700px) {
+    div[data-testid="stTabs"] [role="tab"][aria-selected="true"]::after {
+        left: 16px !important;
+        right: 16px !important;
+        bottom: 6px !important;
+    }
+}
+
+/* =========================================================
+   DEFAULT FOOTER POLISH — NO APP.PY CHANGE REQUIRED
+   Works with existing Streamlit markdown + columns footer
+========================================================= */
+
+/* Footer divider refinement */
+[data-testid="stMarkdownContainer"] hr {
+    margin-top: 2.2rem !important;
+    margin-bottom: 1.4rem !important;
+    border: none !important;
+    height: 1px !important;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(11, 31, 58, 0.22) 14%,
+        rgba(15, 139, 114, 0.35) 48%,
+        rgba(215, 173, 69, 0.35) 78%,
+        transparent 100%
+    ) !important;
+}
+
+/* Footer heading: Project Information & Credits */
+[data-testid="stMarkdownContainer"] h3 {
+    color: #0b1f3a !important;
+    font-size: 27px !important;
+    line-height: 1.25 !important;
+    font-weight: 950 !important;
+    letter-spacing: 0.1px !important;
+    margin-top: 1.1rem !important;
+    margin-bottom: 1.2rem !important;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65) !important;
+}
+
+/* Give footer area soft premium spacing */
+[data-testid="column"] [data-testid="stMarkdownContainer"] {
+    padding: 2px 4px !important;
+}
+
+/* Footer column text visibility */
+[data-testid="column"] [data-testid="stMarkdownContainer"] p {
+    color: #0b1f3a !important;
+    font-size: 15.2px !important;
+    line-height: 1.75 !important;
+    font-weight: 650 !important;
+}
+
+/* Footer bold labels */
+[data-testid="column"] [data-testid="stMarkdownContainer"] strong {
+    color: #071827 !important;
+    font-weight: 950 !important;
+}
+
+/* Footer bottom built-with line */
+[data-testid="stMarkdownContainer"] div[style*="text-align: center"] {
+    margin-top: 18px !important;
+    padding: 12px 16px !important;
+    border-radius: 16px !important;
+    color: #0b1f3a !important;
+    font-size: 14.4px !important;
+    font-weight: 850 !important;
+    background: rgba(15, 139, 114, 0.075) !important;
+    border: 1px solid rgba(15, 139, 114, 0.16) !important;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.055) !important;
+}
+
+/* Footer columns hover polish */
+[data-testid="column"]:has([data-testid="stMarkdownContainer"] strong) {
+    border-radius: 16px !important;
+    transition: all 0.22s ease-in-out !important;
+}
+
+[data-testid="column"]:has([data-testid="stMarkdownContainer"] strong):hover {
+    transform: translateY(-1px) !important;
+}
+
+/* Keep footer readable on tablet */
+@media (max-width: 1100px) {
+    [data-testid="stMarkdownContainer"] h3 {
+        font-size: 23px !important;
+    }
+
+    [data-testid="column"] [data-testid="stMarkdownContainer"] p {
+        font-size: 14.2px !important;
+    }
+}
+
+/* Mobile footer readability */
+@media (max-width: 700px) {
+    [data-testid="stMarkdownContainer"] h3 {
+        font-size: 19px !important;
+        line-height: 1.35 !important;
+    }
+
+    [data-testid="column"] [data-testid="stMarkdownContainer"] p {
+        font-size: 13.2px !important;
+        line-height: 1.65 !important;
+    }
+
+    [data-testid="stMarkdownContainer"] div[style*="text-align: center"] {
+        font-size: 12.8px !important;
+        padding: 11px 12px !important;
+    }
+}
+
+/* =========================================================
+   FOOTER GAP COMPACT POLISH
+========================================================= */
+
+[data-testid="stMarkdownContainer"] hr {
+    margin-top: 1.4rem !important;
+    margin-bottom: 1.1rem !important;
+}
+
+[data-testid="stMarkdownContainer"] h3 {
+    margin-top: 0.4rem !important;
+    margin-bottom: 1rem !important;
+}
