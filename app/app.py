@@ -30,7 +30,7 @@ NASSAU_LOGO_TRIMMED = ASSETS_DIR / "nassau_candy_trimmed.png"
 UNIFIED_LOGO = ASSETS_DIR / "unified_mentor.png"
 
 DISPLAY_NASSAU_LOGO = (
-    NASSAU_LOGO_TRIMMED if NASSAU_LOGO_TRIMMED.exists() else NASSAU_LOGO
+    NASSAU_LOGO if NASSAU_LOGO.exists() else NASSAU_LOGO_TRIMMED
 )
 
 # =========================================================
@@ -4202,6 +4202,7 @@ with c1:
     st.markdown(
         """
 **👨‍💻 Developed by:** Mohit Gupta  
+
 **🎯 Role:** Data Analyst Intern
         """
     )
@@ -4209,7 +4210,8 @@ with c1:
 with c2:
     st.markdown(
         """
-**📊 Project:** Nassau Candy Product Line Profitability & Margin Performance Analysis Dashboard  
+**📊 Project:** Nassau Candy Product Line Profitability & Margin Performance Analysis Dashboard
+  
 **🏢 Organization:** Unified Mentor Pvt. Ltd.
         """
     )
@@ -4217,7 +4219,8 @@ with c2:
 with c3:
     st.markdown(
         """
-**👨‍🏫 Mentor:** Saiprasad Kagne  
+**👨‍🏫 Mentor:** Saiprasad Kagne
+  
 **📅 Year:** 2026
         """
     )
